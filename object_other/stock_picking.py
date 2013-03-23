@@ -23,37 +23,38 @@
 
 from osv import fields, osv
 from datetime import datetime
+from tools.translate import _
 
 class stock_picking(osv.osv):
 	_name = 'stock.picking'
 	_inherit = 'stock.picking'
-	
+
 	def default_name(self, cr, uid, context={}):
 		"""
-		
+	
 		"""
 		return '-'
-		
+	
 	def default_create_time(self, cr, uid, context={}):
 		"""
-		
+	
 		"""
 		return datetime.today().strftime('%Y-%m-%d %H:%M:%S'),
-		
+	
 	def default_create_user_id(self, cr, uid, context={}):
 		"""
-		
+	
 		"""
 		return uid
-		
-		
+	
+	
 	def default_stock_journal_id(self, cr, uid, context={}):
 		"""
-		
+	
 		"""
 		if not context:
 			context = {}
-			
+		
 		stock_journal = context.get('stock_journal', False)
 		stock_journal_id = False
 
@@ -61,47 +62,47 @@ class stock_picking(osv.osv):
 			obj_stock_journal = self.pool.get('stock.journal')
 			stock_journal_ids = obj_stock_journal.search(cr, uid, [('name','=',stock_journal)])
 			if stock_journal_ids : stock_journal_id = stock_journal_ids[0]
-			
-		return stock_journal_id
 		
+		return stock_journal_id
+	
 	def default_location_id(self, cr, uid, context={}):
 		"""
 		"""
 		obj_stock_journal = self.pool.get('stock.journal')
-		
+	
 		stock_journal_id = self.default_stock_journal_id(cr, uid, context)
 		if not stock_journal_id : return False
-		
+	
 		stock_journal = obj_stock_journal.browse(cr, uid, [stock_journal_id])[0]
-		
+	
 		return stock_journal.default_location_id and  stock_journal.default_location_id.id or False
-		
+	
 	def default_location_dest_id(self, cr, uid, context={}):
 		"""
-		
+	
 		"""
 		obj_stock_journal = self.pool.get('stock.journal')
-		
+	
 		stock_journal_id = self.default_stock_journal_id(cr, uid, context)
 		if not stock_journal_id : return False
-		
+	
 		stock_journal = obj_stock_journal.browse(cr, uid, [stock_journal_id])[0]
-		
+	
 		return stock_journal.default_location_dest_id and  stock_journal.default_location_dest_id.id or False		
-		
+	
 	def default_invoice_state(self, cr, uid, context={}):
 		"""
-		
+	
 		"""
 		obj_stock_journal = self.pool.get('stock.journal')
-		
+	
 		stock_journal_id = self.default_stock_journal_id(cr, uid, context)
 		if not stock_journal_id : return False
-		
+	
 		stock_journal = obj_stock_journal.browse(cr, uid, [stock_journal_id])[0]
-		
+	
 		return stock_journal.default_invoice_state
-		
+	
 	_columns =	{
 							'create_user_id' : fields.many2one(obj='res.users', string='Created By', readonly=True),
 							'create_time' : fields.datetime(string='Creation Time', readonly=True),
@@ -110,7 +111,7 @@ class stock_picking(osv.osv):
 							'process_user_id' : fields.many2one(obj='res.users', string='Processed By', readonly=True),
 							'process_time' : fields.datetime(string='Processed Time', readonly=True),			
 							}				
-		
+	
 	_defaults =	{
 							'name' : default_name,
 							'stock_journal_id' : default_stock_journal_id,
@@ -125,9 +126,9 @@ class stock_picking(osv.osv):
 		value = {}
 		domain = {}
 		warning = {}
-		
+	
 		obj_stock_journal = self.pool.get('stock.journal')
-		
+	
 		if stock_journal_id:
 			stock_journal = obj_stock_journal.browse(cr, uid, [stock_journal_id])[0]
 			val =	{
@@ -135,33 +136,51 @@ class stock_picking(osv.osv):
 						'invoice_status' : stock_journal.default_invoice_state,
 						}
 			value.update(val)
-			
-		return {'value' : value, 'domain' : domain, 'warning' : warning}
 		
+		return {'value' : value, 'domain' : domain, 'warning' : warning}
+	
 	def create_sequence(self, cr, uid, id):
 		"""
-		
+	
 		"""
 		obj_sequence = self.pool.get('ir.sequence')
-		
+	
 		picking = self.browse(cr, uid, [id])[0]
-		
+	
 		if not picking.stock_journal_id.default_sequence_id:
 			raise osv.except_osv('Warning!', 'There is no sequence defined')
 			return False
-			
+		
 		sequence_id = picking.stock_journal_id.default_sequence_id.id
 		sequence = obj_sequence.next_by_id(cr, uid, sequence_id)
 		self.write(cr, uid, [id], {'name' : sequence})
-		
+	
 		return True
-		
+	
 	def action_confirm(self, cr, uid, ids, context=None):
 		for id in ids:
 			if not self.create_sequence(cr, uid, id):
 				return False
-				
+			
 		return super(stock_picking, self).action_confirm(cr, uid, ids, context)
+	
+	def action_process(self, cr, uid, ids, context=None):
+		if context is None : context = {}
+		context = dict(context, active_ids=ids, active_model=context.get('inherit_model', self._name))
+		partial_id = self.pool.get('stock.partial.picking').create(cr, uid, {}, context=context)
+		return {
+		    'name':_("Products to Process"),
+		    'view_mode': 'form',
+		    'view_id': False,
+		    'view_type': 'form',
+		    'res_model': 'stock.partial.picking',
+		    'res_id': partial_id,
+		    'type': 'ir.actions.act_window',
+		    'nodestroy': True,
+		    'target': 'new',
+		    'domain': '[]',
+		    'context': context,
+		}		
 
 			
 		

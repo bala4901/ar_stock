@@ -173,8 +173,7 @@
                     	<group name="group_2_3" colspan="1" col="1">
                     		<separator string="Workflow" colspan="1"/>
                                 <button name="button_cancel" states="assigned,confirmed,draft" string="_Cancel" icon="gtk-cancel" colspan="1"/>
-                                <button name="draft_force_assign" states="draft" string="Process Later" type="object" icon="gtk-ok" colspan="1"/>
-                                <button name="draft_validate" states="draft" string="Process Now" type="object" icon="gtk-media-play" colspan="1"/>
+                                <button name="draft_force_assign" states="draft" string="Confirm" type="object" icon="gtk-ok" colspan="1"/>
                                 <button name="action_assign" states="confirmed" string="Check Availability" type="object" icon="gtk-find" colspan="1"/>
                                 <button name="force_assign" states="confirmed" string="Force Availability" type="object" groups="base.group_extended" icon="gtk-jump-to" colspan="1"/>
                                 <button name="action_process" states="assigned" string="Process" type="object" icon="gtk-go-forward" colspan="1"/>

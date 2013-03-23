@@ -71,6 +71,13 @@ class incoming_shipment(osv.osv):
 			wkf_service.trg_delete(uid, 'stock.picking', id, cr)
 			
 		return super(incoming_shipment, self).unlink(cr, uid, ids, context)
+		
+	def action_process(self, cr, uid, ids, context=None):
+		#raise osv.except_osv('a', 'a')
+		context['inherit_model'] = 'stock.picking'
+		result = super(incoming_shipment, self).action_process(cr, uid, ids, context)
+		
+		return result
 
 
 
