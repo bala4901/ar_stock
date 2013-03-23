@@ -19,7 +19,6 @@
 			        <field name="stock_journal_id" groups="base.group_extended" widget="selection"/>
 			        <field name="state"/>
 			        <button name="action_process" states="assigned" string="Process" type="object" icon="gtk-go-forward"/>
-			        <button name="button_cancel" states="assigned,confirmed,draft" string="Cancel" icon="gtk-cancel" confirm="This operation will cancel the shipment. Do you want to continue?" />
 		        </tree>
             </field>
         </record>	
@@ -137,10 +136,6 @@
                                     </group>
                                 </form>
                             </field>
-                            <group col="10" colspan="4">
-                                
-
-                            </group>
                         </page>
                         <page string="Additional Info" groups="base.group_extended,base.group_multi_company">
                             <field name="company_id" groups="base.group_multi_company" widget="selection"/>

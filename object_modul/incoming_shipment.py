@@ -29,6 +29,7 @@ class incoming_shipment(osv.osv):
 	_inherit = 'stock.picking'
 	_table = 'stock_picking'
 	_description = 'Incoming Shipment'
+	_order = 'name'
 	
 	_columns =	{
         'state': fields.selection([
@@ -50,14 +51,21 @@ class incoming_shipment(osv.osv):
 	
 	
 	def check_access_rights(self, cr, uid, operation, raise_exception=True):
-		#override in order to redirect the check of acces rights on the stock.picking object
+		"""
+		override in order to redirect the check of acces rights on the stock.picking object
+		"""
 		return self.pool.get('stock.picking').check_access_rights(cr, uid, operation, raise_exception=raise_exception)
 		
 	def check_access_rule(self, cr, uid, ids, operation, context=None):
-		#override in order to redirect the check of acces rules on the stock.picking object
+		"""
+		override in order to redirect the check of acces rules on the stock.picking object
+		"""
 		return self.pool.get('stock.picking').check_access_rule(cr, uid, ids, operation, context=context)
 		
 	def create(self, cr, uid, value, context=None):
+		"""
+		override method orm create
+		"""
 		new_id = super(incoming_shipment, self).create(cr, uid, value, context)
 		
 		wkf_service = netsvc.LocalService('workflow')
@@ -66,6 +74,9 @@ class incoming_shipment(osv.osv):
 		return new_id
 		
 	def unlink(self, cr, uid, ids, context=None):
+		"""
+		override method orm
+		"""
 		wkf_service = netsvc.LocalService('workflow')
 		for id in ids:
 			wkf_service.trg_delete(uid, 'stock.picking', id, cr)
@@ -73,7 +84,9 @@ class incoming_shipment(osv.osv):
 		return super(incoming_shipment, self).unlink(cr, uid, ids, context)
 		
 	def action_process(self, cr, uid, ids, context=None):
-		#raise osv.except_osv('a', 'a')
+		"""
+		override method action_process pada stock.picking
+		"""
 		context['inherit_model'] = 'stock.picking'
 		result = super(incoming_shipment, self).action_process(cr, uid, ids, context)
 		
