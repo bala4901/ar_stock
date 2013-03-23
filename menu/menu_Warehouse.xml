@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+	
+		<menuitem 	id="menu_stock_incomingShipment" 
+					parent="stock.menu_stock_warehouse_mgmt" 
+					name="Incoming Shipment"					
+					action="waction_stock_incomingShipment" 
+					sequence="4"					
+					/>			
+																					
+	</data>
+</openerp>
