@@ -109,7 +109,10 @@ class stock_picking(osv.osv):
 							'confirm_user_id' : fields.many2one(obj='res.users', string='Confirmed By', readonly=True),
 							'confirm_time' : fields.datetime(string='Confimation Time', readonly=True),							
 							'process_user_id' : fields.many2one(obj='res.users', string='Processed By', readonly=True),
-							'process_time' : fields.datetime(string='Processed Time', readonly=True),			
+							'process_time' : fields.datetime(string='Processed Time', readonly=True),		
+							'cancel_user_id' : fields.many2one(obj='res.users', string='Processed By', readonly=True),
+							'cancel_time' : fields.datetime(string='Cancelled Time', readonly=True),									
+							'cancel_description' : fields.text(string='Cancel Description', readonly=True),
 							}				
 	
 	_defaults =	{
@@ -161,6 +164,13 @@ class stock_picking(osv.osv):
 		for id in ids:
 			if not self.create_sequence(cr, uid, id):
 				return False
+				
+		val =	{
+					'confirm_user_id' : uid,
+					'confirm_time' : datetime.today().strftime('%Y-%m-%d %H:%M:%S')
+					}
+					
+		self.write(cr, uid, ids, val)
 			
 		return super(stock_picking, self).action_confirm(cr, uid, ids, context)
 	
@@ -169,7 +179,7 @@ class stock_picking(osv.osv):
 		context = dict(context, active_ids=ids, active_model=context.get('inherit_model', self._name))
 		partial_id = self.pool.get('stock.partial.picking').create(cr, uid, {}, context=context)
 		return {
-		    'name':_("Products to Process"),
+		    'name':_('Products to Process'),
 		    'view_mode': 'form',
 		    'view_id': False,
 		    'view_type': 'form',
@@ -181,6 +191,29 @@ class stock_picking(osv.osv):
 		    'domain': '[]',
 		    'context': context,
 		}		
+		
+	def action_done(self, cr, uid, ids, context=None):
+		val =	{
+					'process_user_id' : uid,
+					'process_time' : datetime.today().strftime('%Y-%m-%d %H:%M:%S'),
+					}
+					
+		self.write(cr, uid, ids, val)
+		
+		return super(stock_picking, self).action_done(cr, uid, ids, context)
+		
+	def action_cancel(self, cr, uid, ids, context=None):
+		val =	{
+					'cancel_user_id' : uid,
+					'cancel_time' : datetime.today().strftime('%Y-%m-%d %H:%M:%S'),
+					}
+					
+		self.write(cr, uid, ids, val)
+		
+		return super(stock_picking, self).action_cancel(cr, uid, ids, context)	
+	
+					
+		
 
 			
 		
