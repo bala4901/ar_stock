@@ -211,6 +211,31 @@ class stock_picking(osv.osv):
 		self.write(cr, uid, ids, val)
 		
 		return super(stock_picking, self).action_cancel(cr, uid, ids, context)	
+		
+	def copy(self, cr, uid, id, default=None, context=None):
+		if default is None:
+			default = {}
+		
+		default = default.copy()
+		
+		res	=	{
+					'create_user_id' : uid,
+					'create_time' : datetime.today().strftime('%Y-%m-%d %H:%M:%S'),
+					'confirm_user_id' : False,
+					'confirm_time' : False,
+					'process_user_id' : False,
+					'process_time' : False,
+					'cancel_time' : False,
+					'cancel_user_id' : False,
+					'cancel_description' : False,
+					}
+					
+		default.update(res)
+		
+		return super(stock_picking, self).copy(cr, uid, id, default, context)
+					
+		
+		
 	
 					
 		
