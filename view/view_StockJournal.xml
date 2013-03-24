@@ -15,11 +15,14 @@
 								<field name="default_type"/>
 								<field name="default_invoice_state"/>
 								<field name="default_sequence_id"/>
-							</group>
-							<group name="group_1_2" colspan="1" col="2">
-								<separator string="Default Location" colspan="2"/>
 								<field name="default_location_id"/>
 								<field name="default_location_dest_id"/>
+							</group>
+							<group name="group_1_2" colspan="1" col="2">
+								<separator string="Return Product Setting" colspan="2"/>
+								<field name="allowed_return_product"/>
+								<field name="stock_journal_return_id" attrs="{'required':[('allowed_return_product','=',True)]}"/>
+								
 							</group>			
 							<group name="group_1_3" colspan="1" col="2">
 								<separator string="Allowed Location" colspan="2"/>

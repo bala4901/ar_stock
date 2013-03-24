@@ -114,6 +114,7 @@ class stock_picking(osv.osv):
 							'cancel_user_id' : fields.many2one(obj='res.users', string='Processed By', readonly=True),
 							'cancel_time' : fields.datetime(string='Cancelled Time', readonly=True),									
 							'cancel_description' : fields.text(string='Cancel Description', readonly=True),
+							'allowed_location_id' : fields.related(string='Allowed Location Ids', f1='stock_journal_id',f2='allowed_location_ids', type='many2many', obj='stock.location'),						
 							}				
 
 	_defaults =	{
@@ -162,10 +163,7 @@ class stock_picking(osv.osv):
 		return True
 
 	def action_confirm(self, cr, uid, ids, context=None):
-		for id in ids:
-			if not self.create_sequence(cr, uid, id):
-				return False
-			
+
 		val =	{
 					'confirm_user_id' : uid,
 					'confirm_time' : datetime.today().strftime('%Y-%m-%d %H:%M:%S')
@@ -234,6 +232,14 @@ class stock_picking(osv.osv):
 		default.update(res)
 	
 		return super(stock_picking, self).copy(cr, uid, id, default, context)
+		
+	def create(self, cr, uid, vals, context=None):
+		new_id = super(stock_picking, self).create(cr, uid, vals, context)
+		
+		if not self.create_sequence(cr, uid, new_id):
+			return False
+			
+		return new_id
 	
 	def do_partial(self, cr, uid, ids, partial_datas, context=None):
 		""" Makes partial picking and moves done.
