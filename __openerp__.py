@@ -39,6 +39,7 @@
                                 'wizard/wizard_cancel_stock_picking.xml',
                                 'view/view_StockJournal.xml', 
                                 'view/view_IncomingShipment.xml',
+                                'view/view_StockLocation.xml',
                                 'window_action/waction_IncomingShipment.xml',
                                 'menu/menu_Warehouse.xml'],
     'demo_xml': [],
