@@ -131,17 +131,36 @@ class stock_picking(osv.osv):
 		value = {}
 		domain = {}
 		warning = {}
+		x = []
+		y = []
 
 		obj_stock_journal = self.pool.get('stock.journal')
 
 		if stock_journal_id:
 			stock_journal = obj_stock_journal.browse(cr, uid, [stock_journal_id])[0]
+			
 			val =	{
 						'type' : stock_journal.default_type,
 						'invoice_status' : stock_journal.default_invoice_state,
 						}
 			value.update(val)
-	
+			if stock_journal.allowed_location_ids:
+				for location in stock_journal.allowed_location_ids:
+					x.append(location.id)
+					
+			if stock_journal.allowed_location_dest_ids:
+				for dest_location in stock_journal.allowed_location_dest_ids:
+					y.append(dest_location.id)
+					
+			if x and y:
+				domain = {'location_id': [('id','in',x)] ,'location_dest_id': [('id','in',y)] }
+			elif x and not y:
+				domain = {'location_id': [('id','in',x)],'location_dest_id': [('id','=',0)] }
+			elif y and not x:
+				domain = {'location_id': [('id','=',0)],'location_dest_id': [('id','in',y)] }
+			else:
+				domain = {'location_id': [('id','=',0)],'location_dest_id': [('id','=',0)] }
+					
 		return {'value' : value, 'domain' : domain, 'warning' : warning}
 
 	def create_sequence(self, cr, uid, id):
