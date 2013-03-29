@@ -6,6 +6,9 @@
 			<field name="default_type">in</field>
 			<field name="default_invoice_state">none</field>
 			<field name="default_sequence_id" ref="data_sequence_supplierClaimRealization"/>
+			<field name="model_name">stock.supplier_claim_realization</field>
+			<field name="model_view_form">form_stock_supplierClaimRealization</field>
+			<field name="modul_origin">ar_stock</field>
 		</record>
 			
 		<record id="data_stockJournal_supplierClaim" model="stock.journal">
@@ -15,6 +18,9 @@
 			<field name="default_sequence_id" ref="data_sequence_supplierClaim"/>
 			<field name="allowed_return_product" eval="1"/>
 			<field name="stock_journal_return_id" ref="data_stockJournal_supplierClaimRealization"/>
+			<field name="model_name">stock.supplier_claim</field>
+			<field name="model_view_form">form_stock_supplierClaim</field>
+			<field name="modul_origin">ar_stock</field>			
 		</record>
 			
 		<record id="data_stockJournal_incoming" model="stock.journal">
@@ -24,6 +30,9 @@
 			<field name="default_sequence_id" ref="data_sequence_incomingShipment"/>
 			<field name="allowed_return_product" eval="1"/>
 			<field name="stock_journal_return_id" ref="data_stockJournal_supplierClaim"/>
+			<field name="model_name">stock.incoming_shipment</field>
+			<field name="model_view_form">form_stock_incomingShipment</field>
+			<field name="modul_origin">ar_stock</field>			
 		</record>
 
 
@@ -35,6 +44,9 @@
 			<field name="default_type">internal</field>
 			<field name="default_invoice_state">none</field>
 			<field name="default_sequence_id" ref="data_sequence_internalMoves"/>
+			<field name="model_name">stock.internal_moves</field>
+			<field name="model_view_form">form_stock_internalMoves</field>
+			<field name="modul_origin">ar_stock</field>			
 		</record>		
 
 		<record id="data_stockJournal_customerClaimRealization" model="stock.journal">
@@ -42,6 +54,9 @@
 			<field name="default_type">out</field>
 			<field name="default_invoice_state">none</field>
 			<field name="default_sequence_id" ref="data_sequence_customerRealizationClaim"/>
+			<field name="model_name">stock.customer_claim_realization</field>
+			<field name="model_view_form">form_stock_customerClaimRealization</field>
+			<field name="modul_origin">ar_stock</field>			
 		</record>		
 		
 		<record id="data_stockJournal_customerClaim" model="stock.journal">
@@ -51,6 +66,9 @@
 			<field name="default_sequence_id" ref="data_sequence_customerClaim"/>
 			<field name="allowed_return_product" eval="1"/>
 			<field name="stock_journal_return_id" ref="data_stockJournal_customerClaimRealization"/>
+			<field name="model_name">stock.customer_claim</field>
+			<field name="model_view_form">form_stock_customerClaim</field>
+			<field name="modul_origin">ar_stock</field>			
 		</record>			
 		
 		<record id="data_stockJournal_deliveryOrder" model="stock.journal">
@@ -60,6 +78,9 @@
 			<field name="default_sequence_id" ref="data_sequence_deliveryOrder"/>
 			<field name="allowed_return_product" eval="1"/>
 			<field name="stock_journal_return_id" ref="data_stockJournal_customerClaim"/>
+			<field name="model_name">stock.delivery_order</field>
+			<field name="model_view_form">form_stock_deliveryOrder</field>
+			<field name="modul_origin">ar_stock</field>			
 		</record>		
 		
 			

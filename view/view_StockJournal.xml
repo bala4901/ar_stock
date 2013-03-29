@@ -22,6 +22,10 @@
 								<separator string="Return Product Setting" colspan="2"/>
 								<field name="allowed_return_product"/>
 								<field name="stock_journal_return_id" attrs="{'required':[('allowed_return_product','=',True)]}" widget="selection"/>
+								<separator string="Inherit Object" colspan="2"/>
+								<field name="model_name"/>
+								<field name="model_view_form"/>
+								<field name="modul_origin"/>
 								<separator string="Invoice/Refund Setting" colspan="2"/>
 								<field name="allowed_invoicing"/>
 								<field name="invoice_type" attrs="{'required':[('allowed_invoicing','=',True)]}"/>

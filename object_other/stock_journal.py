@@ -40,6 +40,9 @@ class stock_journal(osv.osv):
 							'allowed_invoicing' : fields.boolean(string='Allow Create Invoice/Refund'),
 							'invoice_type' : fields.selection(string='Invoice Type', selection=[('out_invoice','Customer Invoice'),('in_invoice','Supplier Invoice'),('out_refund','Customer Refund'),('in_refund','Supplier Refund')]),
 							'invoice_journal_id' : fields.many2one(string='Invoice/Refund Journal', obj='account.journal', domain=['|','|','|',('type','=','sale'),('type','=','sale_refund'),('type','=','purchase'),('type','=','purchase_refund')]),
+							'model_name' : fields.char(string='Model Name', size=100),
+							'model_view_form' : fields.char(string='Model View Form', size=100),		
+							'modul_origin' : fields.char(string='Modul Origin', size=100),							
 							}
 
 

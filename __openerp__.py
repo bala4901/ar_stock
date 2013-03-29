@@ -22,12 +22,12 @@
 {
     'name': 'AR - Stock',
     'version': '1.1',
-    'author': 'Andhitia Rama',
-    'category': 'Andhitia Rama/Base',
+    'author': 'Andhitia Rama & Michael Viriyananda',
+    'category': 'AR/Stock',
     'complexity': 'easy',
     'website': 'http://andhitiarama.wordpress.com',
     'description': """
-    Modul warna
+    -
     """,
     'author': 'Andhitia Rama',
     'website': 'http://andhitiarama.wordpress.com',
@@ -39,6 +39,7 @@
                                 'data/data_Sequence.xml',
                                 'data/data_StockJournal.xml',
                                 'wizard/wizard_cancel_stock_picking.xml',
+                                'wizard/wizard_forward_picking.xml',
                                 'view/view_StockJournal.xml', 
                                 'view/view_IncomingShipment.xml',
                                 'view/view_SupplierClaimRealization.xml',

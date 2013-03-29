@@ -114,7 +114,7 @@ class stock_picking(osv.osv):
 							'cancel_user_id' : fields.many2one(obj='res.users', string='Processed By', readonly=True),
 							'cancel_time' : fields.datetime(string='Cancelled Time', readonly=True),									
 							'cancel_description' : fields.text(string='Cancel Description', readonly=True),
-							'allowed_location_id' : fields.related(string='Allowed Location Ids', f1='stock_journal_id',f2='allowed_location_ids', type='many2many', obj='stock.location'),						
+							'allowed_location_id' : fields.related(string='Allowed Location Ids', f1='stock_journal_id',f2='allowed_location_ids', type='many2many', obj='stock.location'),			
 							}				
 
 	_defaults =	{
@@ -253,6 +253,8 @@ class stock_picking(osv.osv):
 		return super(stock_picking, self).copy(cr, uid, id, default, context)
 		
 	def create(self, cr, uid, vals, context=None):
+		vals.update({'name' : 'xxx'})
+	
 		new_id = super(stock_picking, self).create(cr, uid, vals, context)
 		
 		if not self.create_sequence(cr, uid, new_id):
