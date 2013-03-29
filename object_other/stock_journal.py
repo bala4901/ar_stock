@@ -30,13 +30,16 @@ class stock_journal(osv.osv):
 	_columns =	{
 							'default_type' : fields.selection(selection=[('out', 'Sending Goods'), ('in', 'Getting Goods'), ('internal', 'Internal')], string='Default Type'),
 							'default_invoice_state' : fields.selection(selection=[('invoiced', 'Invoiced'),('2binvoiced', 'To Be Invoiced'),('none', 'Not Applicable')], string='Default Invoice Type'),
-							'default_sequence_id' : fields.many2one(obj='ir.sequence', string='Sequence'),
+							'default_sequence_id' : fields.many2one(obj='ir.sequence', string='Sequence', domain=[('code','=','stock.picking')]),
 							'default_location_id' : fields.many2one(obj='stock.location', string='Default Location', domain=[('usage','!=','view')]),
 							'default_location_dest_id' : fields.many2one(obj='stock.location', string='Default Destination Location', domain=[('usage','!=','view')]),
 							'allowed_location_ids' : fields.many2many(obj='stock.location', rel='stock_journal_location_rel', id1='stock_journal_id', id2='location_id', domain=[('usage','!=','view')]),
 							'allowed_location_dest_ids' : fields.many2many(obj='stock.location', rel='stock_journal_location_dest_rel', id1='stock_journal_id', id2='location_id', domain=[('usage','!=','view')]),
 							'allowed_return_product' : fields.boolean(string='Allowed Return Product'),
 							'stock_journal_return_id' : fields.many2one(string='Return Stock Journal', obj='stock.journal'),
+							'allowed_invoicing' : fields.boolean(string='Allow Create Invoice/Refund'),
+							'invoice_type' : fields.selection(string='Invoice Type', selection=[('out_invoice','Customer Invoice'),('in_invoice','Supplier Invoice'),('out_refund','Customer Refund'),('in_refund','Supplier Refund')]),
+							'invoice_journal_id' : fields.many2one(string='Invoice/Refund Journal', obj='account.journal', domain=['|','|','|',('type','=','sale'),('type','=','sale_refund'),('type','=','purchase'),('type','=','purchase_refund')]),
 							}
 
 

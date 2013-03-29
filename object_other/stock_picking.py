@@ -34,7 +34,7 @@ class stock_picking(osv.osv):
 		"""
 
 		"""
-		return '-'
+		return '/'
 
 	def default_create_time(self, cr, uid, context={}):
 		"""

@@ -36,6 +36,7 @@
     'init_xml': [],
     'update_xml': [
                                 'security/ir.model.access.csv',
+                                'data/data_Sequence.xml',
                                 'data/data_StockJournal.xml',
                                 'wizard/wizard_cancel_stock_picking.xml',
                                 'view/view_StockJournal.xml', 
