@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<record id="waction_stock_supplierClaimRealization" model="ir.actions.act_window">
+			<field name="name">Supplier Claim Realization</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">stock.supplier_claim_realization</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="context">{'stock_journal':'Supplier Claim Realization'}</field>
+			<field name="domain">[('stock_journal_id.name','=','Supplier Claim Realization')]</field>
+		</record>
+		
+		<record id="wactView_stock_treeSupplierClaimRealization" model="ir.actions.act_window.view">
+			<field eval="10" name="sequence"/>
+			<field name="view_mode">tree</field>
+			<field name="view_id" ref="tree_stock_supplierClaimRealization"/>
+			<field name="act_window_id" ref="waction_stock_supplierClaimRealization"/>
+		</record>
+
+		<record id="wactView_stock_formSupplierClaimRealization" model="ir.actions.act_window.view">
+			<field eval="20" name="sequence"/>
+			<field name="view_mode">form</field>
+			<field name="view_id" ref="form_stock_supplierClaimRealization"/>
+			<field name="act_window_id" ref="waction_stock_supplierClaimRealization"/>
+		</record>
+	</data>
+</openerp>

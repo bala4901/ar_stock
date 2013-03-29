@@ -17,14 +17,14 @@
 		<menuitem 	id="menu_stock_supplierClaimRealization" 
 									parent="menu_stock_incomingHeader" 
 									name="Supplier Claim Realization"					
-									action="waction_stock_incomingShipment" 
+									action="waction_stock_supplierClaimRealization" 
 									sequence="2"					
 									/>					
 									
 		<menuitem 	id="menu_stock_customerClaim" 
 									parent="menu_stock_incomingHeader" 
 									name="Customer Claim"					
-									action="waction_stock_incomingShipment" 
+									action="waction_stock_customerClaim" 
 									sequence="3"					
 									/>		
 									
@@ -37,7 +37,7 @@
 		<menuitem 	id="menu_stock_internalMove" 
 									parent="menu_stock_internalMovement" 
 									name="Internal Move"					
-									action="waction_stock_incomingShipment" 
+									action="waction_stock_internalMoves" 
 									sequence="1"					
 									/>		
 									
@@ -50,21 +50,21 @@
 		<menuitem 	id="menu_stock_deliveryOrder" 
 									parent="menu_stock_outgoingMovement" 
 									name="Delivery Order"					
-									action="waction_stock_incomingShipment" 
+									action="waction_stock_deliveryOrder" 
 									sequence="1"					
 									/>		
 									
 		<menuitem 	id="menu_stock_supplierClaim" 
 									parent="menu_stock_outgoingMovement" 
 									name="Supplier Claim"					
-									action="waction_stock_incomingShipment" 
+									action="waction_stock_supplierClaim" 
 									sequence="2"					
 									/>			
 									
 		<menuitem 	id="menu_stock_customerClaimRealization" 
 									parent="menu_stock_outgoingMovement" 
 									name="Customer Claim Realization"					
-									action="waction_stock_incomingShipment" 
+									action="waction_stock_customerClaimRealization" 
 									sequence="3"					
 									/>			
 									
