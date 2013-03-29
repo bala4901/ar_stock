@@ -1,0 +1,9 @@
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+"data_accessRight_stockExpedition","data_accessRight_stockExpedition","model_stock_expedition",,1,1,1,1
+"data_accessRight_stockExpeditionCrewPosition","data_accessRight_stockExpeditionCrewPosition","model_stock_expedition_crew_position",,1,1,1,1
+"data_accessRight_stockExpeditionCrew","data_accessRight_stockExpeditionCrew","model_stock_expedition_crew",,1,1,1,1
+
+
+
+
+

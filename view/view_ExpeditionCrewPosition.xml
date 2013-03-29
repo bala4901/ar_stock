@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<!-- TREE -->
+        <record id="tree_stock_expeditionCrewPosition" model="ir.ui.view">
+            <field name="name">Tree Expedition Crew Position</field>
+            <field name="model">stock.expedition_crew_position</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+            	<tree string="Expedition Crew Position">
+            		<field name="name"/>
+        		</tree>
+            </field>
+        </record>
+    	
+    	<!-- FORM -->
+        <record id="form_stock_expeditionCrewPosition" model="ir.ui.view">
+            <field name="name">Form Expedition Crew Position</field>
+            <field name="model">stock.expedition_crew_position</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+            	<form string="Expedition Crew Position">
+            		<field name="name"/>
+        		</form>
+            </field>
+        </record>
+        
+        <!-- SEARCH -->
+        <record id="search_stock_expeditionCrewPosition" model="ir.ui.view">
+            <field name="name">Search Expedition Crew Position</field>
+            <field name="model">stock.expedition_crew_position</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+            	<search string="Expedition Crew Position">
+            		<field name="name"/>
+        		</search>
+            </field>
+        </record>        
+        
+	</data>
+</openerp>

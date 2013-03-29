@@ -19,6 +19,16 @@
 #
 ##############################################################################
 
+import expedition_crew_position
+import expedition
+import expedition_crew
+
 import incoming_shipment
+import supplier_claim_realization
+import customer_claim
+import internal_moves
+import delivery_order
+import supplier_claim
+import customer_claim_realization
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
