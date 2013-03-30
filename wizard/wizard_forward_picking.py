@@ -167,7 +167,6 @@ class wizard_forward_picking(osv.osv_memory):
         
         picking = obj_picking.browse(cr, uid, record_id, context=context)
         wizard = self.read(cr, uid, ids[0], context=context)
-        #raise osv.except_osv('a', str(wizard))
         new_picking = None
         date_cur = time.strftime('%Y-%m-%d %H:%M:%S')
         set_invoice_state_to_none = True
@@ -183,6 +182,7 @@ class wizard_forward_picking(osv.osv_memory):
                                         }
         
         new_picking_id = obj_picking.create(cr, uid, dict_defaults, context)
+        new_picking = obj_picking.browse(cr, uid, [new_picking_id])[0]
         
         val_id = wizard['detail_ids']
         
@@ -191,7 +191,6 @@ class wizard_forward_picking(osv.osv_memory):
             mov_id = detail.move_id.id
             new_qty = detail.quantity
             move = obj_move.browse(cr, uid, mov_id, context=context)
-            new_location = move.location_dest_id.id #TODO
             returned_qty = move.product_qty
             
             # ini penting buat dimengerti nih
@@ -204,21 +203,17 @@ class wizard_forward_picking(osv.osv_memory):
                 
             if new_qty:
                 returned_lines += 1
-                #raise osv.except_osv('a',str(new_picking_id))
                 dict_defaults = {
                                                 'product_qty' : new_qty,
                                                 'product_uos_qty' : obj_uom._compute_qty(cr, uid, move.product_uom.id, new_qty, move.product_uos.id),
-                                                #'picking_id ': new_picking_id, 
                                                 'state' : 'draft',
-                                                'location_id' : new_location,
-                                                'location_dest_id' : move.location_id.id,
+                                                'location_id' : new_picking.location_id.id,
+                                                'location_dest_id' : new_picking.location_dest_id.id,
                                                 'date' : date_cur
                                                 }
                 
                 new_move_id = obj_move.copy(cr, uid, move.id, dict_defaults)
                 obj_move.write(cr, uid, [new_move_id], {'picking_id' : new_picking_id})
-                #a = obj_move.read(cr, uid, [new_move_id],[])
-                #raise osv.except_osv('a', '%s %s' % (str(a), str(new_picking_id)))
                 obj_move.write(cr, uid, [move.id], {'move_history_ids2':[(4,new_move_id)]})
                 
         if not returned_lines:
