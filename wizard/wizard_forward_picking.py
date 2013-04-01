@@ -230,6 +230,7 @@ class wizard_forward_picking(osv.osv_memory):
         dict_defaults = {
                                         'date' : date_cur,
                                         'move_lines' : [],
+                                        'picking_reference_id' : '%s, %s' % (picking.stock_journal_id.stock_journal_return_id.model_name, str(picking.id)),
                                         }
         
         new_picking_id = obj_picking.create(cr, uid, dict_defaults, context)
