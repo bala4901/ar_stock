@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<record id="data_pickingReference_incomingShipment" model="stock.picking_reference">
+			<field name="name">Incoming Shipment</field>
+			<field name="object_name">stock.incoming_shipment</field>
+		</record>
+
+		
+			
+		
+	
+
+	</data>
+</openerp>

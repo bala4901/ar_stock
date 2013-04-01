@@ -103,8 +103,22 @@ class stock_picking(osv.osv):
 		stock_journal = obj_stock_journal.browse(cr, uid, [stock_journal_id])[0]
 
 		return stock_journal.default_invoice_state
+		
+	def selection_picking_reference(self, cr, uid, context={}):
+		obj_model = self.pool.get('ir.model')
+		
+		model_ids = obj_model.search(cr, uid, [])
+		selection_result = []
+		
+		if model_ids:
+			res = obj_model.read(cr, uid, model_ids,  ['model', 'name'])
+			return [(r['model'], r['name']) for r in res] +  [('','')]
+		else:
+			return []
+			
 
 	_columns =	{
+							'picking_reference_id' : fields.reference(string='Reference', selection=selection_picking_reference, readonly=True, size=256),
 							'create_user_id' : fields.many2one(obj='res.users', string='Created By', readonly=True),
 							'create_time' : fields.datetime(string='Creation Time', readonly=True),
 							'confirm_user_id' : fields.many2one(obj='res.users', string='Confirmed By', readonly=True),

@@ -35,6 +35,7 @@
                 			<separator string="Reference" colspan="2"/>
                 			<field name="name" readonly="1" string="# Incoming Shipment"/>
                 			<field name="origin"/>
+                			<field name="picking_reference_id" readonly="1"/>
                 			<field name="backorder_id" readonly="1" groups="base.group_extended"/>
                 		</group>
                 		<group name="group_1_2" colspan="1" col="2">

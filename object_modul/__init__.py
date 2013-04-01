@@ -19,6 +19,8 @@
 #
 ##############################################################################
 
+import picking_reference
+
 import expedition_crew_position
 import expedition
 import expedition_crew
