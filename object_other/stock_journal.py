@@ -31,6 +31,8 @@ class stock_journal(osv.osv):
 							'default_type' : fields.selection(selection=[('out', 'Sending Goods'), ('in', 'Getting Goods'), ('internal', 'Internal')], string='Default Type'),
 							'default_invoice_state' : fields.selection(selection=[('invoiced', 'Invoiced'),('2binvoiced', 'To Be Invoiced'),('none', 'Not Applicable')], string='Default Invoice Type'),
 							'default_sequence_id' : fields.many2one(obj='ir.sequence', string='Sequence', domain=[('code','=','stock.picking')]),
+							'allow_location_selection' : fields.boolean(string='Allow Location Selection'),
+							'allow_dest_location_selection' : fields.boolean(string='Allow Destination Location Selection'),
 							'default_location_id' : fields.many2one(obj='stock.location', string='Default Location', domain=[('usage','!=','view')]),
 							'default_location_dest_id' : fields.many2one(obj='stock.location', string='Default Destination Location', domain=[('usage','!=','view')]),
 							'allowed_location_ids' : fields.many2many(obj='stock.location', rel='stock_journal_location_rel', id1='stock_journal_id', id2='location_id', domain=[('usage','!=','view')]),

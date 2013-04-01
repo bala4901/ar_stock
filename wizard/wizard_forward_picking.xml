@@ -32,13 +32,23 @@
             <field name="type">form</field>
             <field name="arch" type="xml">
                 <form string="Return lines">
+                	<field name="forward_stock_journal_id" widget="selection" on_change="onchange_stock_journal_id(forward_stock_journal_id)" invisible="1"/>
+                	<newline/>
+                	<field name="allow_location_selection" invisible="1"/>
+                	<newline/>
+                	<field name="location_id"  attrs="{'invisible':[('allow_location_selection','=',0)]}"/>
+                	<newline/>
+                	<field name="allow_dest_location_selection" invisible="1"/>
+                	<newline/>
+                	<field name="location_dest_id"  attrs="{'invisible':[('allow_dest_location_selection','=',0)]}"/>
+                	<newline/>
                     <label string="Provide the quantities of the forwarded products." colspan="4"/>
                     <separator string="" colspan="4"/>
                     <field name="detail_ids"  nolabel="1" colspan="6"/>
                     <separator string="" colspan="4" />
                     <group col="2" colspan="4">
                         <button special="cancel" string="_Cancel" icon="gtk-cancel"/>
-                        <button name="create_returns" string="Return" colspan="1" type="object" icon="gtk-apply" context="{'stock_journal' : 'Incoming Shipment'}"/>
+                        <button name="create_returns" string="Ok" colspan="1" type="object" icon="gtk-apply"/>
                     </group>
                 </form>
             </field>

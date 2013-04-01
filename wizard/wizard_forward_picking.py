@@ -44,6 +44,11 @@ class wizard_forward_picking(osv.osv_memory):
     _name = 'stock.wizard_forward_picking'
     _description = 'Wizard Forward Picking'
     _columns = {
+                            'forward_stock_journal_id' : fields.many2one(string='Forward Stock Journal', obj='stock.journal', required=True),
+                            'allow_location_selection' : fields.boolean(string='Allow Location Selection'),
+                            'location_id' : fields.many2one(string='Location', obj='stock.location', required=True),
+                            'allow_dest_location_selection' : fields.boolean(string='Allow Destination Location Selection'),
+                            'location_dest_id' : fields.many2one(string='Dest. Location', obj='stock.location', required=True),
                             'detail_ids' : fields.one2many(obj='stock.wizard_forward_picking_detail', fields_id='wizard_id', string='Moves'),
                             }
 
@@ -69,6 +74,16 @@ class wizard_forward_picking(osv.osv_memory):
         picking = obj_picking.browse(cr, uid, record_id, context=context)
         
         if picking:
+            dict_header =   {
+                                            'forward_stock_journal_id' : picking.stock_journal_id.stock_journal_return_id.id,
+                                            'allow_location_selection' : picking.stock_journal_id.stock_journal_return_id.allow_location_selection,
+                                            'allow_dest_location_selection' : picking.stock_journal_id.stock_journal_return_id.allow_dest_location_selection,
+                                            'location_id' : picking.stock_journal_id.stock_journal_return_id.default_location_id and picking.stock_journal_id.stock_journal_return_id.default_location_id.id or False,
+                                            'location_dest_id' : picking.stock_journal_id.stock_journal_return_id.default_location_dest_id and picking.stock_journal_id.stock_journal_return_id.default_location_dest_id.id or False,
+                                            }
+                                            
+            wizard.update(dict_header)
+                                            
             return_history = self.get_return_history(cr, uid, record_id, context)       
             for line in picking.move_lines:
                 qty = line.product_qty - return_history[line.id]
@@ -143,6 +158,43 @@ class wizard_forward_picking(osv.osv_memory):
                         and rec.location_id.id == m.location_dest_id.id:
                         return_history[m.id] += (rec.product_qty * rec.product_uom.factor)
         return return_history
+        
+    def onchange_stock_journal_id(self, cr, uid, ids, stock_journal_id):
+        value = {}
+        domain = {}
+        warning = {}
+        
+        list_location_id = []
+        list_location_dest_id = []
+        
+        obj_stock_journal = self.pool.get('stock.journal')
+        
+        if stock_journal_id:
+            stock_journal = obj_stock_journal.browse(cr, uid, [stock_journal_id])[0]
+            
+            if stock_journal.allowed_location_ids:
+                for location in stock_journal.allowed_location_ids:
+                    list_location_id.append(location.id)
+
+            if stock_journal.allowed_location_dest_ids:
+                for location in stock_journal.allowed_location_dest_ids:
+                    list_location_dest_id.append(location.id)                    
+                    
+            if list_location_id:
+                domain.update({'location_id' : [('id','in',list_location_id)]})
+                
+            if not list_location_id:
+                domain.update({'location_id' : [('id','=',0)]})                                
+                
+            if list_location_dest_id:
+                domain.update({'location_dest_id' : [('id','in',list_location_dest_id)]})               
+                
+            if not list_location_dest_id:
+                domain.update({'location_dest_id' : [('id','=',0)]})                      
+                
+        return {'value' : value, 'domain' : domain, 'warning' : warning} 
+            
+        
 
     def create_returns(self, cr, uid, ids, context=None):
         """ 
@@ -175,7 +227,6 @@ class wizard_forward_picking(osv.osv_memory):
         # Get info from stock.journal
  
         context.update({'stock_journal' : picking.stock_journal_id.stock_journal_return_id.name})
-        #raise osv.except_osv('a', str(context))
         dict_defaults = {
                                         'date' : date_cur,
                                         'move_lines' : [],

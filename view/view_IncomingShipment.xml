@@ -178,7 +178,7 @@
                                 <button name="action_assign" states="confirmed" string="Check Availability" type="object" icon="gtk-find" colspan="1"/>
                                 <button name="force_assign" states="confirmed" string="Force Availability" type="object" groups="base.group_extended" icon="gtk-jump-to" colspan="1"/>
                                 <button name="action_process" states="assigned" string="Process" type="object" icon="gtk-go-forward" colspan="1"/>
-                                <button name="%(waction_stock_wizardForwardPickingIncomingShipment)d" string="Supplier Claim" states="done" type="action" icon="gtk-execute" colspan="1" context="{'stock_journal' : 'Incoming Shipment'}"/>
+                                <button name="%(waction_stock_wizardForwardPickingIncomingShipment)d" string="Supplier Claim" states="done" type="action" icon="gtk-execute" colspan="1"/>
                                 <button name="%(stock.action_stock_invoice_onshipping)d" string="Create Invoice" attrs="{'invisible': ['|','|',('state','&lt;&gt;','done'),('invoice_state','=','invoiced'),('invoice_state','=','none')]}" type="action" icon="terp-gtk-go-back-rtl" colspan="1"/>                    		
                 		</group>                		
                     </group>
