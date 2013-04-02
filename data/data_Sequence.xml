@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
-	<data>
+	<data noupdate="1">
         <record id="data_sequenceType_stockPicking" model="ir.sequence.type">
             <field name="name">Stock Picking</field>
             <field name="code">stock.picking</field>
