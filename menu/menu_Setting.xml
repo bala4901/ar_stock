@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+
+		 <menuitem id="stock.menu_stock_warehouse_mgmt" 
+		 						name="Warehouse Management" 
+		 						parent="base.menu_administration" 
+		 						sequence="100"/>																																														
+									
+																																					
+																					
+	</data>
+</openerp>

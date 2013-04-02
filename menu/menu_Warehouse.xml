@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
 	<data>
+
+		<!-- MENGHILANGKAN DASHBOARD WAREHOUSE -->
+        <record id="stock.menu_stock_root" model="ir.ui.menu">
+			<field name="icon">terp-stock</field>
+			<field name="sequence">5</field>
+			<field name="group" ref="stock.group_stock_manager"/>
+			<field name="action" eval="0"/>
+        </record>								
+	
 		<menuitem id="menu_stock_incomingHeader"
 								parent="stock.menu_stock_root"
 								sequence="1"
