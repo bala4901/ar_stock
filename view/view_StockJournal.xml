@@ -15,15 +15,11 @@
 								<field name="default_type"/>
 								<field name="default_invoice_state"/>
 								<field name="default_sequence_id" widget="selection"/>
-								<field name="allow_location_selection"/>
-								<field name="default_location_id"/>
-								<field name="allow_dest_location_selection"/>
-								<field name="default_location_dest_id"/>
 							</group>
 							<group name="group_1_2" colspan="1" col="2">
 								<separator string="Return Product Setting" colspan="2"/>
 								<field name="allowed_return_product"/>
-								<field name="stock_journal_return_id" attrs="{'required':[('allowed_return_product','=',True)]}" widget="selection"/>
+								<field name="allowed_forward_stock_journal_ids" colspan="2" nolabel="1" attrs="{'readonly':[('allowed_return_product','=',0)]}"/>
 								<separator string="Inherit Object" colspan="2"/>
 								<field name="model_name"/>
 								<field name="model_view_form"/>
@@ -36,11 +32,15 @@
 							</group>			
 							<group name="group_1_3" colspan="1" col="2">
 								<separator string="Allowed Location" colspan="2"/>
-								<field name="allowed_location_ids" nolabel="1" colspan="2"/>
+								<field name="allow_location_selection"/>
+								<field name="default_location_id" attrs="{'required':[('allow_location_selection','=',0)]}"/>								
+								<field name="allowed_location_ids" nolabel="1" colspan="2" attrs="{'invisible':[('allow_location_selection','=',0)]}"/>
 							</group>						
 							<group name="group_1_4" colspan="1" col="2">
 								<separator string="Allowed Destination Location" colspan="2"/>
-								<field name="allowed_location_dest_ids" nolabel="1" colspan="2"/>
+								<field name="allow_dest_location_selection"/>
+								<field name="default_location_dest_id" attrs="{'required':[('allow_dest_location_selection','=',0)]}"/>								
+								<field name="allowed_location_dest_ids" nolabel="1" colspan="2" attrs="{'invisible':[('allow_dest_location_selection','=',0)]}"/>
 							</group>															
 						</group>
 					</field>

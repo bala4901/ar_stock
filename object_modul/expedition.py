@@ -57,6 +57,7 @@ class expedition(osv.osv):
 							'partner_id' : fields.many2one(string='Partner', obj='res.partner'),
 							'start_location_id' : fields.many2one(obj='stock.location', string='Start Location', required=True, domain=[('type','!=','view')]),
 							'expedition_crew_ids' : fields.one2many(string='Expedition Crew', obj='stock.expedition_crew', fields_id='expedition_id'),
+							'picking_ids' : fields.one2many(string='Movement', obj='stock.picking', fields_id='expedition_id'),
 							'state' : fields.selection(selection=[('draft','Draft'),('confirm','Confirm'),('loading','Loading'),('finished_loading','Finished Loading'),('departed','Departed'),('arrived','Arrived'),('cancel','Cancel')], string='State', required=True, readonly=True),
 							'create_id' : fields.many2one(string='Created By', obj='res.users', readonly=True),
 							'create_time' : fields.datetime(string='Creation Time', readonly=True),

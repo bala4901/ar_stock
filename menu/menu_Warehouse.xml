@@ -68,7 +68,41 @@
 									name="Supplier Claim"					
 									action="waction_stock_supplierClaim" 
 									sequence="2"					
+									/>		
+									
+		<menuitem id="menu_stock_expeditionHeader"
+								parent="stock.menu_stock_root"
+								sequence="1"
+								name="Expedition &amp; Direct Picking"
+								/>		
+								
+		<menuitem 	id="menu_stock_incomingExpedition" 
+									parent="menu_stock_expeditionHeader" 
+									name="Incoming Expedition"					
+									action="waction_stock_supplierClaim" 
+									sequence="1"					
+									/>	
+									
+		<menuitem 	id="menu_stock_outgoingExpedition" 
+									parent="menu_stock_expeditionHeader" 
+									name="Outgoing Expedition"					
+									action="waction_stock_outgoingExpedition" 
+									sequence="2"					
 									/>			
+									
+		<menuitem 	id="menu_stock_incomingPicking" 
+									parent="menu_stock_expeditionHeader" 
+									name="Incoming Picking"					
+									action="waction_stock_supplierClaim" 
+									sequence="3"					
+									/>		
+									
+		<menuitem 	id="menu_stock_outgoingPicking" 
+									parent="menu_stock_expeditionHeader" 
+									name="Outgoing Picking"					
+									action="waction_stock_supplierClaim" 
+									sequence="4"					
+									/>																																											
 									
 		<menuitem 	id="menu_stock_customerClaimRealization" 
 									parent="menu_stock_outgoingMovement" 
