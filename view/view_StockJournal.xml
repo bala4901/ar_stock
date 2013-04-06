@@ -19,10 +19,14 @@
 							<group name="group_1_2" colspan="1" col="2">
 								<separator string="Return Product Setting" colspan="2"/>
 								<field name="allowed_return_product"/>
+<<<<<<< HEAD
 								<field name="stock_journal_return_id" attrs="{'required':[('allowed_return_product','=',True)]}" widget="selection"/>
 							</group>
 
 							<group name="group_1_3" colspan="1" col="2">
+=======
+								<field name="allowed_forward_stock_journal_ids" colspan="2" nolabel="1" attrs="{'readonly':[('allowed_return_product','=',0)]}"/>
+>>>>>>> e105a170a6e1daf67d265423832a23f8f9e7e8c5
 								<separator string="Inherit Object" colspan="2"/>
 								<field name="model_name"/>
 								<field name="model_view_form"/>
@@ -34,6 +38,7 @@
 								<field name="allowed_invoicing"/>
 								<field name="invoice_type" attrs="{'required':[('allowed_invoicing','=',True)]}"/>
 								<field name="invoice_journal_id" widget="selection" attrs="{'required':[('allowed_invoicing','=',True)]}"/>
+<<<<<<< HEAD
 							</group>							
 			
 							<group name="group_1_5" colspan="1" col="2">
@@ -47,6 +52,21 @@
 								<field name="allow_dest_location_selection"/>
 								<field name="default_location_dest_id" attrs="{'invisible':[('allow_dest_location_selection','=',True)],'required':[('allow_dest_location_selection','=',False)]}"/>
 								<field name="allowed_location_dest_ids" nolabel="1" colspan="2" attrs="{'invisible':[('allow_dest_location_selection','=',False)],'required':[('allow_dest_location_selection','=',True)]}"/>
+=======
+								
+							</group>			
+							<group name="group_1_3" colspan="1" col="2">
+								<separator string="Allowed Location" colspan="2"/>
+								<field name="allow_location_selection"/>
+								<field name="default_location_id" attrs="{'required':[('allow_location_selection','=',0)]}"/>								
+								<field name="allowed_location_ids" nolabel="1" colspan="2" attrs="{'invisible':[('allow_location_selection','=',0)]}"/>
+							</group>						
+							<group name="group_1_4" colspan="1" col="2">
+								<separator string="Allowed Destination Location" colspan="2"/>
+								<field name="allow_dest_location_selection"/>
+								<field name="default_location_dest_id" attrs="{'required':[('allow_dest_location_selection','=',0)]}"/>								
+								<field name="allowed_location_dest_ids" nolabel="1" colspan="2" attrs="{'invisible':[('allow_dest_location_selection','=',0)]}"/>
+>>>>>>> e105a170a6e1daf67d265423832a23f8f9e7e8c5
 							</group>															
 						</group>
 					</field>

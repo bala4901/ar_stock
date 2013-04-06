@@ -119,6 +119,7 @@ class stock_picking(osv.osv):
 
 	_columns =	{
 							'picking_reference_id' : fields.reference(string='Reference', selection=selection_picking_reference, readonly=True, size=256),
+							'expedition_id' : fields.many2one(string='Expedition', obj='stock.expedition'),
 							'create_user_id' : fields.many2one(obj='res.users', string='Created By', readonly=True),
 							'create_time' : fields.datetime(string='Creation Time', readonly=True),
 							'confirm_user_id' : fields.many2one(obj='res.users', string='Confirmed By', readonly=True),

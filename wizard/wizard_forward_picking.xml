@@ -32,13 +32,13 @@
             <field name="type">form</field>
             <field name="arch" type="xml">
                 <form string="Return lines">
-                	<field name="forward_stock_journal_id" widget="selection" on_change="onchange_stock_journal_id(forward_stock_journal_id)" invisible="1"/>
+                	<field name="forward_stock_journal_id" widget="selection" on_change="onchange_stock_journal_id(forward_stock_journal_id)" invisible="0"/>
                 	<newline/>
-                	<field name="allow_location_selection" invisible="1"/>
+                	<field name="allow_location_selection" invisible="0"/>
                 	<newline/>
                 	<field name="location_id"  attrs="{'invisible':[('allow_location_selection','=',0)]}"/>
                 	<newline/>
-                	<field name="allow_dest_location_selection" invisible="1"/>
+                	<field name="allow_dest_location_selection" invisible="0"/>
                 	<newline/>
                 	<field name="location_dest_id"  attrs="{'invisible':[('allow_dest_location_selection','=',0)]}"/>
                 	<newline/>
