@@ -4,7 +4,7 @@
 	
 		<!-- TREE -->
         <record id="tree_stock_supplierClaim" model="ir.ui.view">
-            <field name="name">Tree Supplier Claim</field>
+            <field name="name">Tree Forward Picking</field>
             <field name="model">stock.supplier_claim</field>
             <field name="type">tree</field>
             <field name="arch" type="xml">
@@ -25,7 +25,7 @@
 		
 		<!-- FORM -->
         <record id="form_stock_supplierClaim" model="ir.ui.view">
-            <field name="name">Form Supplier Claim</field>
+            <field name="name">Form Forward Picking</field>
             <field name="model">stock.supplier_claim</field>
             <field name="type">form</field>
             <field name="arch" type="xml">
@@ -33,7 +33,7 @@
                 	<group name="group_1" colspan="4" col="3">
                 		<group name="group_1_1" colspan="1" col="2">
                 			<separator string="Reference" colspan="2"/>
-                			<field name="name" readonly="1" string="# Supplier Claim"/>
+                			<field name="name" readonly="1" string="# Forward Picking"/>
                 			<field name="origin"/>
                 			<field name="picking_reference_id" readonly="1"/>
                 			<field name="backorder_id" readonly="1" groups="base.group_extended"/>
@@ -179,7 +179,7 @@
                                 <button name="action_assign" states="confirmed" string="Check Availability" type="object" icon="gtk-find" colspan="1"/>
                                 <button name="force_assign" states="confirmed" string="Force Availability" type="object" groups="base.group_extended" icon="gtk-jump-to" colspan="1"/>
                                 <button name="action_process" states="assigned" string="Process" type="object" icon="gtk-go-forward" colspan="1"/>
-                                <button name="%(stock.act_stock_return_picking)d" string="Supplier Claim" states="done" type="action" icon="gtk-execute" colspan="1"/>
+                                <button name="%(stock.act_stock_return_picking)d" string="Forward Picking" states="done" type="action" icon="gtk-execute" colspan="1"/>
                                 <button name="%(stock.action_stock_invoice_onshipping)d" string="Create Invoice" attrs="{'invisible': ['|','|',('state','&lt;&gt;','done'),('invoice_state','=','invoiced'),('invoice_state','=','none')]}" type="action" icon="terp-gtk-go-back-rtl" colspan="1"/>                    		
                 		</group>                		
                     </group>
@@ -189,14 +189,14 @@
         
 		<!-- SEARCH -->
         <record id="search_stock_supplierClaim" model="ir.ui.view">
-            <field name="name">Search Supplier Claim</field>
+            <field name="name">Search Forward Picking</field>
             <field name="model">stock.supplier_claim</field>
             <field name="type">search</field>
             <field name="arch" type="xml">
-                <search string="Supplier Claims">
+                <search string="Forward Pickings">
                     <group>
-                        <filter icon="terp-check" name="available" string="Ready to Process" domain="[('state','=','assigned')]" help="Supplier Claims Available" />
-                        <filter icon="terp-dialog-close" name="done" string="Done" domain="[('state','=','done')]" help="Supplier Claims already processed"/>
+                        <filter icon="terp-check" name="available" string="Ready to Process" domain="[('state','=','assigned')]" help="Forward Pickings Available" />
+                        <filter icon="terp-dialog-close" name="done" string="Done" domain="[('state','=','done')]" help="Forward Pickings already processed"/>
                         <separator orientation="vertical" />
                         <filter icon="terp-accessories-archiver-minus" string="Back Orders" domain="[('backorder_id', '!=', False)]" help="Is a Back Order" groups="base.group_extended"/>
                         <separator orientation="vertical"/>
