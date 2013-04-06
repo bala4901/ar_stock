@@ -22,14 +22,14 @@
 {
     'name': 'AR - Stock',
     'version': '1.1',
-    'author': 'Andhitia Rama & Michael Viriyananda',
+    'author': 'Andhitia Rama',
     'category': 'AR/Stock',
     'complexity': 'easy',
     'website': 'http://andhitiarama.wordpress.com',
     'description': """
     -
     """,
-    'author': 'Andhitia Rama',
+    'author': 'Andhitia Rama & Michael Viriyananda',
     'website': 'http://andhitiarama.wordpress.com',
     'images': [],
     'depends': ['ar_base', 'ar_base_sequence', 'stock'],
