@@ -19,6 +19,8 @@
 #
 ##############################################################################
 
+from lxml import etree
+
 import netsvc
 import time
 
@@ -43,14 +45,89 @@ wizard_forward_picking_detail()
 class wizard_forward_picking(osv.osv_memory):
     _name = 'stock.wizard_forward_picking'
     _description = 'Wizard Forward Picking'
+    
+    def get_stock_journal(self, cr, uid, ids, field_name, arg, context=None):
+        obj_stock_journal = self.pool.get('stock.journal')
+        obj_picking = self.pool.get('stock.picking')
+        result = {}
+        
+        record_id = context and context.get('active_id', False) or False
+        
+        picking = obj_picking.browse(cr, uid, record_id, context=context)
+        
+        for record in self.browse(cr, uid, ids, context=context):
+            stock_journal_id = picking.stock_journal_id.id
+            stock_journal_ids = obj_stock_journal.browse(cr, uid, [stock_journal_id])[0]
+			
+            if stock_journal_ids.allowed_forward_stock_journal_ids:
+                result[record.id] = [x.id for x in stock_journal_ids.allowed_forward_stock_journal_ids]
+            else:
+                result[record.id] = []
+
+        return result
+    
     _columns = {
-                            'forward_stock_journal_id' : fields.many2one(string='Forward Stock Journal', obj='stock.journal', required=True),
+                            'forward_stock_journal_id' : fields.many2one(string='Stock Journal', obj='stock.journal', required=True),
                             'allow_location_selection' : fields.boolean(string='Allow Location Selection'),
                             'location_id' : fields.many2one(string='Location', obj='stock.location', required=True),
                             'allow_dest_location_selection' : fields.boolean(string='Allow Destination Location Selection'),
                             'location_dest_id' : fields.many2one(string='Dest. Location', obj='stock.location', required=True),
                             'detail_ids' : fields.one2many(obj='stock.wizard_forward_picking_detail', fields_id='wizard_id', string='Moves'),
                             }
+                            
+    def fields_view_get(self, cr, uid, view_id=None, view_type='form', context=None, toolbar=False, submenu=False):
+        res = super(wizard_forward_picking, self).fields_view_get(cr, uid, view_id=view_id, view_type=view_type, context=context, toolbar=toolbar,submenu=False)
+
+        obj_stock_journal = self.pool.get('stock.journal')
+        obj_picking = self.pool.get('stock.picking')
+        x = []
+        
+        record_id = context and context.get('stock_journal', False) or False
+        
+        stock_journal_ids = obj_stock_journal.search(cr, uid, [('name','=',record_id)])[0]
+        
+        stock_journal = obj_stock_journal.browse(cr, uid, stock_journal_ids, context=context)
+        
+        if stock_journal.allowed_forward_stock_journal_ids:
+            for journal in stock_journal.allowed_forward_stock_journal_ids:
+                x.append(journal.id)
+
+        if not view_id:
+            return res
+
+        separator_string = _("Forward Picking")
+        view = """<?xml version="1.0" encoding="utf-8"?>
+                    <form string="Return lines">
+                    <separator string="%s" colspan="4"/>
+                	<field name="forward_stock_journal_id" on_change="onchange_stock_journal_id(forward_stock_journal_id)" domain="[('id','in',%s)]"/>
+                	<newline/>
+                	<field name="allow_location_selection" invisible="0"/>
+                	<newline/>
+                	<field name="location_id"  attrs="{'invisible':[('allow_location_selection','=',0)]}"/>
+                	<newline/>
+                	<field name="allow_dest_location_selection" invisible="0"/>
+                	<newline/>
+                	<field name="location_dest_id"  attrs="{'invisible':[('allow_dest_location_selection','=',0)]}"/>
+                	<newline/>
+                    <label string="Provide the quantities of the forwarded products." colspan="4"/>
+                    <separator string="" colspan="4"/>
+                    <field name="detail_ids"  nolabel="1" colspan="6"/>
+                    <separator string="" colspan="4" />
+                    <group col="2" colspan="4">
+                        <button special="cancel" string="_Cancel" icon="gtk-cancel"/>
+                        <button name="create_returns" string="Ok" colspan="1" type="object" icon="gtk-apply"/>
+                    </group>
+                </form>""" % (separator_string, tuple(x))
+                
+        #raise osv.except_osv(_('Error !'), _('%s')%view)
+
+        view = etree.fromstring(view.encode('utf8'))
+        xarch, xfields = self._view_look_dom_arch(cr, uid, view, view_id, context=context)
+        view = xarch
+        res.update({
+            'arch': view
+        })
+        return res
 
     def default_get(self, cr, uid, fields, context=None):
         """
@@ -73,17 +150,7 @@ class wizard_forward_picking(osv.osv_memory):
         obj_picking = self.pool.get('stock.picking')
         picking = obj_picking.browse(cr, uid, record_id, context=context)
         
-        if picking:
-            dict_header =   {
-                                            'forward_stock_journal_id' : picking.stock_journal_id.stock_journal_return_id.id,
-                                            'allow_location_selection' : picking.stock_journal_id.stock_journal_return_id.allow_location_selection,
-                                            'allow_dest_location_selection' : picking.stock_journal_id.stock_journal_return_id.allow_dest_location_selection,
-                                            'location_id' : picking.stock_journal_id.stock_journal_return_id.default_location_id and picking.stock_journal_id.stock_journal_return_id.default_location_id.id or False,
-                                            'location_dest_id' : picking.stock_journal_id.stock_journal_return_id.default_location_dest_id and picking.stock_journal_id.stock_journal_return_id.default_location_dest_id.id or False,
-                                            }
-                                            
-            wizard.update(dict_header)
-                                            
+        if picking:                         
             return_history = self.get_return_history(cr, uid, record_id, context)       
             for line in picking.move_lines:
                 qty = line.product_qty - return_history[line.id]
@@ -97,6 +164,7 @@ class wizard_forward_picking(osv.osv_memory):
             if 'detail_ids' in fields:
                 wizard.update({'detail_ids' : result1})
         return wizard
+        
 
     def view_init(self, cr, uid, fields_list, context=None):
         """
@@ -163,34 +231,38 @@ class wizard_forward_picking(osv.osv_memory):
         value = {}
         domain = {}
         warning = {}
-        
-        list_location_id = []
-        list_location_dest_id = []
-        
+        x = []
+        y = []
+
         obj_stock_journal = self.pool.get('stock.journal')
-        
+
         if stock_journal_id:
             stock_journal = obj_stock_journal.browse(cr, uid, [stock_journal_id])[0]
             
+            val = {
+                    'allow_location_selection' : stock_journal.allow_location_selection,
+                    'allow_dest_location_selection' : stock_journal.allow_dest_location_selection,
+                    'location_id' : stock_journal.default_location_id.id,
+                    'location_dest_id' : stock_journal.default_location_dest_id.id,
+                    }
+            value.update(val)
+            
             if stock_journal.allowed_location_ids:
                 for location in stock_journal.allowed_location_ids:
-                    list_location_id.append(location.id)
-
+                    x.append(location.id)
+					
             if stock_journal.allowed_location_dest_ids:
-                for location in stock_journal.allowed_location_dest_ids:
-                    list_location_dest_id.append(location.id)                    
-                    
-            if list_location_id:
-                domain.update({'location_id' : [('id','in',list_location_id)]})
-                
-            if not list_location_id:
-                domain.update({'location_id' : [('id','=',0)]})                                
-                
-            if list_location_dest_id:
-                domain.update({'location_dest_id' : [('id','in',list_location_dest_id)]})               
-                
-            if not list_location_dest_id:
-                domain.update({'location_dest_id' : [('id','=',0)]})                      
+                for dest_location in stock_journal.allowed_location_dest_ids:
+                    y.append(dest_location.id)
+					
+            if x and y:
+                domain = {'location_id': [('id','in',x)] ,'location_dest_id': [('id','in',y)]}
+            elif x and not y:
+                domain = {'location_id': [('id','in',x)],'location_dest_id': [('id','=',0)]}
+            elif y and not x:
+                domain = {'location_id': [('id','=',0)],'location_dest_id': [('id','in',y)]}
+            else:
+                domain = {'location_id': [('id','=',0)],'location_dest_id': [('id','=',0)]}                    
                 
         return {'value' : value, 'domain' : domain, 'warning' : warning} 
             
