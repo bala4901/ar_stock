@@ -32,7 +32,7 @@
     'author': 'Andhitia Rama & Michael Viriyananda',
     'website': 'http://andhitiarama.wordpress.com',
     'images': [],
-    'depends': ['ar_base', 'ar_base_sequence', 'stock'],
+    'depends': ['ar_base', 'ar_base_sequence', 'stock', 'pentaho_reports'],
     'init_xml': [],
     'update_xml': [
                                 'security/ir.model.access.csv',

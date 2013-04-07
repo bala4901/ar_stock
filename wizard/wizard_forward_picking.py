@@ -101,11 +101,11 @@ class wizard_forward_picking(osv.osv_memory):
                     <separator string="%s" colspan="4"/>
                 	<field name="forward_stock_journal_id" on_change="onchange_stock_journal_id(forward_stock_journal_id)" domain="[('id','in',%s)]"/>
                 	<newline/>
-                	<field name="allow_location_selection" invisible="0"/>
+                	<field name="allow_location_selection" invisible="1"/>
                 	<newline/>
                 	<field name="location_id"  attrs="{'invisible':[('allow_location_selection','=',0)]}"/>
                 	<newline/>
-                	<field name="allow_dest_location_selection" invisible="0"/>
+                	<field name="allow_dest_location_selection" invisible="1"/>
                 	<newline/>
                 	<field name="location_dest_id"  attrs="{'invisible':[('allow_dest_location_selection','=',0)]}"/>
                 	<newline/>
@@ -119,7 +119,6 @@ class wizard_forward_picking(osv.osv_memory):
                     </group>
                 </form>""" % (separator_string, tuple(x))
                 
-        #raise osv.except_osv(_('Error !'), _('%s')%view)
 
         view = etree.fromstring(view.encode('utf8'))
         xarch, xfields = self._view_look_dom_arch(cr, uid, view, view_id, context=context)
@@ -302,7 +301,7 @@ class wizard_forward_picking(osv.osv_memory):
         dict_defaults = {
                                         'date' : date_cur,
                                         'move_lines' : [],
-                                        'picking_reference_id' : '%s, %s' % (picking.stock_journal_id.stock_journal_return_id.model_name, str(picking.id)),
+                                        'picking_reference_id' : '%s, %s' % (picking.stock_journal_id.model_name, str(picking.id)),
                                         }
         
         new_picking_id = obj_picking.create(cr, uid, dict_defaults, context)
