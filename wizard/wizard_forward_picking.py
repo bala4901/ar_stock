@@ -319,6 +319,10 @@ class wizard_forward_picking(osv.osv_memory):
             # ini penting buat dimengerti nih
             for rec in move.move_history_ids2:
                 returned_qty -= rec.product_qty
+                
+                
+            if returned_qty <= 0:
+                raise osv.except_osv('Warning!', 'Quantity exceed limit')                
 
             # ini juga
             if returned_qty != new_qty:
