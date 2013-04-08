@@ -84,16 +84,15 @@ class wizard_forward_picking(osv.osv_memory):
         
         record_id = context and context.get('stock_journal', False) or False
         
-        stock_journal_ids = obj_stock_journal.search(cr, uid, [('name','=',record_id)])[0]
+        stock_journal_ids = obj_stock_journal.search(cr, uid, [('name','=',record_id)])[0]       
         
         stock_journal = obj_stock_journal.browse(cr, uid, stock_journal_ids, context=context)
         
         if stock_journal.allowed_forward_stock_journal_ids:
             for journal in stock_journal.allowed_forward_stock_journal_ids:
                 x.append(journal.id)
-
-        if not view_id:
-            return res
+                
+        #raise osv.except_osv(_('Error !'), _('%s')%view_id)
 
         separator_string = _("Forward Picking")
         view = """<?xml version="1.0" encoding="utf-8"?>
@@ -287,6 +286,8 @@ class wizard_forward_picking(osv.osv_memory):
         obj_uom = self.pool.get('product.uom')
         obj_detail = self.pool.get('stock.wizard_forward_picking_detail')
         wkf_service = netsvc.LocalService('workflow')
+        data_obj = self.pool.get('stock.return.picking.memory')
+        obj_stock_journal = self.pool.get('stock.journal')
         
         picking = obj_picking.browse(cr, uid, record_id, context=context)
         wizard = self.read(cr, uid, ids[0], context=context)
@@ -294,14 +295,21 @@ class wizard_forward_picking(osv.osv_memory):
         date_cur = time.strftime('%Y-%m-%d %H:%M:%S')
         set_invoice_state_to_none = True
         returned_lines = 0
+        #raise osv.except_osv(_('Error'), _('%s')%(wizard['forward_stock_journal_id'][0],))
+        stock_journal_ids = obj_stock_journal.search(cr, uid, [('id','=',wizard['forward_stock_journal_id'][0])])[0]       
+        
+        stock_journal = obj_stock_journal.browse(cr, uid, stock_journal_ids, context=context)
         
         # Get info from stock.journal
  
-        context.update({'stock_journal' : picking.stock_journal_id.stock_journal_return_id.name})
+        context.update({'stock_journal' : stock_journal.name})
         dict_defaults = {
                                         'date' : date_cur,
                                         'move_lines' : [],
-                                        'picking_reference_id' : '%s, %s' % (picking.stock_journal_id.model_name, str(picking.id)),
+                                        'invoice_state' : stock_journal.default_invoice_state,
+                                        'location_id' : wizard['location_id'][0],
+                                        'location_dest_id' : wizard['location_dest_id'][0],
+                                        'picking_reference_id' : '%s, %s' % (stock_journal.model_name, str(picking.id)),
                                         }
         
         new_picking_id = obj_picking.create(cr, uid, dict_defaults, context)
@@ -318,11 +326,12 @@ class wizard_forward_picking(osv.osv_memory):
             
             # ini penting buat dimengerti nih
             for rec in move.move_history_ids2:
-                returned_qty -= rec.product_qty
-                
-                
-            if returned_qty <= 0:
-                raise osv.except_osv('Warning!', 'Quantity exceed limit')                
+                if rec.state not in ('draft','cancel'):
+                    returned_qty -= rec.product_qty
+
+            if new_qty > returned_qty:                
+                raise osv.except_osv(_('Peringatan'), _('Hanya %s unit yang tersedia untuk melakukan forward')%(returned_qty,))
+
 
             # ini juga
             if returned_qty != new_qty:
@@ -355,16 +364,16 @@ class wizard_forward_picking(osv.osv_memory):
         # Menyesuaikan view yang dibuka dengan stock_journal picking yang baru
             
         obj_data = self.pool.get('ir.model.data')
-        res = obj_data.get_object_reference(cr, uid, picking.stock_journal_id.stock_journal_return_id.modul_origin, picking.stock_journal_id.stock_journal_return_id.model_view_form)
+        res = obj_data.get_object_reference(cr, uid, stock_journal.modul_origin, stock_journal.model_view_form)
         context.update({'view_id': res and res[1] or False})
         
         # membuka form dengan picking yang baru
         return  {
                         'res_id' : new_picking_id,
-                        'name' : picking.stock_journal_id.stock_journal_return_id.name,
+                        'name' : stock_journal.name,
                         'view_type' : 'form',
                         'view_mode' : 'form',
-                        'res_model' : picking.stock_journal_id.stock_journal_return_id.model_name, #TODO
+                        'res_model' : stock_journal.model_name, #TODO
                         'type' : 'ir.actions.act_window',
                         'context' : context,
                         }
