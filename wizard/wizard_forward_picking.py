@@ -84,16 +84,15 @@ class wizard_forward_picking(osv.osv_memory):
         
         record_id = context and context.get('stock_journal', False) or False
         
-        stock_journal_ids = obj_stock_journal.search(cr, uid, [('name','=',record_id)])[0]
+        stock_journal_ids = obj_stock_journal.search(cr, uid, [('name','=',record_id)])[0]       
         
         stock_journal = obj_stock_journal.browse(cr, uid, stock_journal_ids, context=context)
         
         if stock_journal.allowed_forward_stock_journal_ids:
             for journal in stock_journal.allowed_forward_stock_journal_ids:
                 x.append(journal.id)
-
-        if not view_id:
-            return res
+                
+        #raise osv.except_osv(_('Error !'), _('%s')%view_id)
 
         separator_string = _("Forward Picking")
         view = """<?xml version="1.0" encoding="utf-8"?>

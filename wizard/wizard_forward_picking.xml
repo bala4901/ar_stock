@@ -54,13 +54,12 @@
             </field>
         </record>
         
-        <record id="waction_stock_wizardForwardPickingIncomingShipment" model="ir.actions.act_window">
+        <record id="waction_stock_wizardForwardPicking" model="ir.actions.act_window">
             <field name="name">Create Forward Picking</field>
             <field name="res_model">stock.wizard_forward_picking</field>
             <field name="view_type">form</field>
             <field name="view_id" ref="form_stock_wizardForwardPicking"/>
             <field name="target">new</field>
-            <field name="context">{'stock_journal' : 'Incoming Shipment'}</field>
         </record>          
         
     </data>
