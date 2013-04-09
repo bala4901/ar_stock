@@ -21,5 +21,6 @@
 
 import wizard_cancel_stock_picking
 import wizard_forward_picking
+import wizard_invoice_on_picking
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

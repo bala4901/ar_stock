@@ -39,6 +39,7 @@ class stock_journal(osv.osv):
 							'allowed_location_dest_ids' : fields.many2many(obj='stock.location', rel='stock_journal_location_dest_rel', id1='stock_journal_id', id2='location_id', domain=[('usage','!=','view')]),
 							'allowed_return_product' : fields.boolean(string='Allowed Forward Product'),
 							'allowed_forward_stock_journal_ids' : fields.many2many(obj='stock.journal', rel='stock_journal_stock_journal_rel', id1='stock_journal1_id', id2='stock_journal2_id'),
+							'allowed_account_journal_ids' : fields.many2many(obj='account.journal', rel='stock_journal_account_journal_rel', id1='stock_journal_id', id2='account_journal_id'),
 							'stock_journal_return_id' : fields.many2one(string='Return Stock Journal', obj='stock.journal'),
 							'allowed_invoicing' : fields.boolean(string='Allow Create Invoice/Refund'),
 							'invoice_type' : fields.selection(string='Invoice Type', selection=[('out_invoice','Customer Invoice'),('in_invoice','Supplier Invoice'),('out_refund','Customer Refund'),('in_refund','Supplier Refund')]),

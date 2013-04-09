@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="form_stock_wizardInvoiceOnPicking" model="ir.ui.view">
+            <field name="name">Stock Invoice On Picking</field>
+            <field name="model">stock.wizard_invoice_on_picking</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+              <form string="Create invoice">
+                    <separator colspan="4" string="Create invoice" />
+                    <field name="account_journal_id"/>
+                    <newline/>
+                    <field name="group"/>
+                    <newline/>
+                    <field name="invoice_date" />
+                    <separator string="" colspan="4" />
+                    <button special="cancel" string="_Cancel" icon='gtk-cancel'/>
+                    <button name="open_invoice" string="Create" type="object" icon="terp-gtk-go-back-rtl"/>
+             </form>
+            </field>
+        </record>
+
+
+        <record id="waction_stock_wizardInvoiceOnPicking" model="ir.actions.act_window">
+            <field name="name">Create Invoice On Picking</field>
+            <field name="res_model">stock.wizard_invoice_on_picking</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="form_stock_wizardInvoiceOnPicking"/>
+            <field name="target">new</field>
+        </record> 
+    </data>
+</openerp>
