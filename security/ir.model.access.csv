@@ -1,9 +1,11 @@
-"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
-"data_accessRight_stockExpedition","data_accessRight_stockExpedition","model_stock_expedition",,1,1,1,1
-"data_accessRight_stockExpeditionCrewPosition","data_accessRight_stockExpeditionCrewPosition","model_stock_expedition_crew_position",,1,1,1,1
-"data_accessRight_stockExpeditionCrew","data_accessRight_stockExpeditionCrew","model_stock_expedition_crew",,1,1,1,1
-
-
-
-
-
+id	name	model_id:id	group_id:id	perm_read	perm_write	perm_create	perm_unlink
+data_accessRight_stockExpedition	data_accessRight_stockExpedition	model_stock_expedition		1	1	1	1
+data_accessRight_stockExpeditionCrewPosition	data_accessRight_stockExpeditionCrewPosition	model_stock_expedition_crew_position		1	1	1	1
+data_accessRight_stockExpeditionCrew	data_accessRight_stockExpeditionCrew	model_stock_expedition_crew		1	1	1	1
+data_accessRight_stockCustomerClaim	data_accessRight_stockCustomerClaim	model_stock_customer_claim		1	1	1	1
+data_accessRight_stockCustomerClaimRealization	data_accessRight_stockCustomerClaimRealization	model_stock_customer_claim_realization		1	1	1	1
+data_accessRight_stockDeliveryOrder	data_accessRight_stockDeliveryOrder	model_stock_delivery_order		1	1	1	1
+data_accessRight_stockIncomingShipment	data_accessRight_stockIncomingShipment	model_stock_incoming_shipment		1	1	1	1
+data_accessRight_stockInternalMoves	data_accessRight_stockInternalMoves	model_stock_internal_moves		1	1	1	1
+data_accessRight_stockSupplierClaim	data_accessRight_stockSupplierClaim	model_stock_supplier_claim		1	1	1	1
+data_accessRight_stockSupplierClaimRealization	data_accessRight_stockSupplierClaimRealization	model_stock_supplier_claim_realization		1	1	1	1
