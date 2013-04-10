@@ -118,6 +118,10 @@ class stock_picking(osv.osv):
 			
 
 	_columns =	{
+							'location_id': fields.many2one('stock.location', 'Location', help="Keep empty if you produce at the location where the finished products are needed." \
+									"Set a location if you produce at a fixed location. This can be a partner location " \
+									"if you subcontract the manufacturing operations.",readonly=True, select=True, states={'draft': [('readonly', False)]}),
+							'location_dest_id': fields.many2one('stock.location', 'Dest. Location',help="Location where the system will stock the finished products.", select=True,readonly=True, states={'draft': [('readonly', False)]}),
 							'picking_reference_id' : fields.reference(string='Reference', selection=selection_picking_reference, readonly=True, size=256),
 							'expedition_id' : fields.many2one(string='Expedition', obj='stock.expedition'),
 							'create_user_id' : fields.many2one(obj='res.users', string='Created By', readonly=True),
