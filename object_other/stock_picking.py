@@ -181,6 +181,10 @@ class stock_picking(osv.osv):
 				domain = {'location_id': [('id','=',0)],'location_dest_id': [('id','=',0)] }
 					
 		return {'value' : value, 'domain' : domain, 'warning' : warning}
+		
+	def onchange_location_dest_id(self, cr, uid, ids, location_dest_id):
+		#raise osv.except_osv(_('Error !'), _('%s')%ids)
+		return {'value': {'move_lines.location_dest_id': location_dest_id or False}}
 
 	def create_sequence(self, cr, uid, id):
 		"""
@@ -198,6 +202,38 @@ class stock_picking(osv.osv):
 		sequence = obj_sequence.next_by_id(cr, uid, sequence_id)
 		self.write(cr, uid, [id], {'name' : sequence})
 
+		return True
+		
+	def update_location_dest_id(self, cr, uid, id):
+		"""
+
+		"""
+		obj_stock_move = self.pool.get('stock.move')
+
+		picking = self.browse(cr, uid, [id])[0]
+		
+		stock_move_ids = obj_stock_move.search(cr, uid, [('picking_id','=',picking.id)])
+		
+		for stock_move in obj_stock_move.browse(cr, uid, stock_move_ids):
+			#raise osv.except_osv(_('Error !'), _('%s')%stock_move.location_dest_id.id)
+			if stock_move.location_dest_id.id <> picking.location_dest_id.id:
+				obj_stock_move.write(cr, uid, [stock_move.id], {'location_dest_id' : picking.location_dest_id.id})
+		return True
+		
+	def update_location_id(self, cr, uid, id):
+		"""
+
+		"""
+		obj_stock_move = self.pool.get('stock.move')
+
+		picking = self.browse(cr, uid, [id])[0]
+		
+		stock_move_ids = obj_stock_move.search(cr, uid, [('picking_id','=',picking.id)])
+		
+		for stock_move in obj_stock_move.browse(cr, uid, stock_move_ids):
+			#raise osv.except_osv(_('Error !'), _('%s')%stock_move.location_id.id)
+			if stock_move.location_id.id <> picking.location_id.id:
+				obj_stock_move.write(cr, uid, [stock_move.id], {'location_id' : picking.location_id.id})
 		return True
 
 	def action_confirm(self, cr, uid, ids, context=None):
@@ -275,11 +311,31 @@ class stock_picking(osv.osv):
 		vals.update({'name' : 'xxx'})
 	
 		new_id = super(stock_picking, self).create(cr, uid, vals, context)
-		
+		#raise osv.except_osv(_('Error !'), _('%s')%type(new_id))
 		if not self.create_sequence(cr, uid, new_id):
 			return False
 			
+		if not self.update_location_dest_id(cr, uid, new_id):
+			return False
+			
+		if not self.update_location_id(cr, uid, new_id):
+			return False
+			
 		return new_id
+
+	def write(self,cr, uid, ids, vals, context=None):
+		obj_stock_move = self.pool.get('stock.move')
+		
+		stock_move_ids = obj_stock_move.search(cr, uid, [('picking_id','in',ids)])
+		
+		if stock_move_ids:
+			for stock_move in obj_stock_move.browse(cr, uid, stock_move_ids):
+				if 'location_id' in vals:
+					obj_stock_move.write(cr, uid, [stock_move.id], {'location_id' : vals['location_id']})
+				elif 'location_dest_id' in vals:
+					obj_stock_move.write(cr, uid, [stock_move.id], {'location_dest_id' : vals['location_dest_id']})
+		
+		return super(stock_picking,self).write(cr, uid, ids, vals, context=context)
 	
 	def do_partial(self, cr, uid, ids, partial_datas, context=None):
 		""" Makes partial picking and moves done.
