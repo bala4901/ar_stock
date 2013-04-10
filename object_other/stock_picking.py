@@ -116,7 +116,17 @@ class stock_picking(osv.osv):
 		else:
 			return []
 			
-
+	def function_reference_num(self, cr, uid, ids, field_name, args, context=None):
+		res = {}
+		
+		obj_stock_picking = self.pool.get('stock.picking')
+		
+		for picking in obj_stock_picking.browse(cr, uid, ids):
+			if picking.picking_reference_id:
+				res[picking.id] = picking.picking_reference_id.name
+				#raise osv.except_osv(_('Error !'), _('%s')%picking.picking_reference_id.name)
+		return res
+			
 	_columns =	{
 							'location_id': fields.many2one('stock.location', 'Location', help="Keep empty if you produce at the location where the finished products are needed." \
 									"Set a location if you produce at a fixed location. This can be a partner location " \
@@ -134,6 +144,7 @@ class stock_picking(osv.osv):
 							'cancel_time' : fields.datetime(string='Cancelled Time', readonly=True),									
 							'cancel_description' : fields.text(string='Cancel Description', readonly=True),
 							'allowed_location_id' : fields.related(string='Allowed Location Ids', f1='stock_journal_id',f2='allowed_location_ids', type='many2many', obj='stock.location'),			
+							'reference_num' : fields.function(fnct=function_reference_num, string='Reference', type='char', method=True, store=True)
 							}				
 
 	_defaults =	{

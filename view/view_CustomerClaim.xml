@@ -18,6 +18,7 @@
 			        <field name="invoice_state" groups="base.group_extended"/>
 			        <field name="stock_journal_id" groups="base.group_extended" widget="selection"/>
 			        <field name="state"/>
+        			<field name="reference_num"/>
 			        <button name="action_process" states="assigned" string="Process" type="object" icon="gtk-go-forward"/>
 		        </tree>
             </field>
@@ -35,6 +36,7 @@
                 			<separator string="Reference" colspan="2"/>
                 			<field name="name" readonly="1" string="# Customer Claim"/>
                 			<field name="origin"/>
+                			<field name="picking_reference_id" readonly="1"/>
                 			<field name="backorder_id" readonly="1" groups="base.group_extended"/>
                 		</group>
                 		<group name="group_1_2" colspan="1" col="2">
