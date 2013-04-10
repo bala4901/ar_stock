@@ -62,7 +62,7 @@
                                         string="Scrap Products" type="action"
                                         icon="gtk-convert" context="{'scrap': True}"
                                         states="draft,waiting,confirmed,assigned"
-                                        groups="base.group_extended"/>
+                                        invisible="1"/>
                                     <field name="scrapped" invisible="1"/>
                                     <field name="prodlot_id" groups="base.group_extended"/>
                                     <button
