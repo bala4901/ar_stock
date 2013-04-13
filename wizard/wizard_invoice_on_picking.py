@@ -99,15 +99,25 @@ class wizard_invoice_on_picking(osv.osv_memory):
     def open_invoice(self, cr, uid, ids, context=None):
         if context is None:
             context = {}
+            
         invoice_ids = []
+        action_model = False
+        action = {}        
+        
         data_pool = self.pool.get('ir.model.data')
+        
         res = self.create_invoice(cr, uid, ids, context=context)
         invoice_ids += res.values()
+        
         inv_type = context.get('inv_type', False)
-        action_model = False
-        action = {}
+
         if not invoice_ids:
             raise osv.except_osv(_('Error'), _('No Invoices were created'))
+            
+            
+        # pemilihan view mana yang akan dibuka
+        #TODO: pilih view nya yg jenis form aja
+        
         if inv_type == "out_invoice":
             action_model,action_id = data_pool.get_object_reference(cr, uid, 'account', "action_invoice_tree1")
         elif inv_type == "in_invoice":
@@ -116,6 +126,8 @@ class wizard_invoice_on_picking(osv.osv_memory):
             action_model,action_id = data_pool.get_object_reference(cr, uid, 'account', "action_invoice_tree3")
         elif inv_type == "in_refund":
             action_model,action_id = data_pool.get_object_reference(cr, uid, 'account', "action_invoice_tree4")
+            
+        #TODO: Karena sudah form yg dibuka bukan tree, maka gunakan res_id, jangan domain 
         if action_model:
             action_pool = self.pool.get(action_model)
             action = action_pool.read(cr, uid, action_id, context=context)
@@ -125,18 +137,26 @@ class wizard_invoice_on_picking(osv.osv_memory):
     def create_invoice(self, cr, uid, ids, context=None):
         if context is None:
             context = {}
+            
         picking_pool = self.pool.get('stock.picking')
         onshipdata_obj = self.read(cr, uid, ids, ['account_journal_id', 'group', 'invoice_date'])
+        
+        # dapet context new picking nya dari mana yah?
         if context.get('new_picking', False):
-            onshipdata_obj['id'] = onshipdata_obj.new_picking
-            onshipdata_obj[ids] = onshipdata_obj.new_picking
+            onshipdata_obj['id'] = onshipdata_obj.new_picking # onshipdata_obj.new_picking ini apaan yah?
+            onshipdata_obj[ids] = onshipdata_obj.new_picking # onshipdata_obj.new_picking ini apaan yah?
+            
         context['date_inv'] = onshipdata_obj[0]['invoice_date']
+        
         active_ids = context.get('active_ids', [])
         active_picking = picking_pool.browse(cr, uid, context.get('active_id',False), context=context)
-        inv_type = picking_pool._get_invoice_type(active_picking)
+        
+        inv_type = picking_pool._get_invoice_type(active_picking) # Pertimbangkan untuk override/buat method sendiri
         context['inv_type'] = inv_type
+        
         if isinstance(onshipdata_obj[0]['account_journal_id'], tuple):
             onshipdata_obj[0]['account_journal_id'] = onshipdata_obj[0]['account_journal_id'][0]
+            
         res = picking_pool.action_invoice_create(cr, uid, active_ids,
               journal_id = onshipdata_obj[0]['account_journal_id'],
               group = onshipdata_obj[0]['group'],
