@@ -194,7 +194,10 @@ class stock_picking(osv.osv):
 		return {'value' : value, 'domain' : domain, 'warning' : warning}
 		
 	def onchange_location_dest_id(self, cr, uid, ids, location_dest_id):
-		#raise osv.except_osv(_('Error !'), _('%s')%ids)
+		"""
+		Ini dipake ga yah?
+		"""
+		
 		return {'value': {'move_lines.location_dest_id': location_dest_id or False}}
 
 	def create_sequence(self, cr, uid, id):
@@ -226,7 +229,6 @@ class stock_picking(osv.osv):
 		stock_move_ids = obj_stock_move.search(cr, uid, [('picking_id','=',picking.id)])
 		
 		for stock_move in obj_stock_move.browse(cr, uid, stock_move_ids):
-			#raise osv.except_osv(_('Error !'), _('%s')%stock_move.location_dest_id.id)
 			if stock_move.location_dest_id.id <> picking.location_dest_id.id:
 				obj_stock_move.write(cr, uid, [stock_move.id], {'location_dest_id' : picking.location_dest_id.id})
 		return True
@@ -242,7 +244,6 @@ class stock_picking(osv.osv):
 		stock_move_ids = obj_stock_move.search(cr, uid, [('picking_id','=',picking.id)])
 		
 		for stock_move in obj_stock_move.browse(cr, uid, stock_move_ids):
-			#raise osv.except_osv(_('Error !'), _('%s')%stock_move.location_id.id)
 			if stock_move.location_id.id <> picking.location_id.id:
 				obj_stock_move.write(cr, uid, [stock_move.id], {'location_id' : picking.location_id.id})
 		return True
@@ -322,7 +323,7 @@ class stock_picking(osv.osv):
 		vals.update({'name' : 'xxx'})
 	
 		new_id = super(stock_picking, self).create(cr, uid, vals, context)
-		#raise osv.except_osv(_('Error !'), _('%s')%type(new_id))
+
 		if not self.create_sequence(cr, uid, new_id):
 			return False
 			

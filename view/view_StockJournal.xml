@@ -9,47 +9,44 @@
             <field name="arch" type="xml">
 				<data>
 					<field name="user_id" position="after">
-						<group name="group_1" colspan="4" col="2">
-							<group name="group_1_1" colspan="1" col="2">
-								<separator string="Default Setting" colspan="2"/>
-								<field name="default_type"/>
-								<field name="default_invoice_state"/>
-								<field name="default_sequence_id" widget="selection"/>
-							</group>
-							<group name="group_1_2" colspan="1" col="2">
-								<separator string="Return Product Setting" colspan="2"/>
+						<notebook colspan="4">
+							<page string="General Setting">
+								<group name="1" colspan="4" col="2">
+									<group name="group_1_1" colspan="1" col="2">
+										<separator string="Picking Setting" colspan="2"/>
+										<field name="default_type"/>
+										<field name="default_invoice_state"/>
+										<field name="default_sequence_id" widget="selection"/>										
+									</group>
+									<group name="group_1_2" colspan="1" col="2">
+										<separator string="Inherit Object" colspan="2"/>
+										<field name="model_name"/>
+										<field name="model_view_form"/>
+										<field name="modul_origin"/>								
+									</group>									
+								</group>
+							</page>
+							<page string="Forward Picking Setting">
 								<field name="allowed_return_product"/>
-								<field name="stock_journal_return_id" attrs="{'required':[('allowed_return_product','=',True)]}" widget="selection"/>
-							</group>
-
-							<group name="group_1_3" colspan="1" col="2">
-								<separator string="Default Journal" colspan="2"/>
-								<field name="allowed_forward_stock_journal_ids" colspan="2" nolabel="1" attrs="{'readonly':[('allowed_return_product','=',0)]}"/>
-								<separator string="Inherit Object" colspan="2"/>
-								<field name="model_name"/>
-								<field name="model_view_form"/>
-								<field name="modul_origin"/>
-							</group>	
-							
-							<group name="group_1_4" colspan="1" col="2">
-								<separator string="Invoice/Refund Setting" colspan="2"/>
-								<field name="allowed_invoicing"/>
-								<field name="allowed_account_journal_ids" colspan="2" nolabel="1" attrs="{'readonly':[('allowed_invoicing','=',0)]}" domain="[('type','in',('sale','sale_refund','purchase','purchase_refund'))]"/>
-							</group>							
-			
-							<group name="group_1_5" colspan="1" col="2">
-								<separator string="Location Setting" colspan="2"/>
+								<newline/>
+								<field name="allowed_forward_stock_journal_ids" colspan="4" nolabel="1" attrs="{'readonly':[('allowed_return_product','=',0)]}"/>
+							</page>
+							<page string="Location Setting">
+								<separator string="Location Setting" colspan="4"/>
 								<field name="allow_location_selection"/>
 								<field name="default_location_id" attrs="{'invisible':[('allow_location_selection','=',True)], 'required':[('allow_location_selection','=',False)]}" />
-								<field name="allowed_location_ids" nolabel="1" colspan="2" attrs="{'invisible':[('allow_location_selection','=',False)],'required':[('allow_location_selection','=',True)]}"/>
-							</group>						
-							<group name="group_1_6" colspan="1" col="2">
-								<separator string="Destination Location Setting" colspan="2"/>
+								<field name="allowed_location_ids" nolabel="1" colspan="4" attrs="{'invisible':[('allow_location_selection','=',False)],'required':[('allow_location_selection','=',True)]}"/>
+								<separator string="Destination Location Setting" colspan="4"/>
 								<field name="allow_dest_location_selection"/>
 								<field name="default_location_dest_id" attrs="{'invisible':[('allow_dest_location_selection','=',True)],'required':[('allow_dest_location_selection','=',False)]}"/>
-								<field name="allowed_location_dest_ids" nolabel="1" colspan="2" attrs="{'invisible':[('allow_dest_location_selection','=',False)],'required':[('allow_dest_location_selection','=',True)]}"/>
-							</group>																	
-						</group>
+								<field name="allowed_location_dest_ids" nolabel="1" colspan="4" attrs="{'invisible':[('allow_dest_location_selection','=',False)],'required':[('allow_dest_location_selection','=',True)]}"/>															
+							</page>
+							<page string="Invoice &amp; Refund Setting">
+								<field name="allowed_invoicing"/>
+								<newline/>
+								<field name="allowed_account_journal_ids" colspan="2" nolabel="1" attrs="{'readonly':[('allowed_invoicing','=',0)]}" domain="[('type','in',('sale','sale_refund','purchase','purchase_refund'))]"/>							
+							</page>
+						</notebook>
 					</field>
 				</data>
             </field>
