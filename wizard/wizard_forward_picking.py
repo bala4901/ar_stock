@@ -295,7 +295,6 @@ class wizard_forward_picking(osv.osv_memory):
         date_cur = time.strftime('%Y-%m-%d %H:%M:%S')
         set_invoice_state_to_none = True
         returned_lines = 0
-        #raise osv.except_osv(_('Error'), _('%s')%(wizard['forward_stock_journal_id'][0],))
         stock_journal_ids = obj_stock_journal.search(cr, uid, [('id','=',wizard['forward_stock_journal_id'][0])])[0]       
         
         stock_journal = obj_stock_journal.browse(cr, uid, stock_journal_ids, context=context)
@@ -309,7 +308,7 @@ class wizard_forward_picking(osv.osv_memory):
                                         'invoice_state' : stock_journal.default_invoice_state,
                                         'location_id' : wizard['location_id'][0],
                                         'location_dest_id' : wizard['location_dest_id'][0],
-                                        'picking_reference_id' : '%s, %s' % (stock_journal.model_name, str(picking.id)),
+                                        'picking_reference_id' : '%s, %s' % (picking.stock_journal_id.model_name, str(picking.id)),
                                         }
         
         new_picking_id = obj_picking.create(cr, uid, dict_defaults, context)
