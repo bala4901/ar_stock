@@ -373,6 +373,7 @@ class stock_picking(osv.osv):
 				          delivery moves with product_id, product_qty, uom
 		@return: Dictionary of values
 		"""
+
 		if context is None:
 			context = {}
 		else:
@@ -385,10 +386,12 @@ class stock_picking(osv.osv):
 		sequence_obj = self.pool.get('ir.sequence')
 		wf_service = netsvc.LocalService("workflow")
 		for pick in self.browse(cr, uid, ids, context=context):
+
 			new_picking = None
 			complete, too_many, too_few = [], [], []
 			move_product_qty, prodlot_ids, product_avail, partial_qty, product_uoms = {}, {}, {}, {}, {}
 			for move in pick.move_lines:
+
 				if move.state in ('done', 'cancel'):
 				    continue
 				partial_data = partial_datas.get('move%s'%(move.id), {})
@@ -445,12 +448,15 @@ class stock_picking(osv.osv):
 			for move in too_few:
 				product_qty = move_product_qty[move.id]
 				if not new_picking:
+                                    name = sequence_obj.get(cr, uid, 'stock.picking.%s'%(pick.type))
+                                    #raise osv.except_osv(_('Warning'), _('%s')%(pick.id))
 				    new_picking = self.copy(cr, uid, pick.id,
 				            {
-				                'name': sequence_obj.get(cr, uid, 'stock.picking.%s'%(pick.type)),
-				                'move_lines' : [],
-				                'state':'draft',
+				                'name': name,
+				                'move_lines': [],
+				                'state' : 'draft',
 				            })
+				    
 				if product_qty != 0:
 				    defaults = {
 				            'product_qty' : product_qty,
@@ -462,9 +468,11 @@ class stock_picking(osv.osv):
 				            'product_uom': product_uoms[move.id]
 				    }
 				    prodlot_id = prodlot_ids[move.id]
+                                    
 				    if prodlot_id:
 				        defaults.update(prodlot_id=prodlot_id)
 				    move_obj.copy(cr, uid, move.id, defaults)
+
 				move_obj.write(cr, uid, [move.id],
 				        {
 				            'product_qty' : move.product_qty - partial_qty[move.id],
@@ -520,18 +528,6 @@ class stock_picking(osv.osv):
 
 
 		return res
-					
-		
-		
-	
-					
-		
-
-			
-		
-		
-		
-
 
 stock_picking()
 
