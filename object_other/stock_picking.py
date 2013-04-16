@@ -158,8 +158,7 @@ class stock_picking(osv.osv):
 							'process_time' : fields.datetime(string='Processed Time', readonly=True),		
 							'cancel_user_id' : fields.many2one(obj='res.users', string='Processed By', readonly=True),
 							'cancel_time' : fields.datetime(string='Cancelled Time', readonly=True),									
-							'cancel_description' : fields.text(string='Cancel Description', readonly=True),
-							'allowed_location_id' : fields.related(string='Allowed Location Ids', f1='stock_journal_id',f2='allowed_location_ids', type='many2many', obj='stock.location'),			
+							'cancel_description' : fields.text(string='Cancel Description', readonly=True),	
 							'reference_num' : fields.function(fnct=function_reference_num, string='Reference', type='char', method=True, store=True)
 							}				
 
