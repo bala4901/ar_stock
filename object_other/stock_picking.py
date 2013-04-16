@@ -63,6 +63,7 @@ class stock_picking(osv.osv):
 			obj_stock_journal = self.pool.get('stock.journal')
 			stock_journal_ids = obj_stock_journal.search(cr, uid, [('name','=',stock_journal)])
 			if stock_journal_ids : stock_journal_id = stock_journal_ids[0]
+		#raise osv.except_osv(_('Error !'), _('%s')%stock_journal_id)
 	
 		return stock_journal_id
 
@@ -103,6 +104,21 @@ class stock_picking(osv.osv):
 		stock_journal = obj_stock_journal.browse(cr, uid, [stock_journal_id])[0]
 
 		return stock_journal.default_invoice_state
+		
+	def default_type(self, cr, uid, context={}):
+		"""
+
+
+		"""
+		obj_stock_journal = self.pool.get('stock.journal')
+
+		stock_journal_id = self.default_stock_journal_id(cr, uid, context)
+
+		if not stock_journal_id : return False
+
+		stock_journal = obj_stock_journal.browse(cr, uid, [stock_journal_id])[0]
+
+		return stock_journal.default_type
 		
 	def selection_picking_reference(self, cr, uid, context={}):
 		obj_model = self.pool.get('ir.model')
@@ -153,6 +169,7 @@ class stock_picking(osv.osv):
 							'location_id' : default_location_id,
 							'location_dest_id' : default_location_dest_id,
 							'invoice_state' : default_invoice_state,
+							'type' : default_type,
 							'create_user_id' : default_create_user_id,
 							'create_time' : default_create_time,
 							}

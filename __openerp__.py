@@ -35,7 +35,6 @@
     'depends': ['ar_base', 'ar_base_sequence', 'stock', 'pentaho_reports'],
     'init_xml': [],
     'update_xml': [
-                                'security/ir.model.access.csv',
                                 'data/data_Sequence.xml',
                                 'data/data_StockJournal.xml',
                                 'data/data_PickingReference.xml',
