@@ -11,9 +11,11 @@
                 
 		<record id="report_stock_incomingShipment" model="ir.actions.report.xml">
 			<field name="is_pentaho_report" eval="1"/>
+			<field name="pentaho_load_file" eval="1"/>
 			<field name="pentaho_report_output_type">pdf</field>
 			<field name="pentaho_report_model_id" ref="ar_stock.model_stock_incoming_shipment"/>
 			<field name="pentaho_filename">ar_stock/report/incoming_shipment.prpt</field>
+			<field name="context">{'is_pentaho_report': True}</field>
 		</record>                
 	</data>
 </openerp>
