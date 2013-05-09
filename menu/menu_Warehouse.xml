@@ -23,18 +23,25 @@
 									sequence="1"					
 									/>		
 									
+		<menuitem 	id="menu_stock_otherIncomingShipment" 
+									parent="menu_stock_incomingHeader" 
+									name="Other Incoming Shipment"					
+									action="waction_stock_otherIncomingShipment" 
+									sequence="2"					
+									/>
+									
 		<menuitem 	id="menu_stock_supplierClaimRealization" 
 									parent="menu_stock_incomingHeader" 
 									name="Supplier Claim Realization"					
 									action="waction_stock_supplierClaimRealization" 
-									sequence="2"					
+									sequence="3"					
 									/>					
 									
 		<menuitem 	id="menu_stock_customerClaim" 
 									parent="menu_stock_incomingHeader" 
 									name="Customer Claim"					
 									action="waction_stock_customerClaim" 
-									sequence="3"					
+									sequence="4"					
 									/>		
 									
 		<menuitem id="menu_stock_internalMovement"

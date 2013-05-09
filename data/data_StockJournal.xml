@@ -34,10 +34,18 @@
 			<field name="model_view_form">form_stock_incomingShipment</field>
 			<field name="modul_origin">ar_stock</field>			
 		</record>
-
-
 		
-	
+		<record id="data_stockJournal_otherIncoming" model="stock.journal">
+			<field name="name">Other Incoming Shipment</field>
+			<field name="default_type">in</field>
+			<field name="default_invoice_state">none</field>
+			<field name="default_sequence_id" ref="data_sequence_otherIncomingShipment"/>
+			<field name="allowed_return_product" eval="1"/>
+			<field name="stock_journal_return_id" ref="data_stockJournal_incoming"/>
+			<field name="model_name">stock.other_incoming_shipment</field>
+			<field name="model_view_form">form_stock_otherIncomingShipment</field>
+			<field name="modul_origin">ar_stock</field>			
+		</record>
 		
 		<record id="data_stockJournal_internal" model="stock.journal">
 			<field name="name">Internal Moves</field>

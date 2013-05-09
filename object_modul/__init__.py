@@ -26,6 +26,7 @@ import expedition
 import expedition_crew
 
 import incoming_shipment
+import other_incoming_shipment
 import supplier_claim_realization
 import customer_claim
 import internal_moves
