@@ -91,9 +91,17 @@
 			<field name="modul_origin">ar_stock</field>			
 		</record>		
 		
-			
+		<record id="data_stockJournal_otherDeliveryOrder" model="stock.journal">
+			<field name="name">Other Delivery Order</field>
+			<field name="default_type">out</field>
+			<field name="default_invoice_state">none</field>
+			<field name="default_sequence_id" ref="data_sequence_otherDeliveryOrder"/>
+			<field name="allowed_return_product" eval="1"/>
+			<field name="stock_journal_return_id" ref="data_stockJournal_deliveryOrder"/>
+			<field name="model_name">stock.other_delivery_order</field>
+			<field name="model_view_form">form_stock_otherDeliveryOrder</field>
+			<field name="modul_origin">ar_stock</field>			
+		</record>
 		
-	
-
 	</data>
 </openerp>

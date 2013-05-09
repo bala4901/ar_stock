@@ -70,11 +70,18 @@
 									sequence="1"					
 									/>		
 									
+		<menuitem 	id="menu_stock_otherDeliveryOrder" 
+									parent="menu_stock_outgoingMovement" 
+									name="Other Delivery Order"					
+									action="waction_stock_otherDeliveryOrder" 
+									sequence="2"					
+									/>
+									
 		<menuitem 	id="menu_stock_supplierClaim" 
 									parent="menu_stock_outgoingMovement" 
 									name="Supplier Claim"					
 									action="waction_stock_supplierClaim" 
-									sequence="2"					
+									sequence="3"					
 									/>		
 									
 		<menuitem id="menu_stock_expeditionHeader"
