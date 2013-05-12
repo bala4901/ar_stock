@@ -365,7 +365,7 @@ class stock_picking(osv.osv):
 		
 		return super(stock_picking,self).write(cr, uid, ids, vals, context=context)
 	
-	def do_partial(self, cr, uid, ids, partial_datas, context=None):
+        def do_partial(self, cr, uid, ids, partial_datas, context=None):
 		""" Makes partial picking and moves done.
 		@param partial_datas : Dictionary containing details of partial picking
 				          like partner_id, address_id, delivery_date,
@@ -524,8 +524,6 @@ class stock_picking(osv.osv):
 			delivered_pack = self.browse(cr, uid, delivered_pack_id, context=context)
 			res[pick.id] = {'delivered_picking': delivered_pack.id or False}
 			
-
-
 		return res
 
 stock_picking()
