@@ -34,5 +34,6 @@ import delivery_order
 import other_delivery_order
 import supplier_claim
 import customer_claim_realization
+import product_reservation
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -136,7 +136,20 @@
 									name="Expedition Crew Position"					
 									action="waction_stock_expeditionCrewPosition" 
 									sequence="1"					
-									/>																																																		
+									/>				
+									
+		<menuitem 	id="menu_stock_reservationConfigurationHeader" 
+									parent="stock.menu_stock_root" 
+									name="Reservation"					
+									sequence="3"					
+									/>	
+									
+		<menuitem 	id="menu_stock_reservationProductReservation" 
+									parent="menu_stock_reservationConfigurationHeader" 
+									name="Product Reservation"					
+									action="waction_stock_productReservation" 
+									sequence="1"					
+									/>																																														
 									
 																																					
 																					
