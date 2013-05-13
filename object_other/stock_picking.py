@@ -227,9 +227,16 @@ class stock_picking(osv.osv):
 		if not picking.stock_journal_id.default_sequence_id:
 			raise osv.except_osv('Warning!', 'There is no sequence defined')
 			return False
+			
+		if picking.date:
+			tanggal = picking.date
+		else:
+			tanggal = datetime.now().strftime('%Y-%m-%d')
 	
 		sequence_id = picking.stock_journal_id.default_sequence_id.id
-		sequence = obj_sequence.next_by_id(cr, uid, sequence_id)
+
+		sequence = obj_sequence.next_by_id(cr, uid, sequence_id, context={'tanggal' : tanggal})
+		
 		self.write(cr, uid, [id], {'name' : sequence})
 
 		return True
