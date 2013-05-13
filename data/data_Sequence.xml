@@ -76,7 +76,15 @@
             <field name="prefix">RC/</field>
             <field name="padding">5</field>
             <field name="company_id" eval="False"/>
-        </record>            
+        </record>  
+        
+        <record id="data_sequence_productReservation" model="ir.sequence">
+            <field name="name">Product Reservation</field>
+            <field name="code">stock.picking</field>
+            <field name="prefix">PR/</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>          
 
 	</data>
 </openerp>
