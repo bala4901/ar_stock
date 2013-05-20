@@ -6,7 +6,6 @@
         <record id="stock.menu_stock_root" model="ir.ui.menu">
 			<field name="icon">terp-stock</field>
 			<field name="sequence">5</field>
-			<field name="group" ref="stock.group_stock_manager"/>
 			<field name="action" eval="0"/>
         </record>								
 	
