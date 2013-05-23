@@ -42,6 +42,7 @@
                                 'wizard/wizard_cancel_stock_picking.xml',
                                 'wizard/wizard_forward_picking.xml',
                                 'wizard/wizard_invoice_on_picking.xml',
+                                'wizard/wizard_stock_partial_picking.xml',
                                 'view/view_StockJournal.xml', 
                                 'view/view_IncomingShipment.xml',
                                 'view/view_OtherIncomingShipment.xml',

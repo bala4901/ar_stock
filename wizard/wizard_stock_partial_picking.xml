@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+		<record id="form_stock_arStockPartialPicking" model="ir.ui.view">
+            <field name="name">Form Wizard Stock Partial Picking</field>
+            <field name="model">stock.partial.picking</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="stock.stock_partial_picking_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <field name="hide_tracking" invisible="1" position="after">
+                    	<field name="date"/>
+					</field>
+            	</data>
+			</field>
+        </record>
+
+    </data>
+</openerp>
