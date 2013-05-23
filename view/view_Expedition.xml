@@ -28,18 +28,20 @@
                 <form string="Outgoing Expedition">
 					<group name="group_1" colspan="4" col="2">
 						<group name="group_1_1" colspan="1" col="2">
+							<separator string="Expedition" colspan="2"/>
 							<field name="name"/>
 							<field name="ref"/>
 							<field name="vehicle_number"/>
 							<field name="partner_id"/>
 						</group>
 						<group name="group_1_2" colspan="1" col="2">
+							<separator string="Expedition Type" colspan="2"/>
 							<field name="expedition_type"/>
 							<field name="expedition_mode"/>
 						</group>						
 					</group>
 					<notebook colspan="4">
-						<page string="Movement">
+						<page string="Package">
 							<field name="picking_ids" nolabel="1" colspan="4" widget="many2many"/>
 						</page>
 						<page string="Expedition Crew">
@@ -54,13 +56,20 @@
 					<group name="group_2" colspan="4" col="3">
 						<group name="group_2_1" colspan="1" col="2">
 							<separator string="State" colspan="2"/>
-							<field name="state"/>
+							<field name="state" readonly="1" widget="statusbar" statusbar_visible="draft,confirm,done"/>
 						</group>
 						<group name="group_2_2" colspan="1" col="2">
 							<separator string="Action" colspan="2"/>
+							<button name="wizard_transfer_expedition" string="Transfer Expedition" icon="gtk-execute" colspan="2"/>
+							<button name="wizard_transfer_expedition" string="Return Package" icon="gtk-execute" colspan="2"/>
+							<button name="wizard_transfer_expedition" string="Delivered Package" icon="gtk-execute" colspan="2"/>
+							
 						</group>						
 						<group name="group_2_3" colspan="1" col="2">
 							<separator string="Workflow" colspan="2"/>
+							<button name="button_confirm" string="Confirm" colspan="2" icon="gtk-yes" states="draft"/>
+							<button name="button_done" string="Done" colspan="2" icon="gtk-yes" states="confirm"/>
+							<button name="button_cancel" string="Cancel" colspan="2" icon="gtk-cancel" states="draft,confirm"/>
 						</group>						
 					</group>
                 </form>

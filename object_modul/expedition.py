@@ -58,7 +58,7 @@ class expedition(osv.osv):
 							'start_location_id' : fields.many2one(obj='stock.location', string='Start Location', required=True, domain=[('type','!=','view')]),
 							'expedition_crew_ids' : fields.one2many(string='Expedition Crew', obj='stock.expedition_crew', fields_id='expedition_id'),
 							'picking_ids' : fields.one2many(string='Movement', obj='stock.picking', fields_id='expedition_id', domain=[('state','=','assigned')]),
-							'state' : fields.selection(selection=[('draft','Draft'),('confirm','Confirm'),('loading','Loading'),('finished_loading','Finished Loading'),('departed','Departed'),('arrived','Arrived'),('cancel','Cancel')], string='State', required=True, readonly=True),
+							'state' : fields.selection(selection=[('draft','Draft'),('confirm','Confirm'),('done','Done'),('cancel','Cancel')], string='State', required=True, readonly=True),
 							'create_id' : fields.many2one(string='Created By', obj='res.users', readonly=True),
 							'create_time' : fields.datetime(string='Creation Time', readonly=True),
 							'confirm_id' : fields.many2one(string='Confirmed By', obj='res.users', readonly=True),
@@ -85,27 +85,32 @@ class expedition(osv.osv):
 	 						
 	def workflow_action_confirm(self, cr, uid, ids, context={}):
 		for id in ids:
+			if not self.buat_sequence(cr, uid, [id], context):
+				return False
+		
 			self.write(cr, uid, [id], {'state' : 'confirm'})
+															
 			
-	def workflow_action_loading(self, cr, uid, ids, context={}):
+	def workflow_action_done(self, cr, uid, ids, context={}):
 		for id in ids:
-			self.write(cr, uid, [id], {'state' : 'loading'})			
-			
-	def workflow_action_finished_loading(self, cr, uid, ids, context={}):
-		for id in ids:
-			self.write(cr, uid, [id], {'state' : 'finished_loading'})	
-			
-	def workflow_action_departed(self, cr, uid, ids, context={}):
-		for id in ids:
-			self.write(cr, uid, [id], {'state' : 'departed'})												
-			
-	def workflow_action_arrived(self, cr, uid, ids, context={}):
-		for id in ids:
-			self.write(cr, uid, [id], {'state' : 'arrived'})					
+			self.write(cr, uid, [id], {'state' : 'done'})					
 			
 	def workflow_action_cancel(self, cr, uid, ids, context={}):
 		for id in ids:
-			self.write(cr, uid, [id], {'state' : 'cancel'})							
+			self.write(cr, uid, [id], {'state' : 'cancel'})			
+			
+	def buat_sequence(self, cr, uid, id, context={}):
+		obj_user = self.pool.get('res.users')
+		
+		user = obj_user.browse(cr, uid, [uid])[0]
+		
+		sequence_id = user.company_id.sequence_expedition_id.id
+		
+		self.write(cr, uid, [uid], {'name' : sequence})
+		
+		return True
+		
+						
 
 
 

@@ -215,6 +215,58 @@ class stock_picking(osv.osv):
 		"""
 		
 		return {'value': {'move_lines.location_dest_id': location_dest_id or False}}
+		
+	def log_picking(self, cr, uid, ids, context=None):
+		""" This function will create log messages for picking.
+		@param cr: the database cursor
+		@param uid: the current user's ID for security checks,
+		@param ids: List of Picking Ids
+		@param context: A standard dictionary for contextual values
+		"""
+		if context is None:
+		    context = {}
+		    
+		data_obj = self.pool.get('ir.model.data')
+		
+		for pick in self.browse(cr, uid, ids, context=context):
+			msg=''
+
+			if pick.auto_picking:
+				continue
+
+			type_list = pick.stock_journal_id and pick.stock_journal_id.name or _('Document')
+		
+			view_list = {
+				'out': 'view_picking_out_form',
+				'in': 'view_picking_in_form',
+				'internal': 'view_picking_form',
+			}
+
+			message = type_list + " '" + (pick.name or '?') + "' "
+
+			if pick.min_date:
+				msg= _(' for the ')+ datetime.strptime(pick.min_date, '%Y-%m-%d %H:%M:%S').strftime('%m/%d/%Y')
+				
+			state_list = {
+				'confirmed': _('is scheduled %s.') % msg,
+				'assigned': _('is ready to process.'),
+				'cancel': _('is cancelled.'),
+				'done': _('is done.'),
+				'auto': _('is waiting.'),
+				'draft': _('is in draft state.'),
+			}
+			
+			res = data_obj.get_object_reference(cr, uid, pick.stock_journal_id.modul_origin, pick.stock_journal_id.model_view_form)
+			
+			res_context =	{
+										'view_id' : res and res[1] or False,
+										}
+			
+			context.update(res_context)
+			message += state_list[pick.state]
+			self.log(cr, uid, pick.id, message, context=context)
+		return True
+        		
 
 	def create_sequence(self, cr, uid, id):
 		"""

@@ -38,6 +38,7 @@
                                 'data/data_Sequence.xml',
                                 'data/data_StockJournal.xml',
                                 'data/data_PickingReference.xml',
+                                'security/ir.model.access.csv',
                                 'ar_stock_report.xml',
                                 'wizard/wizard_cancel_stock_picking.xml',
                                 'wizard/wizard_forward_picking.xml',

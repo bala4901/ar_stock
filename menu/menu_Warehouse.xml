@@ -6,7 +6,6 @@
         <record id="stock.menu_stock_root" model="ir.ui.menu">
 			<field name="icon">terp-stock</field>
 			<field name="sequence">5</field>
-			<field name="group" ref="stock.group_stock_manager"/>
 			<field name="action" eval="0"/>
         </record>								
 	
@@ -55,7 +54,14 @@
 									name="Internal Move"					
 									action="waction_stock_internalMoves" 
 									sequence="1"					
-									/>		
+									/>
+									
+		<menuitem 	id="menu_stock_productReservation" 
+									parent="menu_stock_internalMovement" 
+									name="Product Reservation"					
+									action="waction_stock_productReservation" 
+									sequence="1"					
+									/>											
 									
 		<menuitem id="menu_stock_outgoingMovement"
 								parent="stock.menu_stock_root"

@@ -14,19 +14,21 @@
 		<record id="data_stockJournal_supplierClaim" model="stock.journal">
 			<field name="name">Supplier Claim</field>
 			<field name="default_type">out</field>
-			<field name="default_invoice_state">none</field>
+			<field name="default_invoice_state">2binvoiced</field>
 			<field name="default_sequence_id" ref="data_sequence_supplierClaim"/>
 			<field name="allowed_return_product" eval="1"/>
 			<field name="stock_journal_return_id" ref="data_stockJournal_supplierClaimRealization"/>
 			<field name="model_name">stock.supplier_claim</field>
 			<field name="model_view_form">form_stock_supplierClaim</field>
-			<field name="modul_origin">ar_stock</field>			
+			<field name="modul_origin">ar_stock</field>
+			<field name="allowed_invoicing" eval="1"/>			
 		</record>
 			
 		<record id="data_stockJournal_incoming" model="stock.journal">
 			<field name="name">Incoming Shipment</field>
 			<field name="default_type">in</field>
-			<field name="default_invoice_state">none</field>
+			<field name="default_invoice_state">2binvoiced</field>
+			<field name="allowed_invoicing" eval="1"/>
 			<field name="default_sequence_id" ref="data_sequence_incomingShipment"/>
 			<field name="allowed_return_product" eval="1"/>
 			<field name="stock_journal_return_id" ref="data_stockJournal_supplierClaim"/>
@@ -70,7 +72,8 @@
 		<record id="data_stockJournal_customerClaim" model="stock.journal">
 			<field name="name">Customer Claim</field>
 			<field name="default_type">in</field>
-			<field name="default_invoice_state">none</field>
+			<field name="default_invoice_state">2binvoiced</field>
+			<field name="allowed_invoicing" eval="1"/>
 			<field name="default_sequence_id" ref="data_sequence_customerClaim"/>
 			<field name="allowed_return_product" eval="1"/>
 			<field name="stock_journal_return_id" ref="data_stockJournal_customerClaimRealization"/>
@@ -82,7 +85,8 @@
 		<record id="data_stockJournal_deliveryOrder" model="stock.journal">
 			<field name="name">Delivery Order</field>
 			<field name="default_type">out</field>
-			<field name="default_invoice_state">none</field>
+			<field name="default_invoice_state">2binvoiced</field>
+			<field name="allowed_invoicing" eval="1"/>
 			<field name="default_sequence_id" ref="data_sequence_deliveryOrder"/>
 			<field name="allowed_return_product" eval="1"/>
 			<field name="stock_journal_return_id" ref="data_stockJournal_customerClaim"/>
@@ -105,8 +109,9 @@
 		
 		<record id="data_stockJournal_productReservation" model="stock.journal">
 			<field name="name">Product Reservation</field>
-			<field name="default_type">out</field>
-			<field name="default_invoice_state">none</field>
+			<field name="default_type">internal</field>
+			<field name="default_invoice_state">2binvoiced</field>
+			<field name="allowed_invoicing" eval="1"/>
 			<field name="default_sequence_id" ref="data_sequence_productReservation"/>
 			<field name="allowed_return_product" eval="1"/>
 			<field name="stock_journal_return_id" ref="data_stockJournal_internal"/>
