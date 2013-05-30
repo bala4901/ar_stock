@@ -144,6 +144,7 @@ class stock_picking(osv.osv):
 		return res
 			
 	_columns =	{
+							'name' : fields.char(string='# Picking', size=64, select='1'),
 							'location_id': fields.many2one('stock.location', 'Location', help="Keep empty if you produce at the location where the finished products are needed." \
 									"Set a location if you produce at a fixed location. This can be a partner location " \
 									"if you subcontract the manufacturing operations.",readonly=True, select=True, states={'draft': [('readonly', False)]}),
