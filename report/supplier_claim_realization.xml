@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<!-- INTERNAL MOVE -->
+        <report id="report_stock_supplierClaimRealization" 
+        		auto="False" 
+        		model="stock.supplier_claim_realization" 
+        		name="stock.supplier_claim_realization_form"
+                rml="ar_stock/report/supplier_claim_realization.prpt"
+                string="Supplier Claim Realization"
+                menu="True"/>
+
+		<record id="report_stock_supplierClaimRealization" model="ir.actions.report.xml">
+			<field name="is_pentaho_report" eval="1"/>
+			<field name="pentaho_load_file" eval="1"/>
+			<field name="pentaho_report_output_type">pdf</field>
+			<field name="pentaho_report_model_id" ref="ar_stock.model_stock_supplier_claim_realization"/>
+			<field name="pentaho_filename">ar_stock/report/supplier_claim_realization.prpt</field>
+		</record>			
+
+	</data>
+</openerp>

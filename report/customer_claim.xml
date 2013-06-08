@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<!-- INTERNAL MOVE -->
+        <report id="report_stock_customerClaim" 
+        		auto="False" 
+        		model="stock.customer_claim" 
+        		name="stock.customer_claim_form"
+                rml="ar_stock/report/customer_claim.prpt"
+                string="Customer Claim"
+                menu="True"/>
+
+		<record id="report_stock_customerClaim" model="ir.actions.report.xml">
+			<field name="is_pentaho_report" eval="1"/>
+			<field name="pentaho_load_file" eval="1"/>
+			<field name="pentaho_report_output_type">pdf</field>
+			<field name="pentaho_report_model_id" ref="ar_stock.model_stock_customer_claim"/>
+			<field name="pentaho_filename">ar_stock/report/customer_claim.prpt</field>
+		</record>			
+
+	</data>
+</openerp>

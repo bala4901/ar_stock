@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<!-- INTERNAL MOVE -->
+        <report id="report_stock_productReservation" 
+        		auto="False" 
+        		model="stock.product_reservation" 
+        		name="stock.product_reservation_form"
+                rml="ar_stock/report/product_reservation.prpt"
+                string="Product Reservation"
+                menu="True"/>
+
+		<record id="report_stock_productReservation" model="ir.actions.report.xml">
+			<field name="is_pentaho_report" eval="1"/>
+			<field name="pentaho_load_file" eval="1"/>
+			<field name="pentaho_report_output_type">pdf</field>
+			<field name="pentaho_report_model_id" ref="ar_stock.model_stock_product_reservation"/>
+			<field name="pentaho_filename">ar_stock/report/product_reservation.prpt</field>
+		</record>			
+
+	</data>
+</openerp>

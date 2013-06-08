@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<!-- INTERNAL MOVE -->
+        <report id="report_stock_deliveryOrder" 
+        		auto="False" 
+        		model="stock.delivery_order" 
+        		name="stock.delivery_order_form"
+                rml="ar_stock/report/delivery_order.prpt"
+                string="Delivery Order"
+                menu="True"/>
+
+		<record id="report_stock_deliveryOrder" model="ir.actions.report.xml">
+			<field name="is_pentaho_report" eval="1"/>
+			<field name="pentaho_load_file" eval="1"/>
+			<field name="pentaho_report_output_type">pdf</field>
+			<field name="pentaho_report_model_id" ref="ar_stock.model_stock_delivery_order"/>
+			<field name="pentaho_filename">ar_stock/report/delivery_order.prpt</field>
+		</record>			
+
+	</data>
+</openerp>
