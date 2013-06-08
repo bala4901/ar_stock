@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<!-- INTERNAL MOVE -->
+        <report id="report_stock_internalMove" 
+        		auto="False" 
+        		model="stock.internal_moves" 
+        		name="stock.internal_move_form"
+                rml="ar_stock/report/internal_move.prpt"
+                string="Internal Move"
+                menu="True"/>
+
+		<record id="report_stock_internalMove" model="ir.actions.report.xml">
+			<field name="is_pentaho_report" eval="1"/>
+			<field name="pentaho_load_file" eval="1"/>
+			<field name="pentaho_report_output_type">pdf</field>
+			<field name="pentaho_report_model_id" ref="ar_stock.model_stock_internal_moves"/>
+			<field name="pentaho_filename">ar_stock/report/internal_move.prpt</field>
+		</record>			
+
+	</data>
+</openerp>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<!-- OTHER DELIVERY ORDER -->
+        <report id="report_stock_otherDeliveryOrder" 
+        		auto="False" 
+        		model="stock.other_delivery_order" 
+        		name="stock.other_delivery_order_form"
+                rml="ar_stock/report/other_delivery_order.prpt"
+                string="Other Delivery Order"
+                menu="True"/>
+
+		<record id="report_stock_otherDeliveryOrder" model="ir.actions.report.xml">
+			<field name="is_pentaho_report" eval="1"/>
+			<field name="pentaho_load_file" eval="1"/>
+			<field name="pentaho_report_output_type">pdf</field>
+			<field name="pentaho_report_model_id" ref="ar_stock.model_stock_other_delivery_order"/>
+			<field name="pentaho_filename">ar_stock/report/other_delivery_order.prpt</field>
+		</record>			
+
+	</data>
+</openerp>
