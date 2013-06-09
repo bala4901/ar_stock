@@ -7,6 +7,8 @@
 			<field name="res_model">stock.outgoing_expedition</field>
 			<field name="view_type">form</field>
 			<field name="view_mode">tree,form</field>
+			<field name="domain">[('expedition_type','=','out')]</field>
+			<field name="context">{'expedition_type' : 'out'}</field>
 		</record>
 		
 		<record id="wactView_stock_treeOutgoingExpedition" model="ir.actions.act_window.view">

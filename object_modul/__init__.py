@@ -25,6 +25,9 @@ import expedition_crew_position
 import expedition
 import expedition_crew
 import outgoing_expedition
+import incoming_expedition
+import outgoing_direct_picking
+import incoming_direct_picking
 
 import incoming_shipment
 import other_incoming_shipment

@@ -120,7 +120,7 @@
 		<menuitem 	id="menu_stock_outgoingPicking" 
 									parent="menu_stock_expeditionHeader" 
 									name="Outgoing Picking"					
-									action="waction_stock_supplierClaim" 
+									action="waction_stock_outgoingDirectPicking" 
 									sequence="4"					
 									/>																																											
 									

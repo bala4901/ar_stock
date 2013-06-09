@@ -3,12 +3,12 @@
 	<data>
 	
 		<!-- TREE -->
-        <record id="tree_stock_outgoingExpedition" model="ir.ui.view">
-            <field name="name">Tree Outgoing Expedition</field>
-            <field name="model">stock.outgoing_expedition</field>
+        <record id="tree_stock_outgoingDirectPicking" model="ir.ui.view">
+            <field name="name">Tree Outgoing Direct Picking</field>
+            <field name="model">stock.outgoing_direct_picking</field>
             <field name="type">tree</field>
             <field name="arch" type="xml">
-		        <tree string="Outgoing Expedition">
+		        <tree string="Outgoing Direct Picking">
 					<field name="name"/>
 					<field name="ref"/>
 					<field name="vehicle_number"/>
@@ -22,12 +22,12 @@
         </record>	
 		
 		<!-- FORM -->
-        <record id="form_stock_outgoingExpedition" model="ir.ui.view">
-            <field name="name">Form Outgoing Expedition</field>
-            <field name="model">stock.outgoing_expedition</field>
+        <record id="form_stock_outgoingDirectPicking" model="ir.ui.view">
+            <field name="name">Form Outgoing Direct Picking</field>
+            <field name="model">stock.outgoing_direct_picking</field>
             <field name="type">form</field>
             <field name="arch" type="xml">
-                <form string="Outgoing Expedition">
+                <form string="Outgoing Direct Picking">
 					<group name="group_1" colspan="4" col="2">
 						<group name="group_1_1" colspan="1" col="2">
 							<separator string="Expedition" colspan="2"/>
@@ -94,12 +94,12 @@
         </record>
         
 		<!-- SEARCH -->
-        <record id="search_stock_outgoingExpedition" model="ir.ui.view">
-            <field name="name">Search Outgoing Expedition</field>
-            <field name="model">stock.outgoing_expedition</field>
+        <record id="search_stock_outgoingDirectPicking" model="ir.ui.view">
+            <field name="name">Search Outgoing Direct Picking</field>
+            <field name="model">stock.outgoing_direct_picking</field>
             <field name="type">search</field>
             <field name="arch" type="xml">
-                <search string="Outgoing Expedition">
+                <search string="Outgoing Direct Picking">
                     <group>
                      	<filter icon="terp-document-new" name="draft" string="Draft" domain="[('state','=','draft')]"/>                
                      	<filter icon="gtk-go-forward" name="confirm" string="Confirm" domain="[('state','=','confirm')]"/>

@@ -24,9 +24,9 @@
 from osv import fields, osv
 import netsvc
 
-class outgoing_expedition(osv.osv):
-	_name = 'stock.outgoing_expedition'
-	_description = 'Outgoing Expedition'
+class outgoing_direct_picking(osv.osv):
+	_name = 'stock.outgoing_direct_picking'
+	_description = 'Outgoing Direct Picking'
 	_inherit = 'stock.expedition'
 	_table = 'stock_expedition'
 	
@@ -41,31 +41,10 @@ class outgoing_expedition(osv.osv):
 		override in order to redirect the check of acces rules on the stock.picking object
 		"""
 		return self.pool.get('stock.expedition').check_access_rule(cr, uid, ids, operation, context=context)	
-		
-	def create(self, cr, uid, value, context=None):
-		"""
-		override method orm create
-		"""
-		new_id = super(outgoing_expedition, self).create(cr, uid, value, context)
-		
-		wkf_service = netsvc.LocalService('workflow')
-		wkf_service.trg_create(uid, 'stock.expedition', new_id, cr)
-		
-		return new_id
-		
-	def unlink(self, cr, uid, ids, context=None):
-		"""
-		override method orm
-		"""
-		wkf_service = netsvc.LocalService('workflow')
-		for id in ids:
-			wkf_service.trg_delete(uid, 'stock.expedition', id, cr)
-			
-		return super(outgoing_expedition, self).unlink(cr, uid, ids, context)		
 
 
 
-outgoing_expedition()
+outgoing_direct_picking()
 
 
 

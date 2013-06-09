@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="wofklow_stock_expedition" model="workflow">
+            <field name="name">Expedition Workflow</field>
+            <field name="osv">stock.expedition</field>
+            <field name="on_create">True</field>
+        </record>
+
+		<!-- DRAFT -->
+        <record id="act_stock_expeditionDraft" model="workflow.activity">
+            <field name="wkf_id" ref="wofklow_stock_expedition"/>
+            <field name="flow_start">True</field>
+            <field name="name">draft</field>
+        </record>
+
+		<!-- CONFIRM -->
+        <record id="act_stock_expeditionConfirm" model="workflow.activity">
+            <field name="wkf_id" ref="wofklow_stock_expedition"/>
+            <field name="name">confirm</field>
+            <field name="kind">function</field>
+            <field name="action">workflow_action_confirm()</field>            
+        </record>
+
+
+		<!-- READY -->        
+        <record id="act_stock_expeditionReady" model="workflow.activity">
+            <field name="wkf_id" ref="wofklow_stock_expedition"/>
+            <field name="name">ready</field>
+            <field name="kind">function</field>
+            <field name="action">workflow_action_ready()</field>            
+        </record>        
+
+		<!-- DONE -->        
+        <record id="act_stock_expeditionDone" model="workflow.activity">
+            <field name="wkf_id" ref="wofklow_stock_expedition"/>
+            <field name="name">done</field>
+            <field name="kind">function</field>
+            <field name="flow_stop">True</field>
+            <field name="action">workflow_action_done()</field>            
+        </record>    
+
+		<!-- CANCEL -->        
+        <record id="act_stock_expeditionCancel" model="workflow.activity">
+            <field name="wkf_id" ref="wofklow_stock_expedition"/>
+            <field name="name">cancel</field>
+            <field name="kind">function</field>
+            <field name="flow_stop">True</field>
+            <field name="action">workflow_action_cancel()</field>            
+        </record>             
+
+        <record id="trans_stock_expeditionDraft2Confirm" model="workflow.transition">
+            <field name="act_from" ref="act_stock_expeditionDraft"/>
+            <field name="act_to" ref="act_stock_expeditionConfirm"/>
+            <field name="signal">button_confirm</field>
+        </record>
+        
+        <record id="trans_stock_expeditionDraft2Cancel" model="workflow.transition">
+            <field name="act_from" ref="act_stock_expeditionDraft"/>
+            <field name="act_to" ref="act_stock_expeditionCancel"/>
+            <field name="signal">button_cancel</field>
+        </record>
+        
+        <record id="trans_stock_expeditionConfirm2Ready" model="workflow.transition">
+            <field name="act_from" ref="act_stock_expeditionConfirm"/>
+            <field name="act_to" ref="act_stock_expeditionReady"/>
+            <field name="signal">button_ready</field>
+        </record>        
+        
+        <record id="trans_stock_expeditionConfirm2Cancel" model="workflow.transition">
+            <field name="act_from" ref="act_stock_expeditionConfirm"/>
+            <field name="act_to" ref="act_stock_expeditionCancel"/>
+            <field name="signal">button_cancel</field>
+        </record>          
+        
+        <record id="trans_stock_expeditionReady2Done" model="workflow.transition">
+            <field name="act_from" ref="act_stock_expeditionReady"/>
+            <field name="act_to" ref="act_stock_expeditionDone"/>
+            <field name="signal">button_done</field>
+        </record>      
+        
+        <record id="trans_stock_expeditionReady2Cancel" model="workflow.transition">
+            <field name="act_from" ref="act_stock_expeditionReady"/>
+            <field name="act_to" ref="act_stock_expeditionCancel"/>
+            <field name="signal">button_cancel</field>
+        </record>                      
+        
+
+    </data>
+</openerp>
