@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<record id="waction_stock_incomingDirectPicking" model="ir.actions.act_window">
+			<field name="name">Incoming Direct Picking</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">stock.incoming_direct_picking</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="domain">[('expedition_type','=','in_direct')]</field>
+			<field name="context">{'expedition_type' : 'in_direct'}</field>
+		</record>
+		
+		<record id="wactView_stock_treeIncomingDirectPicking" model="ir.actions.act_window.view">
+			<field eval="10" name="sequence"/>
+			<field name="view_mode">tree</field>
+			<field name="view_id" ref="tree_stock_incomingDirectPicking"/>
+			<field name="act_window_id" ref="waction_stock_incomingDirectPicking"/>
+		</record>
+
+		<record id="wactView_stock_formIncomingDirectPicking" model="ir.actions.act_window.view">
+			<field eval="20" name="sequence"/>
+			<field name="view_mode">form</field>
+			<field name="view_id" ref="form_stock_incomingDirectPicking"/>
+			<field name="act_window_id" ref="waction_stock_incomingDirectPicking"/>
+		</record>
+	</data>
+</openerp>

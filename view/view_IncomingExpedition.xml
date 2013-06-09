@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+	
+		<!-- TREE -->
+        <record id="tree_stock_incomingExpedition" model="ir.ui.view">
+            <field name="name">Tree Incoming Expedition</field>
+            <field name="model">stock.incoming_expedition</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+		        <tree string="Incoming Expedition">
+					<field name="name"/>
+					<field name="ref"/>
+					<field name="vehicle_number"/>
+					<field name="company_id"/>
+					<field name="partner_id"/>
+					<field name="expedition_type" invisible="1"/>
+					<field name="expedition_mode"/>				
+					<field name="state"/>			
+		        </tree>
+            </field>
+        </record>	
+		
+		<!-- FORM -->
+        <record id="form_stock_incomingExpedition" model="ir.ui.view">
+            <field name="name">Form Incoming Expedition</field>
+            <field name="model">stock.incoming_expedition</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Incoming Expedition">
+					<group name="group_1" colspan="4" col="2">
+						<group name="group_1_1" colspan="1" col="2">
+							<separator string="Expedition" colspan="2"/>
+							<field name="name"/>
+							<field name="ref"/>
+							<field name="vehicle_number"/>
+							<field name="partner_id"/>
+							<field name="company_id" widget="selection"/>
+						</group>
+						<group name="group_1_2" colspan="1" col="2">
+							<separator string="Expedition Type" colspan="2"/>
+							<field name="expedition_type" invisible="1"/>
+							<field name="expedition_mode"/>
+						</group>						
+					</group>
+					<notebook colspan="4">
+						<page string="Undelivered Package">
+							<field name="picking_ids" nolabel="1" colspan="4" widget="many2many"/>
+						</page>
+						<page string="Delivered Package">
+							<field name="delivered_picking_ids" nolabel="1" colspan="4" readonly="1">
+								<tree string="Delivered Package">
+									<field name="picking_id"/>
+								</tree>
+							</field>
+						</page>
+						<page string="Return Package">
+							<field name="returned_picking_ids" nolabel="1" colspan="4" readonly="1">
+								<tree string="Returned Package">
+									<field name="picking_id"/>
+									<field name="reason"/>
+								</tree>							
+							</field>
+						</page>
+						<page string="Expedition Crew">
+							<field name="expedition_crew_ids" nolabel="1" colspan="4" mode="tree">
+								<tree string="Expedition Crew" editable="bottom">
+									<field name="expedition_crew_position_id" widget="selection"/>
+									<field name="name"/>
+								</tree>								
+							</field>
+						</page>
+					</notebook>
+					<group name="group_2" colspan="4" col="3">
+						<group name="group_2_1" colspan="1" col="2">
+							<separator string="State" colspan="2"/>
+							<field name="state" readonly="1" widget="statusbar" statusbar_visible="draft,confirm,ready,done"/>
+						</group>
+						<group name="group_2_2" colspan="1" col="2">
+							<separator string="Action" colspan="2"/>
+							<button name="%(waction_stock_wizardDeliverPicking)d" type="action" string="Deliver Picking" icon="gtk-execute" colspan="2" states="ready"/>
+							
+						</group>						
+						<group name="group_2_3" colspan="1" col="2">
+							<separator string="Workflow" colspan="2"/>
+							<button name="button_workflow_action_confirm" type="object" string="Confirm" colspan="2" states="draft" icon="gtk-go-forward"/>
+							<button name="button_workflow_action_ready" type="object" string="Ready" colspan="2" states="confirm" icon="gtk-yes"/>
+							<button name="button_workflow_action_done" type="object" string="Done" colspan="2" states="ready" icon="gtk-apply"/>
+							<button name="button_workflow_action_cancel" type="object" string="Cancel" colspan="2" states="draft,confirm,ready" icon="gtk-cancel"/>
+						</group>						
+					</group>
+                </form>
+            </field>
+        </record>
+        
+		<!-- SEARCH -->
+        <record id="search_stock_incomingExpedition" model="ir.ui.view">
+            <field name="name">Search Incoming Expedition</field>
+            <field name="model">stock.incoming_expedition</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Incoming Expedition">
+                    <group>
+                     	<filter icon="terp-document-new" name="draft" string="Draft" domain="[('state','=','draft')]"/>                
+                     	<filter icon="gtk-go-forward" name="confirm" string="Confirm" domain="[('state','=','confirm')]"/>
+                     	<filter icon="gtk-yes" name="ready" string="Ready" domain="[('state','=','ready')]"/>
+                     	<filter icon="gtk-apply" name="done" string="Done" domain="[('state','=','done')]"/>
+                     	<filter icon="gtk-cancel" name="cancel" string="Cancel" domain="[('state','=','cancel')]"/>
+                     	<separator orientation="vertical" />
+						<field name="name"/>
+						<field name="ref"/>
+						<field name="vehicle_number"/>
+						<field name="partner_id"/>
+						<field name="expedition_mode"/>		
+					</group>
+                </search>
+            </field>
+        </record>	        
+        
+	</data>
+</openerp>

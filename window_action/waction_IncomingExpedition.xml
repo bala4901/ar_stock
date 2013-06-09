@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<record id="waction_stock_incomingExpedition" model="ir.actions.act_window">
+			<field name="name">Incoming Expedition</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">stock.outgoing_expedition</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="domain">[('expedition_type','=','in')]</field>
+			<field name="context">{'expedition_type' : 'in'}</field>
+		</record>
+		
+		<record id="wactView_stock_treeIncomingExpedition" model="ir.actions.act_window.view">
+			<field eval="10" name="sequence"/>
+			<field name="view_mode">tree</field>
+			<field name="view_id" ref="tree_stock_incomingExpedition"/>
+			<field name="act_window_id" ref="waction_stock_incomingExpedition"/>
+		</record>
+
+		<record id="wactView_stock_formIncomingExpedition" model="ir.actions.act_window.view">
+			<field eval="20" name="sequence"/>
+			<field name="view_mode">form</field>
+			<field name="view_id" ref="form_stock_incomingExpedition"/>
+			<field name="act_window_id" ref="waction_stock_incomingExpedition"/>
+		</record>
+	</data>
+</openerp>

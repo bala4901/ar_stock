@@ -99,7 +99,7 @@
 		<menuitem 	id="menu_stock_incomingExpedition" 
 									parent="menu_stock_expeditionHeader" 
 									name="Incoming Expedition"					
-									action="waction_stock_supplierClaim" 
+									action="waction_stock_incomingExpedition" 
 									sequence="1"					
 									/>	
 									
@@ -113,7 +113,7 @@
 		<menuitem 	id="menu_stock_incomingPicking" 
 									parent="menu_stock_expeditionHeader" 
 									name="Incoming Picking"					
-									action="waction_stock_supplierClaim" 
+									action="waction_stock_incomingDirectPicking" 
 									sequence="3"					
 									/>		
 									
