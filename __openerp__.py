@@ -50,6 +50,7 @@
                                 'report/incoming_shipment.xml',
                                 'report/customer_claim_realization.xml',
                                 'report/outgoing_expedition_list.xml',
+                                'report/outgoing_expedition_product_list.xml',
                                 'wizard/wizard_cancel_stock_picking.xml',
                                 'wizard/wizard_forward_picking.xml',
                                 'wizard/wizard_invoice_on_picking.xml',

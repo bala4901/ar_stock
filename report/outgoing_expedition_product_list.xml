@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<!-- OUTGOING EXPEDITION PICKING LIST -->
+        <report id="report_stock_outgoingExpeditionProductList" 
+        		auto="False" 
+        		model="stock.outgoing_expedition" 
+        		name="stock.outgoing_expedition_product_list_form"
+                rml="ar_stock/report/outgoing_expedition_product_list.prpt"
+                string="Outgoing Expedition Product List"
+                menu="True"/>
+
+		<record id="report_stock_outgoingExpeditionProductList" model="ir.actions.report.xml">
+			<field name="is_pentaho_report" eval="1"/>
+			<field name="pentaho_load_file" eval="1"/>
+			<field name="pentaho_report_output_type">pdf</field>
+			<field name="pentaho_report_model_id" ref="ar_stock.model_stock_outgoing_expedition"/>
+			<field name="pentaho_filename">ar_stock/report/outgoing_expedition_product_list.prpt</field>
+		</record>			
+
+	</data>
+</openerp>
