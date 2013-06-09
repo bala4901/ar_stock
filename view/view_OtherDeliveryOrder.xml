@@ -10,16 +10,19 @@
             <field name="arch" type="xml">
 		        <tree colors="blue:state == 'draft';grey:state == 'done';red:state not in ('cancel', 'done') and date &lt; current_date" string="Picking list">
 			        <field name="name"/>
-			        <field name="partner_id" />
-			        <field name="backorder_id" groups="base.group_extended"/>
-			        <field name="origin"/>
 			        <field name="date"/>
 			        <field name="min_date"/>
-			        <field name="invoice_state" groups="base.group_extended"/>
-			        <field name="stock_journal_id" groups="base.group_extended" widget="selection"/>
+			        <field name="company_id"/>
+			        <field name="reference_num"/>
+			        <field name="backorder_id"/>
+			        <field name="origin"/>
+			        <field name="location_id"/>
+			        <field name="location_dest_id"/>
+			        <field name="partner_id" />
+			        <field name="address_id"/>     
+			        <field name="invoice_state" invisible="1"/>
+			        <field name="stock_journal_id" invisible="1"/>
 			        <field name="state"/>
-        			<field name="reference_num"/>
-			        <button name="action_process" states="assigned" string="Process" type="object" icon="gtk-go-forward"/>
 		        </tree>
             </field>
         </record>	
@@ -37,12 +40,14 @@
                 			<field name="name" readonly="1" string="# Delivery Order"/>
                 			<field name="origin"/>
                 			<field name="picking_reference_id" readonly="1"/>
-                			<field name="backorder_id" readonly="1" groups="base.group_extended"/>
+                			<field name="backorder_id" readonly="1"/>
+                			<field name="company_id" widget="selection"/>
                 		</group>
                 		<group name="group_1_2" colspan="1" col="2">
                 			<separator string="Date &amp; Time" colspan="2"/>
 							<field name="date"/>
 							<field name="min_date" readonly="1"/>
+							<field name="date_done" readonly="1"/>
                 		</group>
                 		<group name="group_1_3" colspan="1" col="2">
                 			<separator string="Location" colspan="2"/>
@@ -140,9 +145,6 @@
                                 </form>
                             </field>
                         </page>
-                        <page string="Additional Info" groups="base.group_extended,base.group_multi_company">
-                            <field name="company_id" groups="base.group_multi_company" widget="selection"/>
-                        </page>
                         <page string="Notes">
                             <field colspan="4" name="note" nolabel="1"/>
                         </page>
@@ -197,29 +199,20 @@
             <field name="arch" type="xml">
                 <search string="Delivery Orders">
                     <group>
-                        <filter icon="terp-check" name="available" string="Ready to Process" domain="[('state','=','assigned')]" help="Delivery Orders Available" />
-                        <filter icon="terp-dialog-close" name="done" string="Done" domain="[('state','=','done')]" help="Delivery Orders already processed"/>
+                     	<filter icon="terp-document-new" name="draft" string="Draft" domain="[('state','=','draft')]"/>
+                     	<filter icon="gtk-go-forward" name="confirm" string="Confirm" domain="[('state','=','confirmed')]"/>
+                        <filter icon="terp-check" name="available" string="Ready" domain="[('state','=','assigned')]"/>
+                        <filter icon="terp-dialog-close" name="done" string="Done" domain="[('state','=','done')]"/>
                         <separator orientation="vertical" />
-                        <filter icon="terp-accessories-archiver-minus" string="Back Orders" domain="[('backorder_id', '!=', False)]" help="Is a Back Order" groups="base.group_extended"/>
-                        <separator orientation="vertical"/>
-                        <filter string="To invoice" name="to_invoice" icon="terp-dolar" domain="[('invoice_state', '=', '2binvoiced')]" />
-                        <separator orientation="vertical"/>
                         <field name="name"/>
+                        <field name="date"/>
                         <field name="partner_id"/>
-                        <field name="origin"/>
-                        <field name="stock_journal_id" groups="base.group_extended" widget="selection"/>
-                        <field name="company_id" widget="selection" groups="base.group_multi_company" />
-                    </group>
-                    <newline/>
-                    <group expand="0" string="Group By...">
-                        <filter string="Partner" icon="terp-partner" domain="[]" context="{'group_by':'partner_id'}"/>
-                        <separator orientation="vertical" />
-                        <filter icon="terp-stock_effects-object-colorize" name="state" string="State" domain="[]" context="{'group_by':'state'}"/>
-                        <separator orientation="vertical" />
-                        <filter string="Order Date" icon="terp-go-month" domain="[]"  context="{'group_by':'date'}"/>
-                        <filter string="Expected Date" icon="terp-go-month" domain="[]"  context="{'group_by':'min_date'}"/>
-                        <separator orientation="vertical" />
-                        <filter string="Journal" icon="terp-folder-orange" domain="[]" context="{'group_by':'stock_journal_id'}"  groups="base.group_extended"/>
+                        <field name="reference_num"/>
+                        <field name="company_id" widget="selection"/>
+                        <newline/>
+                        <field name="address_id"/>
+                        <field name="location_id"/>
+                        <field name="location_dest_id"/>
                     </group>
                 </search>
             </field>

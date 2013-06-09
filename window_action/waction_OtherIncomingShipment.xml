@@ -7,7 +7,7 @@
 			<field name="res_model">stock.other_incoming_shipment</field>
 			<field name="view_type">form</field>
 			<field name="view_mode">tree,form</field>
-			<field name="context">{'stock_journal':'Other Incoming Shipment'}</field>
+			<field name="context">{'stock_journal':'Other Incoming Shipment', 'search_default_confirm' : 1, 'search_default_available' : 1}</field>
 			<field name="domain">[('stock_journal_id.name','=','Other Incoming Shipment')]</field>
 		</record>
 		

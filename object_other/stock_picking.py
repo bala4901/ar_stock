@@ -160,7 +160,11 @@ class stock_picking(osv.osv):
 							'cancel_user_id' : fields.many2one(obj='res.users', string='Processed By', readonly=True),
 							'cancel_time' : fields.datetime(string='Cancelled Time', readonly=True),									
 							'cancel_description' : fields.text(string='Cancel Description', readonly=True),	
-							'reference_num' : fields.function(fnct=function_reference_num, string='Reference', type='char', method=True, store=True)
+							'reference_num' : fields.function(fnct=function_reference_num, string='Reference', type='char', method=True, store=True),
+							'origin' : fields.char(string='Origin', size=64, help="Reference of the document that produced this picking.", select=True, readonly=True, states={'draft': [('readonly', False)]}),
+							'company_id' : fields.many2one(obj='res.company', string='Company', required=True, select=True, readonly=True, states={'draft': [('readonly', False)]}),
+							'date' : fields.datetime(string='Order Date', help='Date of Order', select=True, readonly=True, states={'draft': [('readonly', False)]}),
+							'address_id' : fields.many2one(obj='res.partner.address', string='Address', help='Address of partner', readonly=True, states={'draft': [('readonly', False)]}),
 							}				
 
 	_defaults =	{
@@ -579,12 +583,23 @@ class stock_picking(osv.osv):
 			else:
 				self.action_move(cr, uid, [pick.id])
 				wf_service.trg_validate(uid, 'stock.picking', pick.id, 'button_done', cr)
+				self.change_date_done(cr, uid, pick.id, partial_datas.get('delivery_date', datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
 				delivered_pack_id = pick.id
 
 			delivered_pack = self.browse(cr, uid, delivered_pack_id, context=context)
 			res[pick.id] = {'delivered_picking': delivered_pack.id or False}
 			
 		return res
+		
+	def change_date_done(self, cr, uid, id, date_done):
+		obj_move = self.pool.get('stock.move')
+		res =	{
+					'date_done' : date_done,
+					}
+		self.write(cr, uid, [id], res)
+		for line in self.browse(cr, uid, [id])[0].move_lines:
+			obj_move.write(cr, uid, [line.id], {'date' : date_done})
+		return True
 
 stock_picking()
 

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<record id="waction_stock_outgoingExpedition" model="ir.actions.act_window">
+			<field name="name">Outgoing Expedition</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">stock.outgoing_expedition</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+		
+		<record id="wactView_stock_treeOutgoingExpedition" model="ir.actions.act_window.view">
+			<field eval="10" name="sequence"/>
+			<field name="view_mode">tree</field>
+			<field name="view_id" ref="tree_stock_outgoingExpedition"/>
+			<field name="act_window_id" ref="waction_stock_outgoingExpedition"/>
+		</record>
+
+		<record id="wactView_stock_formOutgoingExpedition" model="ir.actions.act_window.view">
+			<field eval="20" name="sequence"/>
+			<field name="view_mode">form</field>
+			<field name="view_id" ref="form_stock_outgoingExpedition"/>
+			<field name="act_window_id" ref="waction_stock_outgoingExpedition"/>
+		</record>
+	</data>
+</openerp>

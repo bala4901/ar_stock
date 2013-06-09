@@ -55,7 +55,7 @@ class expedition(osv.osv):
 							'expedition_type' : fields.selection(selection=[('in','Incoming'),('out','Outgoing')], string='Type', required=True),
 							'expedition_mode' : fields.selection(selection=[('air','Air'),('land','Land'),('water','Water')], string='Expedition Mode', required=True),
 							'partner_id' : fields.many2one(string='Partner', obj='res.partner'),
-							'start_location_id' : fields.many2one(obj='stock.location', string='Start Location', required=True, domain=[('type','!=','view')]),
+							'start_location_id' : fields.many2one(obj='stock.location', string='Start Location', required=False, domain=[('type','!=','view')]),
 							'expedition_crew_ids' : fields.one2many(string='Expedition Crew', obj='stock.expedition_crew', fields_id='expedition_id'),
 							'picking_ids' : fields.one2many(string='Movement', obj='stock.picking', fields_id='expedition_id', domain=[('state','=','assigned')]),
 							'state' : fields.selection(selection=[('draft','Draft'),('confirm','Confirm'),('done','Done'),('cancel','Cancel')], string='State', required=True, readonly=True),

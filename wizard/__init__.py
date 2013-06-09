@@ -22,6 +22,7 @@
 import wizard_cancel_stock_picking
 import wizard_forward_picking
 import wizard_invoice_on_picking
+#import stock_partial_picking
 
 #import wizard_return_expedition
 

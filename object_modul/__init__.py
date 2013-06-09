@@ -24,6 +24,7 @@ import picking_reference
 import expedition_crew_position
 import expedition
 import expedition_crew
+import outgoing_expedition
 
 import incoming_shipment
 import other_incoming_shipment
