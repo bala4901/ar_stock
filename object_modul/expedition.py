@@ -60,7 +60,7 @@ class expedition(osv.osv):
 							'company_id' : fields.many2one(string='Company', obj='res.company', required=True),
 							'ref' : fields.char(string='Reference', size=30),
 							'vehicle_number' : fields.char(string='Vehicle Number', size=50, required=True),
-							'expedition_type' : fields.selection(selection=[('in','Incoming'),('out','Outgoing'),'in_direct','Incoming Direct Picking'),('out_direct','Outgoing Direct Picking')], string='Type', required=True),
+							'expedition_type' : fields.selection(selection=[('in','Incoming'),('out','Outgoing'),('in_direct','Incoming Direct Picking'),('out_direct','Outgoing Direct Picking')], string='Type', required=True),
 							'expedition_mode' : fields.selection(selection=[('air','Air'),('land','Land'),('water','Water')], string='Expedition Mode', required=True),
 							'partner_id' : fields.many2one(string='Partner', obj='res.partner'),
 							'start_location_id' : fields.many2one(obj='stock.location', string='Start Location', required=False, domain=[('type','!=','view')]),
