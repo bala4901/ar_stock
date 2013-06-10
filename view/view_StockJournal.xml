@@ -43,8 +43,11 @@
 							</page>
 							<page string="Invoice &amp; Refund Setting">
 								<field name="allowed_invoicing"/>
+								<field name="invoice_type_id"/>
 								<newline/>
+								<!--
 								<field name="allowed_account_journal_ids" colspan="2" nolabel="1" attrs="{'readonly':[('allowed_invoicing','=',0)]}" domain="[('type','in',('sale','sale_refund','purchase','purchase_refund'))]"/>							
+								-->
 							</page>
 						</notebook>
 					</field>

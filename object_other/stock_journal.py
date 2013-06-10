@@ -47,6 +47,7 @@ class stock_journal(osv.osv):
 							'model_name' : fields.char(string='Model Name', size=100),
 							'model_view_form' : fields.char(string='Model View Form', size=100),		
 							'modul_origin' : fields.char(string='Modul Origin', size=100),							
+							'invoice_type_id' : fields.many2one(string='Invoice Type', obj='account.invoice_type'),
 							}
 
 

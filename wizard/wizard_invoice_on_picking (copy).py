@@ -31,63 +31,12 @@ import decimal_precision as dp
 class wizard_invoice_on_picking(osv.osv_memory):
     _name = "stock.wizard_invoice_on_picking"
     _description = "Wizard Invoice On Picking"
-    
-    def default_account_journal_id(self, cr, uid, context={}):
-        if not context.get('active_model', False) : return False
-        obj_stock_journal = self.pool.get('stock.journal')
-        obj_model = self.pool.get(context['active_model'])
-        obj_detail = self.pool.get('account.invoice_type_line')
-        
-        model = obj_model.browse(cr, uid, context['active_ids'])[0]
-        company_id = model.company_id.id
-        
-        kriteria = [('name','=',context.get('stock_journal',False))]
-        stock_journal_ids = obj_stock_journal.search(cr, uid, kriteria)
-        
-        if not stock_journal_ids : return False
-        
-        stock_journal = obj_stock_journal.browse(cr, uid, stock_journal_ids)[0]
-        
-        kriteria1 = [('invoice_type_id','=',stock_journal.invoice_type_id.id),('company_id','=',company_id)]
-        detail_ids = obj_detail.search(cr, uid, kriteria1) 
-        
-        if not detail_ids : return False
-        
-        detail = obj_detail.browse(cr, uid, detail_ids)[0]
-        
-        context['invoice_type'] = stock_journal.invoice_type_id.name
-        return detail.journal_id.id
-
-    def default_invoice_type_id(self, cr, uid, context={}):
-        if not context.get('active_model', False) : return False
-        obj_stock_journal = self.pool.get('stock.journal')
-        obj_model = self.pool.get(context['active_model'])
-        obj_detail = self.pool.get('account.invoice_type_line')
-        
-        model = obj_model.browse(cr, uid, context['active_ids'])[0]
-        company_id = model.company_id.id
-        
-        kriteria = [('name','=',context.get('stock_journal',False))]
-        stock_journal_ids = obj_stock_journal.search(cr, uid, kriteria)
-        
-        if not stock_journal_ids : return False
-        
-        stock_journal = obj_stock_journal.browse(cr, uid, stock_journal_ids)[0]
-        
-        return stock_journal.invoice_type_id.id
-        
 
     _columns = {
         'account_journal_id' : fields.many2one(string='Account Journal', obj='account.journal', required=True),
         'group': fields.boolean("Group by partner"),
         'invoice_date': fields.date('Invoiced date'),
-        'invoice_type_id' : fields.many2one(string='Invoice Type', obj='account.invoice_type'),
     }
-    
-    _defaults = {
-                            'account_journal_id' : default_account_journal_id,
-                            'invoice_type_id' : default_invoice_type_id,
-                            }
 
     def view_init(self, cr, uid, fields_list, context=None):
         if context is None:
@@ -105,13 +54,85 @@ class wizard_invoice_on_picking(osv.osv_memory):
             raise osv.except_osv(_('Warning !'), _('None of these picking lists require invoicing.'))
         return res
         
+    def fields_view_get(self, cr, uid, view_id=None, view_type='form', context=None, toolbar=False, submenu=False):
+        res = super(wizard_invoice_on_picking, self).fields_view_get(cr, uid, view_id=view_id, view_type=view_type, context=context, toolbar=toolbar,submenu=False)
+
+        obj_stock_journal = self.pool.get('stock.journal')
+        obj_picking = self.pool.get('stock.picking')
+        x = []
+        
+        record_id = context and context.get('stock_journal', False) or False
+        
+        stock_journal_ids = obj_stock_journal.search(cr, uid, [('name','=',record_id)])[0]       
+        
+        stock_journal = obj_stock_journal.browse(cr, uid, stock_journal_ids, context=context)
+        
+        if stock_journal.allowed_account_journal_ids:
+            for journal in stock_journal.allowed_account_journal_ids:
+                x.append(journal.id)
+                
+        #raise osv.except_osv(_('Error !'), _('%s')%x)
+
+        separator_string = _("Create Invoice")
+        view = """<?xml version="1.0" encoding="utf-8"?>
+                    <form string="Create invoice">
+                    <separator string="%s" colspan="4"/>
+                    <field name="account_journal_id" domain="[('id','in',%s)]"/>
+                    <newline/>
+                    <field name="group"/>
+                    <newline/>
+                    <field name="invoice_date" />
+                    <separator string="" colspan="4" />
+                    <button special="cancel" string="_Cancel" icon='gtk-cancel'/>
+                    <button name="open_invoice" string="Create" type="object" icon="terp-gtk-go-back-rtl"/>
+                </form>""" % (separator_string, tuple(x))
+                
+
+        view = etree.fromstring(view.encode('utf8'))
+        xarch, xfields = self._view_look_dom_arch(cr, uid, view, view_id, context=context)
+        view = xarch
+        res.update({
+            'arch': view
+        })
+        return res
 
     def open_invoice(self, cr, uid, ids, context=None):
         if context is None:
             context = {}
-        #raise osv.except_osv('a', str(context))
+            
+        invoice_ids = []
+        action_model = False
+        action = {}        
+        
+        data_pool = self.pool.get('ir.model.data')
+        
         res = self.create_invoice(cr, uid, ids, context=context)
-        return {}
+        invoice_ids += res.values()
+        
+        inv_type = context.get('inv_type', False)
+
+        if not invoice_ids:
+            raise osv.except_osv(_('Error'), _('No Invoices were created'))
+            
+            
+        # pemilihan view mana yang akan dibuka
+        #TODO: pilih view nya yg jenis form aja
+        
+        if inv_type == "out_invoice":
+            action_model,action_id = data_pool.get_object_reference(cr, uid, 'account', "action_invoice_tree1")
+        elif inv_type == "in_invoice":
+            action_model,action_id = data_pool.get_object_reference(cr, uid, 'account', "action_invoice_tree2")
+        elif inv_type == "out_refund":
+            action_model,action_id = data_pool.get_object_reference(cr, uid, 'account', "action_invoice_tree3")
+        elif inv_type == "in_refund":
+            action_model,action_id = data_pool.get_object_reference(cr, uid, 'account', "action_invoice_tree4")
+            
+        #TODO: Karena sudah form yg dibuka bukan tree, maka gunakan res_id, jangan domain 
+        if action_model:
+            action_pool = self.pool.get(action_model)
+            action = action_pool.read(cr, uid, action_id, context=context)
+            action['domain'] = "[('id','in', ["+','.join(map(str,invoice_ids))+"])]"
+        return action
 
     def create_invoice(self, cr, uid, ids, context=None):
         if context is None:
@@ -119,7 +140,6 @@ class wizard_invoice_on_picking(osv.osv_memory):
             
         picking_pool = self.pool.get('stock.picking')
         onshipdata_obj = self.read(cr, uid, ids, ['account_journal_id', 'group', 'invoice_date'])
-        wizard = self.browse(cr, uid, ids)[0]
         
         # dapet context new picking nya dari mana yah?
         if context.get('new_picking', False):
@@ -136,8 +156,6 @@ class wizard_invoice_on_picking(osv.osv_memory):
         
         if isinstance(onshipdata_obj[0]['account_journal_id'], tuple):
             onshipdata_obj[0]['account_journal_id'] = onshipdata_obj[0]['account_journal_id'][0]
-            
-        context['invoice_type'] = wizard.invoice_type_id.name
             
         res = picking_pool.action_invoice_create(cr, uid, active_ids,
               journal_id = onshipdata_obj[0]['account_journal_id'],
