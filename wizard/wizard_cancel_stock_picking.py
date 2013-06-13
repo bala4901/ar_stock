@@ -62,7 +62,13 @@ class wizard_cancel_stock_picking(osv.osv_memory):
 		obj_picking.write(cr, uid, context['active_ids'], res)
 	
 		for id in context['active_ids']:
-			wkf_service.trg_validate(uid, 'stock.picking', id, 'button_cancel', cr)
+			picking = obj_picking.browse(cr, uid, id)[0]
+			if picking.state != 'done'
+				wkf_service.trg_validate(uid, 'stock.picking', id, 'button_cancel', cr)
+			elif picking.state == 'done':
+		        wkf_service.trg_delete(uid, 'stock.picking', id, cr)
+		        wkf_service.trg_create(uid, 'stock.picking', id, cr)			
+		        wkf_service.trg_validate(uid, 'stock.picking', id, 'button_cancel', cr)	
 		
 		return {}
 							
