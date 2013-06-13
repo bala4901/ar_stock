@@ -57,6 +57,7 @@
                                 'wizard/wizard_invoice_on_picking.xml',
                                 'wizard/wizard_stock_partial_picking.xml',
                                 'wizard/wizard_deliver_picking.xml',
+                                'wizard/wizard_return_picking.xml',
                                 'view/view_StockJournal.xml', 
                                 'view/view_IncomingShipment.xml',
                                 'view/view_OtherIncomingShipment.xml',

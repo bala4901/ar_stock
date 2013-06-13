@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+        <record id="form_stock_wizardReturnPicking" model="ir.ui.view">
+            <field name="name">Form Wizard Return Picking</field>
+            <field name="model">stock.wizard_return_picking</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+				<form string="Return Picking">
+					<field name="detail_ids" nolabel="1" colspan="4">
+						<tree string="Picking" editable="bottom">
+							<field name="picking_id"/>
+							<field name="note"/>
+						</tree>
+					</field>
+					<button icon="gtk-cancel" special="cancel" string="Cancel" colspan="2"/>
+					<button name="return_picking" type="object" icon="gtk-yes" string="Ok" colspan="2"/>
+				</form>
+            </field>
+        </record>
+        
+        <record id="waction_stock_wizardReturnPicking" model="ir.actions.act_window">
+            <field name="name">Return Picking</field>
+            <field name="res_model">stock.wizard_return_picking</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>        
+	</data>
+</openerp>

@@ -25,9 +25,9 @@ from osv import fields, osv
 from datetime import datetime
 import netsvc
 
-class wizard_deliver_picking(osv.osv_memory):
-	_name = 'stock.wizard_deliver_picking'
-	_description = 'Wizard Deliver Picking'
+class wizard_return_picking(osv.osv_memory):
+	_name = 'stock.wizard_return_picking'
+	_description = 'Wizard Return Picking'
 	
 	def default_detail_ids(self, cr, uid, context={}):
 		obj_expedition = self.pool.get(context['active_model'])
@@ -36,63 +36,63 @@ class wizard_deliver_picking(osv.osv_memory):
 		res = []
 		
 		for detail in expedition.picking_ids:
-			val =	{
-						'picking_id' : detail.id,
-						'date_done' : datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
-						}
-			res.append(val)
+			if detail.state != 'done':
+				val =	{
+							'picking_id' : detail.id,
+							'note' : '-',
+							}
+				res.append(val)
 		return res
 		
 		
 
 	_columns =	{
-							'detail_ids' : fields.one2many(string='Detail', obj='stock.wizard_deliver_picking_detail', fields_id='wizard_id'),
+							'detail_ids' : fields.one2many(string='Detail', obj='stock.wizard_return_picking_detail', fields_id='wizard_id'),
 							}
 							
-	def deliver_picking(self, cr, uid, ids, context={}):
+	def return_picking(self, cr, uid, ids, context={}):
 		for id in ids:
-			if not self.picking_done(cr, uid, id, context['active_id']):
+			if not self.picking_return(cr, uid, id, context['active_id']):
 				return False
 				
 		return {}
 		
-	def picking_done(self, cr, uid, id, expedition_id):
+	def picking_return(self, cr, uid, id, expedition_id):
 		wizard = self.browse(cr, uid, [id])[0]
 		obj_picking = self.pool.get('stock.picking')
 		wkf_service = netsvc.LocalService('workflow')
-		obj_deliver = self.pool.get('stock.delivered_expedition_package')
+		obj_return = self.pool.get('stock.returned_expedition_package')
 		
 		for detail in wizard.detail_ids:
-			obj_picking.action_move(cr, uid, [detail.picking_id.id])
-			wkf_service.trg_validate(uid, 'stock.picking', detail.picking_id.id, 'button_done', cr)
-			obj_picking.change_date_done(cr, uid, detail.picking_id.id, detail.date_done)
-			
 			val =	{
 						'expedition_id' : expedition_id,
 						'picking_id' : detail.picking_id.id,
+						'reason' : detail.note
 						}
 						
-			obj_deliver.create(cr, uid, val)
+			obj_return.create(cr, uid, val)
+			
+			obj_picking.write(cr, uid, [detail.picking_id.id], {'expedition_id' : False})
 			
 		return True
 						
 	_defaults =	{
 							'detail_ids' : default_detail_ids,
 							}
-wizard_deliver_picking()
+wizard_return_picking()
 
-class wizard_deliver_picking_detail(osv.osv_memory):
-	_name = 'stock.wizard_deliver_picking_detail'
+class wizard_return_picking_detail(osv.osv_memory):
+	_name = 'stock.wizard_return_picking_detail'
 	_description = 'Wizard Detail Deliver Picking'
 	
 	_columns =	{
-							'wizard_id' : fields.many2one(string='Wizard', obj='stock.wizard_deliver_picking'),
+							'wizard_id' : fields.many2one(string='Wizard', obj='stock.wizard_return_picking'),
 							'picking_id' : fields.many2one(string='Picking', obj='stock.picking', required=True),
-							'date_done' : fields.datetime(string='Date Done', required=True),
+							'note' : fields.char(string='Date Done', required=True, size=100),
 							}
 	
 
-wizard_deliver_picking_detail()
+wizard_return_picking_detail()
 
 
 

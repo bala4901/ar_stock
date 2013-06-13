@@ -108,9 +108,22 @@ class expedition(osv.osv):
 			self.write(cr, uid, [id], {'state' : 'ready'})			
 			
 		return True
+		
+	def check_picking(self, cr, uid, id):
+		expedition = self.browse(cr, uid, [id])[0]
+		
+		for picking in expedition.picking_ids:
+			if picking.state != 'done':
+				return False
+				
+		return True
 						
 	def workflow_action_done(self, cr, uid, ids, context={}):
 		for id in ids:
+			if not self.check_picking(cr, uid, id):
+				raise osv.except_osv('Warning!', 'Please process all picking first')
+				return True
+				
 			self.write(cr, uid, [id], {'state' : 'done'})			
 			
 		return True		
@@ -176,6 +189,7 @@ class delivered_expedition_package(osv.osv):
 	_columns =	{
 							'expedition_id' : fields.many2one(string='Expedition', obj='stock.expedition'),
 							'picking_id' : fields.many2one(string='Picking', obj='stock.picking'),
+							'date_done' : fields.related('picking_id','date_done',type='datetime',relation='stock.picking', string='Date Done'),
 							}
 
 delivered_expedition_package()

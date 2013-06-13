@@ -51,6 +51,7 @@
 							<field name="delivered_picking_ids" nolabel="1" colspan="4" readonly="1">
 								<tree string="Delivered Package">
 									<field name="picking_id"/>
+									<field name="date_done"/>
 								</tree>
 							</field>
 						</page>
@@ -79,7 +80,7 @@
 						<group name="group_2_2" colspan="1" col="2">
 							<separator string="Action" colspan="2"/>
 							<button name="%(waction_stock_wizardDeliverPicking)d" type="action" string="Deliver Picking" icon="gtk-execute" colspan="2" states="ready"/>
-							
+							<button name="%(waction_stock_wizardReturnPicking)d" type="action" string="Return Picking" icon="gtk-execute" colspan="2" states="ready"/>
 						</group>						
 						<group name="group_2_3" colspan="1" col="2">
 							<separator string="Workflow" colspan="2"/>
