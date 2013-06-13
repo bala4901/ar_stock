@@ -7,11 +7,38 @@
 			<field name="icon">terp-stock</field>
 			<field name="sequence">5</field>
 			<field name="action" eval="0"/>
-        </record>								
+        </record>	
+        
+		<menuitem id="menu_stock_dashboardHeader"
+								parent="stock.menu_stock_root"
+								sequence="1"
+								name="Dashboard"
+								/>	        
+								
+		<menuitem id="menu_stock_dashboardIncomingMovement"
+								parent="menu_stock_dashboardHeader"
+								sequence="1"
+								name="Dashboard Incoming Movement"
+								action="waction_stock_boardIncomingMovement"
+								/>			
+								
+		<menuitem id="menu_stock_dashboardInternalMovement"
+								parent="menu_stock_dashboardHeader"
+								sequence="2"
+								name="Dashboard Internal Movement"
+								action="waction_stock_boardInternalMovement"
+								/>			
+								
+		<menuitem id="menu_stock_dashboardOutgoingMovement"
+								parent="menu_stock_dashboardHeader"
+								sequence="3"
+								name="Dashboard Outgoing Movement"
+								action="waction_stock_boardOutgoingMovement"
+								/>																									
 	
 		<menuitem id="menu_stock_incomingHeader"
 								parent="stock.menu_stock_root"
-								sequence="1"
+								sequence="2"
 								name="Incoming Movement"
 								/>							
 								
@@ -45,7 +72,7 @@
 									
 		<menuitem id="menu_stock_internalMovement"
 								parent="stock.menu_stock_root"
-								sequence="1"
+								sequence="3"
 								name="Internal Movement"
 								/>		
 								
@@ -65,7 +92,7 @@
 									
 		<menuitem id="menu_stock_outgoingMovement"
 								parent="stock.menu_stock_root"
-								sequence="1"
+								sequence="4"
 								name="Outgoing Movement"
 								/>	
 								
@@ -92,7 +119,7 @@
 									
 		<menuitem id="menu_stock_expeditionHeader"
 								parent="stock.menu_stock_root"
-								sequence="1"
+								sequence="5"
 								name="Expedition &amp; Direct Picking"
 								/>		
 								
