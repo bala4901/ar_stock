@@ -62,7 +62,7 @@ class wizard_cancel_stock_picking(osv.osv_memory):
 		obj_picking.write(cr, uid, context['active_ids'], res)
 	
 		for id in context['active_ids']:
-			picking = obj_picking.browse(cr, uid, id)[0]
+			picking = obj_picking.browse(cr, uid, [id])[0]
 			if picking.state != 'done':
 				wkf_service.trg_validate(uid, 'stock.picking', id, 'button_cancel', cr)
 			elif picking.state == 'done':
