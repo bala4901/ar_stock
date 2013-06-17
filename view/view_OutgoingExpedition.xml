@@ -28,7 +28,7 @@
             <field name="type">form</field>
             <field name="arch" type="xml">
                 <form string="Outgoing Expedition">
-					<group name="group_1" colspan="4" col="2">
+					<group name="group_1" colspan="4" col="3">
 						<group name="group_1_1" colspan="1" col="2">
 							<separator string="Expedition" colspan="2"/>
 							<field name="name"/>
@@ -41,7 +41,14 @@
 							<separator string="Expedition Type" colspan="2"/>
 							<field name="expedition_type" invisible="1"/>
 							<field name="expedition_mode"/>
-						</group>						
+						</group>					
+						<group name="group_1_3" colspan="1" col="2">
+							<separator string="Date" colspan="2"/>
+							<field name="create_time"/>
+							<field name="finished_loading_time"/>
+							<field name="departed_time"/>
+							<field name="arrived_time"/>
+						</group>								
 					</group>
 					<notebook colspan="4">
 						<page string="Undelivered Package">

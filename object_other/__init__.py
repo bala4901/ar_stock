@@ -19,6 +19,7 @@
 #
 ##############################################################################
 
+import res_company
 import stock_journal
 import stock_picking
 import stock_move
