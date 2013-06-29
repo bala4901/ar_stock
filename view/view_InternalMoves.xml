@@ -207,17 +207,43 @@
                         <filter icon="terp-check" name="available" string="Ready" domain="[('state','=','assigned')]"/>
                         <filter icon="terp-dialog-close" name="done" string="Done" domain="[('state','=','done')]"/>
                         <separator orientation="vertical" />
+                        <filter icon="gtk-cancel" name="cancel" string="Cancel" domain="[('state','=','cancel')]"/>
+                        <separator orientation="vertical" />
                         <field name="name"/>
-                        <field name="date"/>
+                        
                         <field name="partner_id"/>
                         <field name="reference_num"/>
                         <field name="expedition_id" string="# Expedition/Direct Picking"/>
                         <field name="company_id" widget="selection"/>
-                        <newline/>
+                    </group>
+                    <newline/>
+                    <group string="Date Order ..." expand="0">
+                        <field name="date" string="From" filter_domain="[('date','&gt;=',self)]"/>
+                        <field name="date" string="To" filter_domain="[('date','&lt;=',self)]"/>                       
+                    </group>
+                    <group string="Expected Date ..." expand="0">
+                        <field name="min_date" string="From" filter_domain="[('min_date','&gt;=',self)]"/>
+                        <field name="min_date" string="To" filter_domain="[('min_date','&lt;=',self)]"/>                       
+                    </group>    
+                    <group string="Date Done ..." expand="0">
+                        <field name="date_done" string="From" filter_domain="[('date_done','&gt;=',self)]"/>
+                        <field name="date_done" string="To" filter_domain="[('date_done','&lt;=',self)]"/>                       
+                    </group>                                    
+                    <newline/>
+                    <group string="Extra Filter ..." expand="0">
                         <field name="address_id"/>
                         <field name="location_id"/>
-                        <field name="location_dest_id"/>
-                    </group>
+                        <field name="location_dest_id"/>  
+                    </group>    
+                    <newline/>
+                    <group string="Group By.." expand="0">
+                    	<filter string="Partner" icon="terp-personal" domain="[]" context="{'group_by':'partner_id'}"/>
+                    	<filter string="Expedition/Direct Delivery" icon="terp-accessories-archiver" domain="[]" context="{'group_by':'expedition_id'}"/>
+                    	<filter string="Reference" icon="gtk-dnd" domain="[]" context="{'group_by':'reference_num'}"/>
+                    	<filter string="Company" icon="terp-partner" domain="[]" context="{'group_by':'company_id'}"/>
+                    	<filter string="Source" icon="terp-folder-green" domain="[]" context="{'group_by':'location_id'}"/>
+                    	<filter string="Destination" icon="terp-folder-orange" domain="[]" context="{'group_by':'location_dest_id'}"/>
+                    </group>   
                 </search>
             </field>
         </record>	        
