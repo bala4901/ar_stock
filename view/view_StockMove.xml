@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<!-- TREE -->
+        <record id="tree_stock_stockMove" model="ir.ui.view">
+            <field name="name">Tree Stock Move</field>
+            <field name="model">stock.move</field>
+            <field name="priority" eval="1"/>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+		        <tree colors="blue:state == 'draft';grey:state == 'done';red:state not in ('cancel', 'done') and date &lt; current_date" string="Picking list">
+			        <field name="name"/>
+			        <field name="date"/>
+			        <field name="min_date"/>
+			        <field name="company_id"/>
+			        <field name="reference_num"/>
+			        <field name="backorder_id"/>
+			        <field name="origin"/>
+			        <field name="location_id"/>
+			        <field name="location_dest_id"/>
+			        <field name="partner_id" />
+			        <field name="address_id"/>     
+			        <field name="invoice_state" invisible="1"/>
+			        <field name="stock_journal_id" invisible="0"/>
+			        <field name="state"/>
+		        </tree>
+            </field>
+        </record>	
+
+
+	</data>
+</openerp>

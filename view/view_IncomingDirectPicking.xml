@@ -10,6 +10,10 @@
             <field name="arch" type="xml">
 		        <tree string="Incoming Direct Picking">
 					<field name="name"/>
+					<field name="create_time"/>
+					<field name="confirm_time"/>
+					<field name="departed_time"/>
+					<field name="arrived_time"/>
 					<field name="ref"/>
 					<field name="vehicle_number"/>
 					<field name="company_id"/>
@@ -28,7 +32,7 @@
             <field name="type">form</field>
             <field name="arch" type="xml">
                 <form string="Incoming Direct Picking">
-					<group name="group_1" colspan="4" col="2">
+					<group name="group_1" colspan="4" col="3">
 						<group name="group_1_1" colspan="1" col="2">
 							<separator string="Expedition" colspan="2"/>
 							<field name="name"/>
@@ -41,11 +45,35 @@
 							<separator string="Expedition Type" colspan="2"/>
 							<field name="expedition_type" invisible="1"/>
 							<field name="expedition_mode"/>
-						</group>						
+						</group>		
+						<group name="group_1_3" colspan="1" col="2">
+							<separator string="Date" colspan="2"/>
+							<field name="create_time" attrs="{'required':[('state','=','draft')], 'readonly':[('state','!=','draft')]}"/>
+							<field name="confirm_time" attrs="{'required':[('state','=','draft')], 'readonly':[('state','!=','draft')]}"/>
+							<field name="departed_time" attrs="{'required':[('state','=','confirm')], 'readonly':[('state','!=','confirm')]}"/>
+							<field name="arrived_time" attrs="{'required':[('state','=','ready')], 'readonly':[('state','!=','ready')]}"/>
+						</group>												
 					</group>
 					<notebook colspan="4">
 						<page string="Undelivered Package">
-							<field name="picking_ids" nolabel="1" colspan="4" widget="many2many"/>
+							<field name="picking_ids" nolabel="1" colspan="4" widget="many2many">
+								<tree colors="blue:state == 'draft';grey:state == 'done';red:state not in ('cancel', 'done') and date &lt; current_date" string="Picking list">
+									<field name="name"/>
+									<field name="date"/>
+									<field name="min_date"/>
+									<field name="company_id"/>
+									<field name="reference_num"/>
+									<field name="backorder_id"/>
+									<field name="origin"/>
+									<field name="location_id"/>
+									<field name="location_dest_id"/>
+									<field name="partner_id" />
+									<field name="address_id"/>     
+									<field name="invoice_state" invisible="1"/>
+									<field name="stock_journal_id" invisible="0"/>
+									<field name="state"/>
+								</tree>							
+							</field>
 						</page>
 						<page string="Delivered Package">
 							<field name="delivered_picking_ids" nolabel="1" colspan="4" readonly="1">
@@ -106,6 +134,7 @@
                      	<filter icon="gtk-go-forward" name="confirm" string="Confirm" domain="[('state','=','confirm')]"/>
                      	<filter icon="gtk-yes" name="ready" string="Ready" domain="[('state','=','ready')]"/>
                      	<filter icon="gtk-apply" name="done" string="Done" domain="[('state','=','done')]"/>
+                     	<separator orientation="vertical" />
                      	<filter icon="gtk-cancel" name="cancel" string="Cancel" domain="[('state','=','cancel')]"/>
                      	<separator orientation="vertical" />
 						<field name="name"/>
@@ -114,6 +143,30 @@
 						<field name="partner_id"/>
 						<field name="expedition_mode"/>		
 					</group>
+					<newline/>
+					<group string="Created Time ..." expand="0">
+                        <field name="create_time" string="From" filter_domain="[('create_time','&gt;=',self)]"/>
+                        <field name="create_time" string="To" filter_domain="[('create_time','&lt;=',self)]"/> 					
+					</group>
+					<group string="Confirmed Time ..." expand="0">
+                        <field name="confirm_time" string="From" filter_domain="[('confirm_time','&gt;=',self)]"/>
+                        <field name="confirm_time" string="To" filter_domain="[('confirm_time','&lt;=',self)]"/> 					
+					</group>					
+					<group string="Departed Time ..." expand="0">
+                        <field name="departed_time" string="From" filter_domain="[('departed_time','&gt;=',self)]"/>
+                        <field name="departed_time" string="To" filter_domain="[('departed_time','&lt;=',self)]"/> 					
+					</group>			
+					<group string="Arrived Time ..." expand="0">
+                        <field name="arrived_time" string="From" filter_domain="[('arrived_time','&gt;=',self)]"/>
+                        <field name="arrived_time" string="To" filter_domain="[('arrived_time','&lt;=',self)]"/> 					
+					</group>
+					<newline/>			
+					<group string="Group By .." expand="0">
+						<filter string="Vehicle Number" icon="terp-stock_format-scientific" domain="[]" context="{'group_by':'vehicle_number'}"/>
+						<filter string="Partner" icon="terp-personal" domain="[]" context="{'group_by':'partner_id'}"/>
+						<filter string="Expedition Mode" icon="gtk-delete" domain="[]" context="{'group_by':'expedition_mode'}"/>
+						<filter string="Company" icon="terp-partner" domain="[]" context="{'group_by':'company_id'}"/>
+					</group>								
                 </search>
             </field>
         </record>	        

@@ -61,6 +61,7 @@
                                 'wizard/wizard_deliver_picking.xml',
                                 'wizard/wizard_return_picking.xml',
                                 'wizard/wizard_split_picking.xml',
+                                'view/view_StockMove.xml',
                                 'view/view_ResCompany.xml',
                                 'view/view_StockJournal.xml', 
                                 'view/view_IncomingShipment.xml',
