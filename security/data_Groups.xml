@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+		<!-- INCOMING SHIPMENT -->
+		<record id="group_stock_createIncomingShipment" model="res.groups">
+			<field name="name">Create Incoming Shipment</field>
+			<field name="category_id" ref="application_stock_incomingShipment"/>
+		</record>
+		
+		<record id="group_stock_confirmIncomingShipment" model="res.groups">
+			<field name="name">Confirm Incoming Shipment</field>
+			<field name="category_id" ref="application_stock_incomingShipment"/>
+		</record>		
+		
+		<record id="group_stock_forceIncomingShipment" model="res.groups">
+			<field name="name">Force Incoming Shipment</field>
+			<field name="category_id" ref="application_stock_incomingShipment"/>
+		</record>		
+		
+		<record id="group_stock_processIncomingShipment" model="res.groups">
+			<field name="name">Process Incoming Shipment</field>
+			<field name="category_id" ref="application_stock_incomingShipment"/>
+		</record>		
+		
+		<record id="group_stock_cancelIncomingShipment" model="res.groups">
+			<field name="name">Cancel Incoming Shipment</field>
+			<field name="category_id" ref="application_stock_incomingShipment"/>
+		</record>		
+		
+		<record id="group_stock_forwardIncomingShipment" model="res.groups">
+			<field name="name">Forward Incoming Shipment</field>
+			<field name="category_id" ref="application_stock_incomingShipment"/>
+		</record>		
+		
+		<record id="group_stock_invoiceIncomingShipment" model="res.groups">
+			<field name="name">Invoice Incoming Shipment</field>
+			<field name="category_id" ref="application_stock_incomingShipment"/>
+		</record>	
+		
+		<!-- OTHER INCOMING SHIPMENT -->
+		<record id="group_stock_createOtherIncomingShipment" model="res.groups">
+			<field name="name">Create Other Incoming Shipment</field>
+			<field name="category_id" ref="application_stock_otherIncomingShipment"/>
+		</record>
+		
+		<record id="group_stock_confirmOtherIncomingShipment" model="res.groups">
+			<field name="name">Confirm Other Incoming Shipment</field>
+			<field name="category_id" ref="application_stock_otherIncomingShipment"/>
+		</record>		
+		
+		<record id="group_stock_forceOtherIncomingShipment" model="res.groups">
+			<field name="name">Force Other Incoming Shipment</field>
+			<field name="category_id" ref="application_stock_otherIncomingShipment"/>
+		</record>		
+		
+		<record id="group_stock_processOtherIncomingShipment" model="res.groups">
+			<field name="name">Process Other Incoming Shipment</field>
+			<field name="category_id" ref="application_stock_otherIncomingShipment"/>
+		</record>		
+		
+		<record id="group_stock_cancelOtherIncomingShipment" model="res.groups">
+			<field name="name">Cancel Other Incoming Shipment</field>
+			<field name="category_id" ref="application_stock_otherIncomingShipment"/>
+		</record>		
+		
+		<record id="group_stock_forwardOtherIncomingShipment" model="res.groups">
+			<field name="name">Forward Other Incoming Shipment</field>
+			<field name="category_id" ref="application_stock_otherIncomingShipment"/>
+		</record>		
+		
+		<record id="group_stock_invoiceOtherIncomingShipment" model="res.groups">
+			<field name="name">Invoice Other Incoming Shipment</field>
+			<field name="category_id" ref="application_stock_otherIncomingShipment"/>
+		</record>				
+		
+		<!-- CUSTOMER CLAIM -->
+		<record id="group_stock_createCustomerClaim" model="res.groups">
+			<field name="name">Create Customer Claim</field>
+			<field name="category_id" ref="application_stock_customerClaim"/>
+		</record>
+		
+		<record id="group_stock_confirmCustomerClaim" model="res.groups">
+			<field name="name">Confirm Customer Claim</field>
+			<field name="category_id" ref="application_stock_customerClaim"/>
+		</record>		
+		
+		<record id="group_stock_forceCustomerClaim" model="res.groups">
+			<field name="name">Force Customer Claim</field>
+			<field name="category_id" ref="application_stock_customerClaim"/>
+		</record>		
+		
+		<record id="group_stock_processCustomerClaim" model="res.groups">
+			<field name="name">Process Customer Claim</field>
+			<field name="category_id" ref="application_stock_customerClaim"/>
+		</record>		
+		
+		<record id="group_stock_cancelCustomerClaim" model="res.groups">
+			<field name="name">Cancel Customer Claim</field>
+			<field name="category_id" ref="application_stock_customerClaim"/>
+		</record>		
+		
+		<record id="group_stock_forwardCustomerClaim" model="res.groups">
+			<field name="name">Forward Customer Claim</field>
+			<field name="category_id" ref="application_stock_customerClaim"/>
+		</record>		
+		
+		<record id="group_stock_invoiceCustomerClaim" model="res.groups">
+			<field name="name">Invoice Customer Claim</field>
+			<field name="category_id" ref="application_stock_customerClaim"/>
+		</record>	
+		
+		<!-- SUPPLIER CLAIM REALIZATION -->
+		<record id="group_stock_createSupplierClaimRealization" model="res.groups">
+			<field name="name">Create Supplier Claim Realization</field>
+			<field name="category_id" ref="application_stock_supplierClaimRealization"/>
+		</record>
+		
+		<record id="group_stock_confirmSupplierClaimRealization" model="res.groups">
+			<field name="name">Confirm Supplier Claim Realization</field>
+			<field name="category_id" ref="application_stock_supplierClaimRealization"/>
+		</record>		
+		
+		<record id="group_stock_forceSupplierClaimRealization" model="res.groups">
+			<field name="name">Force Supplier Claim Realization</field>
+			<field name="category_id" ref="application_stock_supplierClaimRealization"/>
+		</record>		
+		
+		<record id="group_stock_processSupplierClaimRealization" model="res.groups">
+			<field name="name">Process Supplier Claim Realization</field>
+			<field name="category_id" ref="application_stock_supplierClaimRealization"/>
+		</record>		
+		
+		<record id="group_stock_cancelSupplierClaimRealization" model="res.groups">
+			<field name="name">Cancel Supplier Claim Realization</field>
+			<field name="category_id" ref="application_stock_supplierClaimRealization"/>
+		</record>		
+		
+		<record id="group_stock_forwardSupplierClaimRealization" model="res.groups">
+			<field name="name">Forward Supplier Claim Realization</field>
+			<field name="category_id" ref="application_stock_supplierClaimRealization"/>
+		</record>		
+		
+		<record id="group_stock_invoiceSupplierClaimRealization" model="res.groups">
+			<field name="name">Invoice Supplier Claim Realization</field>
+			<field name="category_id" ref="application_stock_supplierClaimRealization"/>
+		</record>						
+		
+		<!-- INTERNAL MOVE -->
+		<record id="group_stock_createInternalMove" model="res.groups">
+			<field name="name">Create Internal Move</field>
+			<field name="category_id" ref="application_stock_internalMove"/>
+		</record>
+		
+		<record id="group_stock_confirmInternalMove" model="res.groups">
+			<field name="name">Confirm Internal Move</field>
+			<field name="category_id" ref="application_stock_internalMove"/>
+		</record>		
+		
+		<record id="group_stock_forceInternalMove" model="res.groups">
+			<field name="name">Force Internal Move</field>
+			<field name="category_id" ref="application_stock_internalMove"/>
+		</record>		
+		
+		<record id="group_stock_processInternalMove" model="res.groups">
+			<field name="name">Process Internal Move</field>
+			<field name="category_id" ref="application_stock_internalMove"/>
+		</record>		
+		
+		<record id="group_stock_cancelInternalMove" model="res.groups">
+			<field name="name">Cancel Internal Move</field>
+			<field name="category_id" ref="application_stock_internalMove"/>
+		</record>		
+		
+		<record id="group_stock_forwardInternalMove" model="res.groups">
+			<field name="name">Forward Internal Move</field>
+			<field name="category_id" ref="application_stock_internalMove"/>
+		</record>		
+		
+		<record id="group_stock_invoiceInternalMove" model="res.groups">
+			<field name="name">Invoice Internal Move</field>
+			<field name="category_id" ref="application_stock_internalMove"/>
+		</record>
+		
+		<!-- PRUDCT RESERVATION -->
+		<record id="group_stock_createProductReservation" model="res.groups">
+			<field name="name">Create Product Reservation</field>
+			<field name="category_id" ref="application_stock_productReservation"/>
+		</record>
+		
+		<record id="group_stock_confirmProductReservation" model="res.groups">
+			<field name="name">Confirm Product Reservation</field>
+			<field name="category_id" ref="application_stock_productReservation"/>
+		</record>		
+		
+		<record id="group_stock_forceProductReservation" model="res.groups">
+			<field name="name">Force Product Reservation</field>
+			<field name="category_id" ref="application_stock_productReservation"/>
+		</record>		
+		
+		<record id="group_stock_processProductReservation" model="res.groups">
+			<field name="name">Process Product Reservation</field>
+			<field name="category_id" ref="application_stock_productReservation"/>
+		</record>		
+		
+		<record id="group_stock_cancelProductReservation" model="res.groups">
+			<field name="name">Cancel Product Reservation</field>
+			<field name="category_id" ref="application_stock_productReservation"/>
+		</record>		
+		
+		<record id="group_stock_forwardProductReservation" model="res.groups">
+			<field name="name">Forward Product Reservation</field>
+			<field name="category_id" ref="application_stock_productReservation"/>
+		</record>		
+		
+		<record id="group_stock_invoiceProductReservation" model="res.groups">
+			<field name="name">Invoice Product Reservation</field>
+			<field name="category_id" ref="application_stock_productReservation"/>
+		</record>
+		
+		<!-- DELIVERY ORDER -->
+		<record id="group_stock_createDeliveryOrder" model="res.groups">
+			<field name="name">Create Delivery Order</field>
+			<field name="category_id" ref="application_stock_deliveryOrder"/>
+		</record>
+		
+		<record id="group_stock_confirmDeliveryOrder" model="res.groups">
+			<field name="name">Confirm Delivery Order</field>
+			<field name="category_id" ref="application_stock_deliveryOrder"/>
+		</record>		
+		
+		<record id="group_stock_forceDeliveryOrder" model="res.groups">
+			<field name="name">Force Delivery Order</field>
+			<field name="category_id" ref="application_stock_deliveryOrder"/>
+		</record>		
+		
+		<record id="group_stock_processDeliveryOrder" model="res.groups">
+			<field name="name">Process Delivery Order</field>
+			<field name="category_id" ref="application_stock_deliveryOrder"/>
+		</record>		
+		
+		<record id="group_stock_cancelDeliveryOrder" model="res.groups">
+			<field name="name">Cancel Delivery Order</field>
+			<field name="category_id" ref="application_stock_deliveryOrder"/>
+		</record>		
+		
+		<record id="group_stock_forwardDeliveryOrder" model="res.groups">
+			<field name="name">Forward Delivery Order</field>
+			<field name="category_id" ref="application_stock_deliveryOrder"/>
+		</record>		
+		
+		<record id="group_stock_invoiceDeliveryOrder" model="res.groups">
+			<field name="name">Invoice Delivery Order</field>
+			<field name="category_id" ref="application_stock_deliveryOrder"/>
+		</record>
+		
+		<!-- OTHER DELIVERY ORDER -->
+		<record id="group_stock_createOtherDeliveryOrder" model="res.groups">
+			<field name="name">Create Other Delivery Order</field>
+			<field name="category_id" ref="application_stock_otherDeliveryOrder"/>
+		</record>
+		
+		<record id="group_stock_confirmOtherDeliveryOrder" model="res.groups">
+			<field name="name">Confirm Other Delivery Order</field>
+			<field name="category_id" ref="application_stock_otherDeliveryOrder"/>
+		</record>		
+		
+		<record id="group_stock_forceOtherDeliveryOrder" model="res.groups">
+			<field name="name">Force Other Delivery Order</field>
+			<field name="category_id" ref="application_stock_otherDeliveryOrder"/>
+		</record>		
+		
+		<record id="group_stock_processOtherDeliveryOrder" model="res.groups">
+			<field name="name">Process Other Delivery Order</field>
+			<field name="category_id" ref="application_stock_otherDeliveryOrder"/>
+		</record>		
+		
+		<record id="group_stock_cancelOtherDeliveryOrder" model="res.groups">
+			<field name="name">Cancel Other Delivery Order</field>
+			<field name="category_id" ref="application_stock_otherDeliveryOrder"/>
+		</record>		
+		
+		<record id="group_stock_forwardOtherDeliveryOrder" model="res.groups">
+			<field name="name">Forward Other Delivery Order</field>
+			<field name="category_id" ref="application_stock_otherDeliveryOrder"/>
+		</record>		
+		
+		<record id="group_stock_invoiceOtherDeliveryOrder" model="res.groups">
+			<field name="name">Invoice Other Delivery Order</field>
+			<field name="category_id" ref="application_stock_otherDeliveryOrder"/>
+		</record>
+		
+		<!-- SUPPLIER CLAIM -->
+		<record id="group_stock_createSupplierClaim" model="res.groups">
+			<field name="name">Create Supplier Claim</field>
+			<field name="category_id" ref="application_stock_supplierClaim"/>
+		</record>
+		
+		<record id="group_stock_confirmSupplierClaim" model="res.groups">
+			<field name="name">Confirm Supplier Claim</field>
+			<field name="category_id" ref="application_stock_supplierClaim"/>
+		</record>		
+		
+		<record id="group_stock_forceSupplierClaim" model="res.groups">
+			<field name="name">Force Supplier Claim</field>
+			<field name="category_id" ref="application_stock_supplierClaim"/>
+		</record>		
+		
+		<record id="group_stock_processSupplierClaim" model="res.groups">
+			<field name="name">Process Supplier Claim</field>
+			<field name="category_id" ref="application_stock_supplierClaim"/>
+		</record>		
+		
+		<record id="group_stock_cancelSupplierClaim" model="res.groups">
+			<field name="name">Cancel Supplier Claim</field>
+			<field name="category_id" ref="application_stock_supplierClaim"/>
+		</record>		
+		
+		<record id="group_stock_forwardSupplierClaim" model="res.groups">
+			<field name="name">Forward Supplier Claim</field>
+			<field name="category_id" ref="application_stock_supplierClaim"/>
+		</record>		
+		
+		<record id="group_stock_invoiceSupplierClaim" model="res.groups">
+			<field name="name">Invoice Supplier Claim</field>
+			<field name="category_id" ref="application_stock_supplierClaim"/>
+		</record>
+		
+		<!-- CUSTOMER CLAIM REALIZATION -->
+		<record id="group_stock_createCustomerClaimRealization" model="res.groups">
+			<field name="name">Create Customer Claim Realization</field>
+			<field name="category_id" ref="application_stock_customerClaimRealization"/>
+		</record>
+		
+		<record id="group_stock_confirmCustomerClaimRealization" model="res.groups">
+			<field name="name">Confirm Customer Claim Realization</field>
+			<field name="category_id" ref="application_stock_customerClaimRealization"/>
+		</record>		
+		
+		<record id="group_stock_forceCustomerClaimRealization" model="res.groups">
+			<field name="name">Force Customer Claim Realization</field>
+			<field name="category_id" ref="application_stock_customerClaimRealization"/>
+		</record>		
+		
+		<record id="group_stock_processCustomerClaimRealization" model="res.groups">
+			<field name="name">Process Customer Claim Realization</field>
+			<field name="category_id" ref="application_stock_customerClaimRealization"/>
+		</record>		
+		
+		<record id="group_stock_cancelCustomerClaimRealization" model="res.groups">
+			<field name="name">Cancel Customer Claim Realization</field>
+			<field name="category_id" ref="application_stock_customerClaimRealization"/>
+		</record>		
+		
+		<record id="group_stock_forwardCustomerClaimRealization" model="res.groups">
+			<field name="name">Forward Customer Claim Realization</field>
+			<field name="category_id" ref="application_stock_customerClaimRealization"/>
+		</record>		
+		
+		<record id="group_stock_invoiceCustomerClaimRealization" model="res.groups">
+			<field name="name">Invoice Customer Claim Realization</field>
+			<field name="category_id" ref="application_stock_customerClaimRealization"/>
+		</record>														
+
+		
+
+			
+
+
+	</data>
+</openerp>

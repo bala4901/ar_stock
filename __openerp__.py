@@ -39,6 +39,8 @@
                                 'data/data_StockJournal.xml',
                                 'data/data_PickingReference.xml',
                                 'security/ir.model.access.csv',
+                                'security/data_Application.xml',
+                                'security/data_Groups.xml',
                                 'workflow/workflow_Expedition.xml',
                                 'report/internal_move.xml',
                                 'report/other_incoming_shipment.xml',

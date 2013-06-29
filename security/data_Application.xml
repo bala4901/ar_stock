@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+		<record id="application_stock_incomingShipment" model="ir.module.category">
+			<field name="name">Incoming Shipment</field>
+		</record>
+		
+		<record id="application_stock_supplierClaimRealization" model="ir.module.category">
+			<field name="name">Supplier Claim Realization</field>
+		</record>		
+		
+		<record id="application_stock_customerClaim" model="ir.module.category">
+			<field name="name">Customer Claim</field>
+		</record>		
+		
+		<record id="application_stock_otherIncomingShipment" model="ir.module.category">
+			<field name="name">Other Incoming Shipment</field>
+		</record>		
+		
+		<record id="application_stock_internalMove" model="ir.module.category">
+			<field name="name">Internal Move</field>
+		</record>			
+		
+		<record id="application_stock_productReservation" model="ir.module.category">
+			<field name="name">Product Reservation</field>
+		</record>		
+		
+		<record id="application_stock_deliveryOrder" model="ir.module.category">
+			<field name="name">Delivery Order</field>
+		</record>		
+		
+		<record id="application_stock_otherDeliveryOrder" model="ir.module.category">
+			<field name="name">Other Delivery Order</field>
+		</record>		
+		
+		<record id="application_stock_supplierClaim" model="ir.module.category">
+			<field name="name">Supplier Claim</field>
+		</record>		
+		
+		<record id="application_stock_customerClaimRealization" model="ir.module.category">
+			<field name="name">Customer Claim Realization</field>
+		</record>		
+	
+
+	</data>
+</openerp>
