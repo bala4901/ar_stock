@@ -4,7 +4,7 @@
 	
 		<!-- TREE -->
         <record id="tree_stock_supplierClaim" model="ir.ui.view">
-            <field name="name">Tree Forward Picking</field>
+            <field name="name">Tree Supplier Claim</field>
             <field name="model">stock.supplier_claim</field>
             <field name="type">tree</field>
             <field name="arch" type="xml">
@@ -14,6 +14,7 @@
 			        <field name="min_date"/>
 			        <field name="company_id"/>
 			        <field name="reference_num"/>
+			        <field name="expedition_id" string="# Expedition/Direct Picking"/>
 			        <field name="backorder_id"/>
 			        <field name="origin"/>
 			        <field name="location_id"/>
@@ -29,7 +30,7 @@
 		
 		<!-- FORM -->
         <record id="form_stock_supplierClaim" model="ir.ui.view">
-            <field name="name">Form Forward Picking</field>
+            <field name="name">Form Supplier Claim</field>
             <field name="model">stock.supplier_claim</field>
             <field name="type">form</field>
             <field name="arch" type="xml">
@@ -37,7 +38,8 @@
                 	<group name="group_1" colspan="4" col="3">
                 		<group name="group_1_1" colspan="1" col="2">
                 			<separator string="Reference" colspan="2"/>
-                			<field name="name" readonly="1" string="# Forward Picking"/>
+                			<field name="name" readonly="1" string="# Supplier Claim"/>
+                			<field name="expedition_id" string="# Expedition/Direct Picking" readonly="1"/>
                 			<field name="origin"/>
                 			<field name="picking_reference_id" readonly="1"/>
                 			<field name="backorder_id" readonly="1"/>
@@ -194,11 +196,11 @@
         
 		<!-- SEARCH -->
         <record id="search_stock_supplierClaim" model="ir.ui.view">
-            <field name="name">Search Forward Picking</field>
+            <field name="name">Search Supplier Claim</field>
             <field name="model">stock.supplier_claim</field>
             <field name="type">search</field>
             <field name="arch" type="xml">
-                <search string="Forward Pickings">
+                <search string="Supplier Claims">
                     <group>
                      	<filter icon="terp-document-new" name="draft" string="Draft" domain="[('state','=','draft')]"/>
                      	<filter icon="gtk-go-forward" name="confirm" string="Confirm" domain="[('state','=','confirmed')]"/>
@@ -209,6 +211,7 @@
                         <field name="date"/>
                         <field name="partner_id"/>
                         <field name="reference_num"/>
+                        <field name="expedition_id" string="# Expedition/Direct Picking"/>
                         <field name="company_id" widget="selection"/>
                         <newline/>
                         <field name="address_id"/>

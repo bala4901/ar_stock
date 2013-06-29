@@ -14,6 +14,7 @@
 			        <field name="min_date"/>
 			        <field name="company_id"/>
 			        <field name="reference_num"/>
+			        <field name="expedition_id" string="# Expedition/Direct Picking"/>
 			        <field name="backorder_id"/>
 			        <field name="origin"/>
 			        <field name="location_id"/>
@@ -38,6 +39,7 @@
                 		<group name="group_1_1" colspan="1" col="2">
                 			<separator string="Reference" colspan="2"/>
                 			<field name="name" readonly="1" string="# Customer Claim"/>
+                			<field name="expedition_id" string="# Expedition/Direct Picking" readonly="1"/>
                 			<field name="origin"/>
                 			<field name="picking_reference_id" readonly="1"/>
                 			<field name="backorder_id" readonly="1"/>
@@ -209,6 +211,7 @@
                         <field name="date"/>
                         <field name="partner_id"/>
                         <field name="reference_num"/>
+                        <field name="expedition_id" string="# Expedition/Direct Picking"/>
                         <field name="company_id" widget="selection"/>
                         <newline/>
                         <field name="address_id"/>
