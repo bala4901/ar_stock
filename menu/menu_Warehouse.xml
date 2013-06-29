@@ -158,6 +158,30 @@
 									sequence="3"					
 									/>			
 									
+		<!-- WAREHOUSE / PRODUCT MOVES -->
+		<menuitem id="stock.menu_stock_products_moves" name="Products Moves" parent="stock.menu_stock_root" sequence="6"/>		
+		
+		<!-- WAREHOUSE / TRACEABILITY -->
+		<menuitem id="stock.menu_traceability" name="Traceability" parent="stock.menu_stock_root" sequence="7"/>
+		
+		<!-- WAREHOUSE / INVENTORY CONTROL -->
+		<menuitem id="stock.menu_stock_inventory_control" name="Inventory Control" parent="stock.menu_stock_root" sequence="8"/>
+		
+		<!-- WAREHOUSE / SCHEDULLERS -->
+		<menuitem id="procurement.menu_stock_sched" name="Schedulers" parent="stock.menu_stock_root" sequence="9"/>
+		
+		<menuitem id="stock.menu_stock_product" name="Products" parent="stock.menu_stock_root" sequence="10"/>
+		
+		<menuitem
+		    id="stock.next_id_61"
+		    name="Reporting"
+		    parent="stock.menu_stock_root"
+		    sequence="98"/>		
+		    
+	    <menuitem id="stock.menu_stock_configuration" name="Configuration" parent="stock.menu_stock_root" sequence="99"/>
+
+
+		<!-- CONFIGURATION -->									
 		<menuitem 	id="menu_stock_expeditionConfigurationHeader" 
 									parent="stock.menu_stock_configuration" 
 									name="Expedition"					
@@ -171,18 +195,7 @@
 									sequence="1"					
 									/>				
 									
-		<menuitem 	id="menu_stock_reservationConfigurationHeader" 
-									parent="stock.menu_stock_root" 
-									name="Reservation"					
-									sequence="3"					
-									/>	
-									
-		<menuitem 	id="menu_stock_reservationProductReservation" 
-									parent="menu_stock_reservationConfigurationHeader" 
-									name="Product Reservation"					
-									action="waction_stock_productReservation" 
-									sequence="1"					
-									/>																																														
+																																												
 									
 																																					
 																					
