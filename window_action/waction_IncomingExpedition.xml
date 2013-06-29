@@ -8,7 +8,7 @@
 			<field name="view_type">form</field>
 			<field name="view_mode">tree,form</field>
 			<field name="domain">[('expedition_type','=','in')]</field>
-			<field name="context">{'expedition_type' : 'in'}</field>
+			<field name="context">{'expedition_type' : 'in',  'search_default_draft' : 1, 'search_default_confirm' : 1, 'search_default_ready' : 1}</field>
 		</record>
 		
 		<record id="wactView_stock_treeIncomingExpedition" model="ir.actions.act_window.view">
