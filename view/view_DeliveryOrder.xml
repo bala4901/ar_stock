@@ -180,14 +180,14 @@
                 		</group>                		
                     	<group name="group_2_3" colspan="1" col="1">
                     		<separator string="Workflow" colspan="1"/>
-                                <button name="%(waction_stock_wizardCancelStockPicking)d" type="action" states="assigned,confirmed,draft" string="Cancel" icon="gtk-cancel" colspan="1"/>
-                                <button name="draft_force_assign" states="draft" string="Confirm" type="object" icon="gtk-ok" colspan="1"/>
-                                <button name="action_assign" states="confirmed" string="Check Availability" type="object" icon="gtk-find" colspan="1"/>
-                                <button name="force_assign" states="confirmed" string="Force Availability" type="object" groups="base.group_extended" icon="gtk-jump-to" colspan="1"/>
-                                <button name="action_process" states="assigned" string="Process" type="object" icon="gtk-go-forward" colspan="1"/>
-                                <button name="%(waction_stock_wizardForwardPicking)d" string="Forward Picking" states="done" type="action" icon="gtk-execute" colspan="1"/>
-                                <button name="%(waction_stock_wizardInvoiceOnPicking)d" string="Create Invoice" attrs="{'invisible': ['|','|',('state','&lt;&gt;','done'),('invoice_state','=','invoiced'),('invoice_state','=','none')]}"  type="action" icon="terp-gtk-go-back-rtl" colspan="1"/>
-                                <button name="%(waction_stock_wizardSplitPicking)d" string="Split Picking" type="action" icon="gtk-copy" colspan="1" states="draft,confirmed,assigned"/>
+                            <button name="%(waction_stock_wizardCancelStockPicking)d" type="action" states="assigned,confirmed,draft" string="Cancel" icon="gtk-cancel" colspan="1" groups="ar_stock.group_stock_createDeliveryOrder"/>
+                            <button name="draft_force_assign" states="draft" string="Confirm" type="object" icon="gtk-ok" colspan="1" groups="ar_stock.group_stock_confirmDeliveryOrder"/>
+                            <button name="action_assign" states="confirmed" string="Check Availability" type="object" icon="gtk-find" colspan="1" groups="ar_stock.group_stock_createDeliveryOrder"/>
+                            <button name="force_assign" states="confirmed" string="Force Availability" type="object" icon="gtk-jump-to" colspan="1" groups="ar_stock.group_stock_forceDeliveryOrder"/>
+                            <button name="action_process" states="assigned" string="Process" type="object" icon="gtk-go-forward" colspan="1" groups="ar_stock.group_stock_processDeliveryOrder"/>
+                            <button name="%(waction_stock_wizardForwardPicking)d" string="Forward Picking" states="done" type="action" icon="gtk-execute" colspan="1" groups="ar_stock.group_stock_forwardDeliveryOrder"/>
+                            <button name="%(waction_stock_wizardInvoiceOnPicking)d" string="Create Invoice" attrs="{'invisible': ['|','|',('state','&lt;&gt;','done'),('invoice_state','=','invoiced'),('invoice_state','=','none')]}"  type="action" icon="terp-gtk-go-back-rtl" colspan="1" groups="ar_stock.group_stock_invoiceDeliveryOrder"/>
+                            <button name="%(waction_stock_wizardSplitPicking)d" string="Split Picking" type="action" icon="gtk-copy" colspan="1" states="draft,confirmed,assigned" groups="ar_stock.group_stock_createDeliveryOrder"/>
                 		</group>                		
                     </group>
                 </form>
