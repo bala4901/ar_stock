@@ -5,7 +5,7 @@
         <record id="tree_stock_stockMove" model="ir.ui.view">
             <field name="name">Tree Stock Move</field>
             <field name="model">stock.move</field>
-            <field name="priority" eval="1"/>
+            <field name="priority" eval="20"/>
             <field name="type">tree</field>
             <field name="arch" type="xml">
 		        <tree colors="blue:state == 'draft';grey:state == 'done';red:state not in ('cancel', 'done') and date &lt; current_date" string="Picking list">
