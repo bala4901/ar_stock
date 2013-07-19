@@ -25,6 +25,7 @@ import wizard_invoice_on_picking
 import wizard_deliver_picking
 import wizard_return_picking
 import wizard_split_picking
+import wizard_print_stock_card
 #import stock_partial_picking
 
 #import wizard_return_expedition

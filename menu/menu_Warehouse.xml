@@ -179,6 +179,17 @@
 		    name="Reporting"
 		    parent="stock.menu_stock_root"
 		    sequence="98"/>		
+
+		<menuitem 	id="menu_stock_printStockHeader"
+        			parent="stock.next_id_61"
+					name="Generic Report"
+					sequence="1" />	
+
+		<menuitem 	id="menu_stock_printStockCard"
+        			parent="menu_stock_printStockHeader"
+					name="Stock Card"
+					sequence="1" 
+					action="waction_stock_wizardPrintStockCard"/>		
 		 
 		 <!-- WAREHOUSE / CONFIGURATION -->
 	    <menuitem id="stock.menu_stock_configuration" name="Configuration" parent="stock.menu_stock_root" sequence="99"/>
@@ -196,7 +207,9 @@
 									name="Expedition Crew Position"					
 									action="waction_stock_expeditionCrewPosition" 
 									sequence="1"					
-									/>				
+									/>			
+
+	
 									
 																																												
 									
