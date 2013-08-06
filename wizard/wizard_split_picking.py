@@ -166,7 +166,7 @@ class wizard_split_picking_line(osv.osv_memory):
         qty_final = wizard_line.move_id.product_qty - qty_substract
         
         if qty_final<=0.0:
-            obj_move.unlink(cr, uid, wizard_line.move_id.id)
+            obj_move.unlink(cr, uid, [wizard_line.move_id.id])
             #raise osv.except_osv('Warning!', 'You can not split move to zero or less-then zero')
             return True
         
