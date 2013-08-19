@@ -194,8 +194,9 @@ class wizard_forward_picking(osv.osv_memory):
                 if (return_history.get(m.id) is not None) and (m.product_qty * m.product_uom.factor > return_history[m.id]):
                         valid_lines += 1
                         
-            if not valid_lines:
-                raise osv.except_osv(_('Warning !'), _("There are no products to return (only lines in Done state and not fully returned yet can be returned)!"))
+            #TODO: Solusi sementara
+            #if not valid_lines:
+                #raise osv.except_osv(_('Warning !'), _("There are no products to return (only lines in Done state and not fully returned yet can be returned)!"))
         return res
     
     def get_return_history(self, cr, uid, pick_id, context=None):

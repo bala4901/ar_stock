@@ -138,6 +138,8 @@ class wizard_invoice_on_picking(osv.osv_memory):
             onshipdata_obj[0]['account_journal_id'] = onshipdata_obj[0]['account_journal_id'][0]
             
         context['invoice_type'] = wizard.invoice_type_id.name
+
+        #raise osv.except_osv('a','a')
             
         res = picking_pool.action_invoice_create(cr, uid, active_ids,
               journal_id = onshipdata_obj[0]['account_journal_id'],
