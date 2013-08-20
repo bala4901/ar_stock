@@ -221,8 +221,9 @@ class wizard_forward_picking(osv.osv_memory):
                     # kind of upstream moves, such as internal procurements, etc.
                     # a valid return move will be the exact opposite of ours:
                     #     (src location, dest location) <=> (dest location, src location))
-                    if rec.location_dest_id.id == m.location_id.id \
-                        and rec.location_id.id == m.location_dest_id.id:
+                    # if rec.location_dest_id.id == m.location_id.id \
+                    #     and rec.location_id.id == m.location_dest_id.id:
+                    if rec.state not in ('draft','cancel'):
                         return_history[m.id] += (rec.product_qty * rec.product_uom.factor)
         return return_history
         
