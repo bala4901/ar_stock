@@ -358,8 +358,9 @@ class wizard_forward_picking(osv.osv_memory):
         if set_invoice_state_to_none:
             obj_picking.write(cr, uid, [picking.id], {'invoice_state':'none'})
             
-        wkf_service.trg_validate(uid, 'stock.picking', new_picking_id, 'button_confirm', cr)
-        obj_picking.force_assign(cr, uid, [new_picking_id], context)
+        # Dinonaktifkan karena tidak semua data sudah benar, jadi masih harus diedit 
+        #wkf_service.trg_validate(uid, 'stock.picking', new_picking_id, 'button_confirm', cr)
+        #obj_picking.force_assign(cr, uid, [new_picking_id], context)
         
         # Menyesuaikan view yang dibuka dengan stock_journal picking yang baru
             
