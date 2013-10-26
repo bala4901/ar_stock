@@ -194,8 +194,9 @@ class wizard_forward_picking(osv.osv_memory):
                 if (return_history.get(m.id) is not None) and (m.product_qty * m.product_uom.factor > return_history[m.id]):
                         valid_lines += 1
                         
-            if not valid_lines:
-                raise osv.except_osv(_('Warning !'), _("There are no products to return (only lines in Done state and not fully returned yet can be returned)!"))
+            #TODO: Solusi sementara
+            #if not valid_lines:
+                #raise osv.except_osv(_('Warning !'), _("There are no products to return (only lines in Done state and not fully returned yet can be returned)!"))
         return res
     
     def get_return_history(self, cr, uid, pick_id, context=None):
@@ -220,8 +221,9 @@ class wizard_forward_picking(osv.osv_memory):
                     # kind of upstream moves, such as internal procurements, etc.
                     # a valid return move will be the exact opposite of ours:
                     #     (src location, dest location) <=> (dest location, src location))
-                    if rec.location_dest_id.id == m.location_id.id \
-                        and rec.location_id.id == m.location_dest_id.id:
+                    # if rec.location_dest_id.id == m.location_id.id \
+                    #     and rec.location_id.id == m.location_dest_id.id:
+                    if rec.state not in ('draft','cancel'):
                         return_history[m.id] += (rec.product_qty * rec.product_uom.factor)
         return return_history
         
@@ -357,8 +359,9 @@ class wizard_forward_picking(osv.osv_memory):
         if set_invoice_state_to_none:
             obj_picking.write(cr, uid, [picking.id], {'invoice_state':'none'})
             
-        wkf_service.trg_validate(uid, 'stock.picking', new_picking_id, 'button_confirm', cr)
-        obj_picking.force_assign(cr, uid, [new_picking_id], context)
+        # Dinonaktifkan karena tidak semua data sudah benar, jadi masih harus diedit 
+        #wkf_service.trg_validate(uid, 'stock.picking', new_picking_id, 'button_confirm', cr)
+        #obj_picking.force_assign(cr, uid, [new_picking_id], context)
         
         # Menyesuaikan view yang dibuka dengan stock_journal picking yang baru
             
