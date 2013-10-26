@@ -190,6 +190,21 @@
 					name="Stock Card"
 					sequence="1" 
 					action="waction_stock_wizardPrintStockCard"/>		
+					
+		<menuitem 	id="menu_stock_queryStockHeader"
+        			parent="stock.next_id_61"
+					name="Generic Query"
+					sequence="2" />
+					
+		<menuitem 	id="menu_stock_printCustomStockHeader"
+        			parent="stock.next_id_61"
+					name="Custom Report"
+					sequence="3" />			
+					
+		<menuitem 	id="menu_stock_queryCustomStockHeader"
+        			parent="stock.next_id_61"
+					name="Custom Query"
+					sequence="4" />																		
 		 
 		 <!-- WAREHOUSE / CONFIGURATION -->
 	    <menuitem id="stock.menu_stock_configuration" name="Configuration" parent="stock.menu_stock_root" sequence="99"/>
