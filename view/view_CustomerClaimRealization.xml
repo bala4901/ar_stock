@@ -180,7 +180,7 @@
                 		</group>                		
                     	<group name="group_2_3" colspan="1" col="1">
                     		<separator string="Workflow" colspan="1"/>
-                                <button name="%(waction_stock_wizardCancelStockPicking)d" type="action" states="assigned,confirmed,draft" string="Cancel" icon="gtk-cancel" colspan="1" groups="ar_stock.group_stock_createCustomerClaimRealization"/>
+                                <button name="%(waction_stock_wizardCancelStockPicking)d" type="action" states="assigned,confirmed,draft,done" string="Cancel" icon="gtk-cancel" colspan="1" groups="ar_stock.group_stock_createCustomerClaimRealization"/>
                                 <button name="draft_force_assign" states="draft" string="Confirm" type="object" icon="gtk-ok" colspan="1" groups="ar_stock.group_stock_confirmCustomerClaimRealization"/>
                                 <button name="action_assign" states="confirmed" string="Check Availability" type="object" icon="gtk-find" colspan="1" groups="ar_stock.group_stock_createCustomerClaimRealization"/>
                                 <button name="force_assign" states="confirmed" string="Force Availability" type="object" icon="gtk-jump-to" colspan="1" groups="ar_stock.group_stock_forceCustomerClaimRealization"/>
