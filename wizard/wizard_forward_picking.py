@@ -73,58 +73,63 @@ class wizard_forward_picking(osv.osv_memory):
                             'allow_dest_location_selection' : fields.boolean(string='Allow Destination Location Selection'),
                             'location_dest_id' : fields.many2one(string='Dest. Location', obj='stock.location', required=True),
                             'detail_ids' : fields.one2many(obj='stock.wizard_forward_picking_detail', fields_id='wizard_id', string='Moves'),
+                            'date_forward' : fields.datetime(string='Date Forward', required=True),
                             }
                             
     def fields_view_get(self, cr, uid, view_id=None, view_type='form', context=None, toolbar=False, submenu=False):
         res = super(wizard_forward_picking, self).fields_view_get(cr, uid, view_id=view_id, view_type=view_type, context=context, toolbar=toolbar,submenu=False)
 
-        obj_stock_journal = self.pool.get('stock.journal')
-        obj_picking = self.pool.get('stock.picking')
-        x = []
+        if view_type == 'form':
+
+            obj_stock_journal = self.pool.get('stock.journal')
+            obj_picking = self.pool.get('stock.picking')
+            x = []
         
-        record_id = context and context.get('stock_journal', False) or False
+            record_id = context and context.get('stock_journal', False) or False
         
-        stock_journal_ids = obj_stock_journal.search(cr, uid, [('name','=',record_id)])[0]       
+            stock_journal_ids = obj_stock_journal.search(cr, uid, [('name','=',record_id)])[0]       
         
-        stock_journal = obj_stock_journal.browse(cr, uid, stock_journal_ids, context=context)
+            stock_journal = obj_stock_journal.browse(cr, uid, stock_journal_ids, context=context)
         
-        if stock_journal.allowed_forward_stock_journal_ids:
-            for journal in stock_journal.allowed_forward_stock_journal_ids:
-                x.append(journal.id)
+            if stock_journal.allowed_forward_stock_journal_ids:
+                for journal in stock_journal.allowed_forward_stock_journal_ids:
+                    x.append(journal.id)
                 
         #raise osv.except_osv(_('Error !'), _('%s')%view_id)
 
-        separator_string = _("Forward Picking")
-        view = """<?xml version="1.0" encoding="utf-8"?>
+            separator_string = _("Forward Picking")
+            view = """<?xml version="1.0" encoding="utf-8"?>
                     <form string="Return lines">
-                    <separator string="%s" colspan="4"/>
-                	<field name="forward_stock_journal_id" on_change="onchange_stock_journal_id(forward_stock_journal_id)" domain="[('id','in',%s)]"/>
-                	<newline/>
-                	<field name="allow_location_selection" invisible="1"/>
-                	<newline/>
-                	<field name="location_id"  attrs="{'invisible':[('allow_location_selection','=',0)]}"/>
-                	<newline/>
-                	<field name="allow_dest_location_selection" invisible="1"/>
-                	<newline/>
-                	<field name="location_dest_id"  attrs="{'invisible':[('allow_dest_location_selection','=',0)]}"/>
-                	<newline/>
-                    <label string="Provide the quantities of the forwarded products." colspan="4"/>
-                    <separator string="" colspan="4"/>
-                    <field name="detail_ids"  nolabel="1" colspan="6"/>
-                    <separator string="" colspan="4" />
-                    <group col="2" colspan="4">
-                        <button special="cancel" string="_Cancel" icon="gtk-cancel"/>
-                        <button name="create_returns" string="Ok" colspan="1" type="object" icon="gtk-apply"/>
-                    </group>
-                </form>""" % (separator_string, tuple(x))
+                        <separator string="%s" colspan="4"/>
+                        <field name="date_forward"/>
+                        <newline/>
+                        <field name="forward_stock_journal_id" on_change="onchange_stock_journal_id(forward_stock_journal_id)" domain="[('id','in',%s)]"/>
+                        <newline/>
+                        <field name="allow_location_selection" invisible="1"/>
+                        <newline/>
+                        <field name="location_id"  attrs="{'invisible':[('allow_location_selection','=',0)]}"/>
+                        <newline/>
+                        <field name="allow_dest_location_selection" invisible="1"/>
+                        <newline/>
+                        <field name="location_dest_id"  attrs="{'invisible':[('allow_dest_location_selection','=',0)]}"/>
+                        <newline/>
+                        <label string="Provide the quantities of the forwarded products." colspan="4"/>
+                        <separator string="" colspan="4"/>
+                        <field name="detail_ids"  nolabel="1" colspan="6"/>
+                        <separator string="" colspan="4" />
+                        <group col="2" colspan="4">
+                            <button special="cancel" string="_Cancel" icon="gtk-cancel"/>
+                            <button name="create_returns" string="Ok" colspan="1" type="object" icon="gtk-apply"/>
+                        </group>
+                    </form>""" % (separator_string, tuple(x))
                 
 
-        view = etree.fromstring(view.encode('utf8'))
-        xarch, xfields = self._view_look_dom_arch(cr, uid, view, view_id, context=context)
-        view = xarch
-        res.update({
-            'arch': view
-        })
+            view = etree.fromstring(view.encode('utf8'))
+            xarch, xfields = self._view_look_dom_arch(cr, uid, view, view_id, context=context)
+            view = xarch
+            res.update({
+                'arch': view
+            })
         return res
 
     def default_get(self, cr, uid, fields, context=None):
@@ -216,7 +221,7 @@ class wizard_forward_picking(osv.osv_memory):
         for m  in picking.move_lines:
             if m.state == 'done':
                 return_history[m.id] = 0
-                for rec in m.move_history_ids2:
+                for rec in m.move_history_ids:
                     # only take into account 'product return' moves, ignoring any other
                     # kind of upstream moves, such as internal procurements, etc.
                     # a valid return move will be the exact opposite of ours:
@@ -305,7 +310,7 @@ class wizard_forward_picking(osv.osv_memory):
  
         context.update({'stock_journal' : stock_journal.name})
         dict_defaults = {
-                                        'date' : date_cur,
+                                        'date' : wizard['date_forward'],
                                         'move_lines' : [],
                                         'invoice_state' : stock_journal.default_invoice_state,
                                         'location_id' : wizard['location_id'][0],
@@ -326,7 +331,7 @@ class wizard_forward_picking(osv.osv_memory):
             returned_qty = move.product_qty
             
             # ini penting buat dimengerti nih
-            for rec in move.move_history_ids2:
+            for rec in move.move_history_ids:
                 if rec.state not in ('draft','cancel'):
                     returned_qty -= rec.product_qty
 
@@ -351,7 +356,7 @@ class wizard_forward_picking(osv.osv_memory):
                 
                 new_move_id = obj_move.copy(cr, uid, move.id, dict_defaults)
                 obj_move.write(cr, uid, [new_move_id], {'picking_id' : new_picking_id})
-                obj_move.write(cr, uid, [move.id], {'move_history_ids2':[(4,new_move_id)]})
+                obj_move.write(cr, uid, [move.id], {'move_history_ids':[(4,new_move_id)]})
                 
         if not returned_lines:
             raise osv.except_osv(_('Warning !'), _("Please specify at least one non-zero quantity!"))
@@ -360,8 +365,8 @@ class wizard_forward_picking(osv.osv_memory):
             obj_picking.write(cr, uid, [picking.id], {'invoice_state':'none'})
             
         # Dinonaktifkan karena tidak semua data sudah benar, jadi masih harus diedit 
-        #wkf_service.trg_validate(uid, 'stock.picking', new_picking_id, 'button_confirm', cr)
-        #obj_picking.force_assign(cr, uid, [new_picking_id], context)
+        wkf_service.trg_validate(uid, 'stock.picking', new_picking_id, 'button_confirm', cr)
+        obj_picking.force_assign(cr, uid, [new_picking_id], context)
         
         # Menyesuaikan view yang dibuka dengan stock_journal picking yang baru
             

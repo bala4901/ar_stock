@@ -32,6 +32,7 @@
             <field name="type">form</field>
             <field name="arch" type="xml">
                 <form string="Return lines">
+                    <field name="date_forward"/>
                 	<field name="forward_stock_journal_id" widget="selection" on_change="onchange_stock_journal_id(forward_stock_journal_id)"/>
                 	<newline/>
                 	<field name="allow_location_selection" invisible="1"/>
