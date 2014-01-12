@@ -281,6 +281,7 @@ class stock_picking(osv.osv):
 
 		picking = self.browse(cr, uid, [id])[0]
 
+		#raise osv.except_osv('a', str(picking.stock_journal_id.default_sequence_id))
 		if not picking.stock_journal_id.default_sequence_id:
 			raise osv.except_osv('Warning!', 'There is no sequence defined')
 			return False
